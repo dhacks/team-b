@@ -119,7 +119,7 @@ public class UserRegistrationActivity extends BaseActivity implements View.OnCli
                 for (int i = 0; i < globals.indexFlag; i++) {
                     EditText et = (EditText) findViewById(i + globals.indexFlag);
                     Log.d("mydebug", "name : " + et.getText().toString());
-                    globals.nameM.add(et.getText().toString());
+                    globals.nameF.add(et.getText().toString());
                 }
 
                 //遷移

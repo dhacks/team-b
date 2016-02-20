@@ -8,6 +8,7 @@ import android.graphics.Matrix;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -28,14 +29,14 @@ import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
  */
 public class QuestionActivity extends BaseActivity implements View.OnClickListener {
 
+    int node_id = 0;
     int name_index = 0;
     int node_index = 0;
+    int ahp_hierarchy = 1; //ahpの階層
 
-    //idは-1より小さい値
-    public static final int T1_VIEW = -2;
-    public static final int T2_VIEW = -3;
-
-    TextView t1;
+    TextView text_name;
+    TextView text_about;
+    TextView text_question;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
 
         setContentView(li_la_super);
 
-        t1 = makeTextView(globals.nameM.elementAt(name_index) + "の番", 40, TITLE_COLOR, T1_VIEW, makeRelativeLayout(COLOR_3, li_la_super, null, this), param1, this);
+        text_name = makeTextView(globals.nameM.elementAt(name_index) + "の番", 40, TITLE_COLOR, NO_ID, makeRelativeLayout(COLOR_3, li_la_super, null, this), param1, this);
 
         ScrollView sc_vi = makeScrollView(COLOR_1, li_la_super, this);
         LinearLayout li_la = makeLinearLayout(COLOR_1, LinearLayout.VERTICAL, sc_vi, this);
@@ -72,7 +73,12 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
             comp2 = "unimplemented";
         }
 
-        makeTextView("Q " + comp1 + " VS " + comp2, 40, Color.RED, T2_VIEW, li_la, null, this);
+        makeTextView(" ", 20, Color.RED, NO_ID, li_la, null, this);
+        text_about = makeTextView("", 32, TEXT_COLOR_1, NO_ID, li_la, null, this);
+        text_about.setGravity(Gravity.CENTER_HORIZONTAL);
+        text_question = makeTextView(comp1 + " VS " + comp2, 32, TEXT_COLOR_1, NO_ID, li_la, null, this);
+        text_question.setGravity(Gravity.CENTER_HORIZONTAL);
+        makeTextView(" ", 20, Color.RED, NO_ID, li_la, null, this);
 
         int w = (int) (p.x / 1.3);
         int h = (int) (p.y / 7.9);
@@ -110,10 +116,70 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
                 break;
         }
 
-        node_index++;
-        t1.setText("yatta--");
+        String comp1;
+        String comp2;
 
+        if (ahp_hierarchy == 1 && node_index == (NODE.length * (NODE.length - 1)) / 2 - 1) {
+            node_index = 0;
+            ahp_hierarchy++;
+            node_id++;
+        } else if (ahp_hierarchy == 1) {
+            node_index++;
+        } else if (ahp_hierarchy == 2 && node_index == (globals.nameF.size() * (globals.nameF.size() - 1)) / 2 - 1 && node_id == (NODE.length + globals.nameF.size() - 1)) {
+            name_index++;
+            ahp_hierarchy = 0;
+            node_id = 0;
+        } else if (ahp_hierarchy == 2 && node_index == (globals.nameF.size() * (globals.nameF.size() - 1)) / 2 - 1) {
+            node_index = 0;
+            node_id++;
+        } else if (ahp_hierarchy == 2) {
+            node_index++;
+        }
 
+        if (node_id == 0) {
+            text_about.setText("");
+        } else {
+            text_about.setText("「" + NODE[node_id - 1] + "」のみで考えると");
+        }
+
+        if (ahp_hierarchy == 1) {
+            if (NODE.length == 2) {
+                comp1 = NODE[combination2[node_index][0]];
+                comp2 = NODE[combination2[node_index][1]];
+            } else if (NODE.length == 3) {
+                comp1 = NODE[combination3[node_index][0]];
+                comp2 = NODE[combination3[node_index][1]];
+            } else {
+                comp1 = "unimplemented";
+                comp2 = "unimplemented";
+            }
+        } else {
+
+            if (globals.nameF.size() == 2) {
+                comp1 = globals.nameF.elementAt(combination2[node_index][0]);
+                comp2 = globals.nameF.elementAt(combination2[node_index][1]);
+            } else if (globals.nameF.size() == 3) {
+                comp1 = globals.nameF.elementAt(combination3[node_index][0]);
+                comp2 = globals.nameF.elementAt(combination3[node_index][1]);
+            } else {
+                comp1 = "unimplemented";
+                comp2 = "unimplemented";
+            }
+        }
+
+        text_question.setText(comp1 + " VS " + comp2);
+        text_name.setText(globals.nameM.elementAt(name_index) + "の番");
+
+        for (int i = 0; i < SELECT.length * 2 - 1; i++) {
+            Button b = (Button) findViewById(i);
+            if (i < SELECT.length - 1) {
+                b.setText(comp1 + SELECT[i]);
+            } else if (i == SELECT.length - 1) {
+                b.setText(SELECT[i]);
+            } else {
+                b.setText(comp2 + SELECT[SELECT.length * 2 - 2 - i]);
+            }
+        }
     }
 
     // BACKボタンで終了させる
@@ -140,27 +206,4 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
         return false;
     }
 
-//    class MyAsyncTask extends AsyncTask<Integer, Integer, Integer> {
-//
-//        Bitmap bitmap[] = new Bitmap[14];
-//
-//        public MyAsyncTask() {
-//            super();
-//        }
-//
-//        @Override
-//        protected Integer doInBackground(Integer... params) {
-//
-//            Log.d("mydebug", "doinb");
-//
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Integer result) {
-//            Log.d("mydebug", "onpos");
-//            ((TextView)findViewById(2));
-//        }
-//
-//    }
 }
