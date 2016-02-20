@@ -34,6 +34,15 @@ public class BaseActivity extends AppCompatActivity {
     //index_text
     final String INDEX[] = {"2 : 2", "3 : 3", "4 : 4"};
 
+    //node_text
+    final String NODE[] = {"性格", "ルックス", "知的さ"};
+
+    //select_text
+    final String SELECT[] = {"が非常に重要", "がやや重要", "同等"};
+
+    //hash_table
+    final int combination2[][] = {{0,1}};
+    final int combination3[][] = {{0,1},{0,2},{1,2}};
 
     public static final int MP = LinearLayout.LayoutParams.MATCH_PARENT; //画面最大
     public static final int WC = LinearLayout.LayoutParams.WRAP_CONTENT; //自動調節

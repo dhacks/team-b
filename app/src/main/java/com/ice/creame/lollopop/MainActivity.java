@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -18,7 +19,7 @@ import static com.ice.creame.lollopop.MethodLibrary.makeRelativeLayout;
 import static com.ice.creame.lollopop.MethodLibrary.makeScrollView;
 import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +47,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         makeTextView(APP_NAME, 40, TEXT_COLOR_1, NO_ID, makeRelativeLayout(COLOR_1, li_la, null, this), param1, this);
         makeTextView(" ", 100, Color.RED, NO_ID, li_la, null, this);
         TextView textView = makeTextView("Tap to start", 40, TEXT_COLOR_1, NO_ID, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
-        textView.setClickable(true);
-        textView.setOnClickListener(new View.OnClickListener(){
+        textView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("mydebug", "Main_onClick_taptostart");
                 Intent intent = new Intent();
@@ -58,19 +58,32 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
-    @Override
-    public void onClick(View view) {// クリック時に呼ばれる
-        int id = view.getId();
-        Intent intent = new Intent(this, MainActivity.class);
+//    @Override
+//    public void onClick(View view) {// クリック時に呼ばれる
+////        int id = view.getId();
+////        Intent intent = new Intent(this, MainActivity.class);
+////
+////		/* 遷移先の指定 */
+////
+////        intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.IndexActivity");
+////        startActivity(intent);
+//////        MainActivity.this.finish();
+//
+//
+//    }
 
-		/* 遷移先の指定 */
-
-        intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.IndexActivity");
-        startActivity(intent);
-//        MainActivity.this.finish();
-
-
-    }
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        Intent intent = new Intent(this, MainActivity.class);
+//        switch (event.getAction()) {
+//            case MotionEvent.ACTION_DOWN:
+//                Log.d("mydebug", "Main_onToucEvent_ACTION_DOWN");
+//                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.IndexActivity");
+//                startActivity(intent);
+//                break;
+//        }
+//        return false;
+//    }
 
     // BACKボタンで終了させる
     @Override
