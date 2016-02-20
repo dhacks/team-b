@@ -126,11 +126,13 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
             //ユーザチェンジ
         } else if (globals.ahp_hierarchy == 2 && globals.node_index == (globals.nameF.size() * (globals.nameF.size() - 1)) / 2 - 1 && globals.node_id == NODE.length) {
             globals.name_index++;
+            globals.node_index = 0;
             globals.ahp_hierarchy = 1;
             globals.node_id = 0;
             //遷移
             intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.BeforeQuestionActivity");
             startActivity(intent);
+            QuestionActivity.this.finish();
 
         } else if (globals.ahp_hierarchy == 2 && globals.node_index == (globals.nameF.size() * (globals.nameF.size() - 1)) / 2 - 1) {
             globals.node_index = 0;
