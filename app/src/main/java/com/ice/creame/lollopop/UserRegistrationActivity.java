@@ -103,7 +103,8 @@ public class UserRegistrationActivity extends BaseActivity implements View.OnCli
         int id = view.getId();
         Intent intent = new Intent(this, UserRegistrationActivity.class);
 
-        globals.GlobalsIsNameInit();
+        globals.GlobalsNameInit();
+        globals.GlobalsAHPnetInit();
 
         switch (id) {
             case 0:
@@ -123,7 +124,7 @@ public class UserRegistrationActivity extends BaseActivity implements View.OnCli
                 }
 
                 //遷移
-                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.QuestionActivity");
+                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.BeforeQuestionActivity");
                 startActivity(intent);
 
                 break;
