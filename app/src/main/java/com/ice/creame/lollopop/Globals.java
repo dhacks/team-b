@@ -17,11 +17,11 @@ public class Globals extends Application {
     public int ahp_hierarchy = 1; //ahpの階層
     public Vector<String> nameM = new Vector<>();
     public Vector<String> nameF = new Vector<>();
+
     //一対比較行列
     public double matrixForWeight[][];
     public double matrixForCombine[][];
-
-    public double conbinedMatrix[][];
+    public double combinedMatrix[][];
     public double weight[];
     public double personResult[]; //ahpの結果
     public double peopleResult[][]; //personResultを全員分まとめたもの
@@ -44,7 +44,7 @@ public class Globals extends Application {
         ahp_hierarchy = 1;
         matrixForWeight = null;
         matrixForCombine = null;
-        conbinedMatrix = null;
+        combinedMatrix = null;
         weight = null;
         personResult = null;
         peopleResult = null;
@@ -59,10 +59,10 @@ public class Globals extends Application {
         for (int i = 0; i < indexFlag; i++) {
             Arrays.fill(matrixForCombine[i], 1.0);
         }
-        conbinedMatrix = new double[indexFlag][node_length];
+        combinedMatrix = new double[indexFlag][node_length];
         weight = new double[node_length];
-        personResult = new double[node_length];
-        peopleResult = new double[indexFlag * 2][node_length];
+        personResult = new double[indexFlag];
+        peopleResult = new double[indexFlag * 2][indexFlag];
     }
 
     public void GlobalsPortmatrixSet(int indexFlag, int node_length) {
@@ -74,6 +74,8 @@ public class Globals extends Application {
         for (int i = 0; i < indexFlag; i++) {
             Arrays.fill(matrixForCombine[i], 1.0);
         }
-        personResult = new double[node_length];
+        combinedMatrix = new double[indexFlag][node_length];
+        weight = new double[node_length];
+        personResult = new double[indexFlag];
     }
 }

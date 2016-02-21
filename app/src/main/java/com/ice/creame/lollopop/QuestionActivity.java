@@ -22,6 +22,7 @@ import static com.ice.creame.lollopop.MethodLibrary.makeScrollView;
 import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
 
 import static com.ice.creame.lollopop.AHPCalculation.powerMethod;
+import static com.ice.creame.lollopop.AHPCalculation.matrixMultiplication;
 
 /**
  * Created by hideya on 2016/02/20.
@@ -125,10 +126,10 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
             if (globals.indexFlag == 2) {
                 x = combination2[globals.node_index][1];
                 y = combination2[globals.node_index][0];
-            }else if(globals.indexFlag == 3){
+            } else if (globals.indexFlag == 3) {
                 x = combination3[globals.node_index][1];
                 y = combination3[globals.node_index][0];
-            }else{
+            } else {
                 x = combination4[globals.node_index][1];
                 y = combination4[globals.node_index][0];
             }
@@ -141,12 +142,12 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
         /* ahpの結果を求められるようにそれぞれの行列を形成 */
 
         //上層
-        if(globals.ahp_hierarchy == 1){
+        if (globals.ahp_hierarchy == 1) {
             globals.weight = powerMethod(globals.matrixForWeight);
-        }else{ //下層
+        } else { //下層
             double eigenvector[] = powerMethod(globals.matrixForCombine);
-            for(int i=0; i < globals.indexFlag; i++){
-                globals.conbinedMatrix[i][globals.node_id-1] = eigenvector[i];
+            for (int i = 0; i < globals.indexFlag; i++) {
+                globals.combinedMatrix[i][globals.node_id - 1] = eigenvector[i];
             }
         }
 
@@ -164,11 +165,19 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
             globals.node_index++;
             //ユーザチェンジ
         } else if (globals.ahp_hierarchy == 2 && globals.node_index == (globals.nameF.size() * (globals.nameF.size() - 1)) / 2 - 1 && globals.node_id == NODE.length) {
+
+            /* ===========スタブ=============== */
+            globals.personResult = matrixMultiplication(globals.combinedMatrix, globals.weight);
+
+            globals.peopleResult[globals.name_index] = globals.personResult;
+
             globals.name_index++;
             globals.node_index = 0;
             globals.ahp_hierarchy = 1;
             globals.node_id = 0;
             isScreenTransition = true;
+
+            globals.GlobalsPortmatrixSet(globals.indexFlag, NODE.length);
 
             //遷移
             if (globals.name_index < globals.nameM.size() + globals.nameF.size()) {

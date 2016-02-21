@@ -44,8 +44,8 @@ public class MainActivity extends BaseActivity {
 
         makeTextView(" ", 32, Color.RED, NO_ID, makeRelativeLayout(COLOR_1, li_la, null, this), null, this);
         makeTextView(" ", 60, Color.RED, NO_ID, li_la, null, this);
-        makeTextView(APP_NAME, 40, TEXT_COLOR_1, NO_ID, makeRelativeLayout(COLOR_1, li_la, null, this), param1, this);
-        makeTextView(" ", 100, Color.RED, NO_ID, li_la, null, this);
+        makeTextView(APP_NAME, 48, TEXT_COLOR_1, NO_ID, makeRelativeLayout(COLOR_1, li_la, null, this), param1, this);
+        makeTextView(" ", 110, Color.RED, NO_ID, li_la, null, this);
         TextView textView = makeTextView("Tap to start", 40, TEXT_COLOR_1, NO_ID, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
         textView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
