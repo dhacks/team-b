@@ -103,8 +103,9 @@ public class UserRegistrationActivity extends BaseActivity implements View.OnCli
         int id = view.getId();
         Intent intent = new Intent(this, UserRegistrationActivity.class);
 
-        globals.GlobalsNameInit();
-        globals.GlobalsAHPnetInit();
+        /* 一生使わないんじゃね */
+//        globals.GlobalsNameInit();
+//        globals.GlobalsAHPnetInit();
 
         switch (id) {
             case 0:

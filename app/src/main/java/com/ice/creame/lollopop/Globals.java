@@ -2,6 +2,8 @@ package com.ice.creame.lollopop;
 
 import android.app.Application;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Vector;
 
 /**
@@ -15,23 +17,63 @@ public class Globals extends Application {
     public int ahp_hierarchy = 1; //ahpの階層
     public Vector<String> nameM = new Vector<>();
     public Vector<String> nameF = new Vector<>();
+    //一対比較行列
+    public double matrixForWeight[][];
+    public double matrixForCombine[][];
 
-    public void GlobalsAllInit(){
+    public double conbinedMatrix[][];
+    public double weight[];
+    public double personResult[]; //ahpの結果
+    public double peopleResult[][]; //personResultを全員分まとめたもの
+
+    public void GlobalsAllInit() {
         indexFlag = -1;
         GlobalsNameInit();
         GlobalsAHPnetInit();
     }
 
-    public void GlobalsNameInit(){
+    public void GlobalsNameInit() {
         nameM.removeAllElements();
         nameF.removeAllElements();
     }
 
-    public void GlobalsAHPnetInit(){
+    public void GlobalsAHPnetInit() {
         node_id = 0;
         name_index = 0;
         node_index = 0;
         ahp_hierarchy = 1;
+        matrixForWeight = null;
+        matrixForCombine = null;
+        conbinedMatrix = null;
+        weight = null;
+        personResult = null;
+        peopleResult = null;
     }
 
+    public void GlobalsALLmatrixSet(int indexFlag, int node_length) {
+        matrixForWeight = new double[node_length][node_length];
+        for (int i = 0; i < node_length; i++) {
+            Arrays.fill(matrixForWeight[i], 1.0);
+        }
+        matrixForCombine = new double[indexFlag][indexFlag];
+        for (int i = 0; i < indexFlag; i++) {
+            Arrays.fill(matrixForCombine[i], 1.0);
+        }
+        conbinedMatrix = new double[indexFlag][node_length];
+        weight = new double[node_length];
+        personResult = new double[node_length];
+        peopleResult = new double[indexFlag * 2][node_length];
+    }
+
+    public void GlobalsPortmatrixSet(int indexFlag, int node_length) {
+        matrixForWeight = new double[node_length][node_length];
+        for (int i = 0; i < node_length; i++) {
+            Arrays.fill(matrixForWeight[i], 1.0);
+        }
+        matrixForCombine = new double[indexFlag][indexFlag];
+        for (int i = 0; i < indexFlag; i++) {
+            Arrays.fill(matrixForCombine[i], 1.0);
+        }
+        personResult = new double[node_length];
+    }
 }

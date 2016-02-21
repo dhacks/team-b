@@ -43,8 +43,13 @@ public class BaseActivity extends AppCompatActivity {
     final String SELECT[] = {"が非常に重要", "がやや重要", "同等"};
 
     //hash_table
-    final int combination2[][] = {{0,1}};
-    final int combination3[][] = {{0,1},{0,2},{1,2}};
+    final int combination2[][] = {{0, 1}};
+    final int combination3[][] = {{0, 1}, {0, 2}, {1, 2}};
+    final int combination4[][] = {{0, 1}, {0, 2}, {0, 3}, {1, 2}, {1, 3}, {2, 3}};
+
+    //ahp_param
+//    final double pair_comp[] = {9.0, 5.0, 1.0, 1.0 / 5.0, 1.0 / 9.0};
+    final double pair_comp[] = {1.0/3.0, 1.0/8.0, 1.0/5.0, 1.0 / 5.0, 1.0 / 9.0}; //テスト
 
     public static final int MP = LinearLayout.LayoutParams.MATCH_PARENT; //画面最大
     public static final int WC = LinearLayout.LayoutParams.WRAP_CONTENT; //自動調節

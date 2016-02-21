@@ -3,17 +3,13 @@ package com.ice.creame.lollopop;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Matrix;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -24,6 +20,8 @@ import static com.ice.creame.lollopop.MethodLibrary.makeLinearLayout;
 import static com.ice.creame.lollopop.MethodLibrary.makeRelativeLayout;
 import static com.ice.creame.lollopop.MethodLibrary.makeScrollView;
 import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
+
+import static com.ice.creame.lollopop.AHPCalculation.powerMethod;
 
 /**
  * Created by hideya on 2016/02/20.
@@ -69,8 +67,9 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
             comp1 = NODE[combination3[globals.node_index][0]];
             comp2 = NODE[combination3[globals.node_index][1]];
         } else {
-            comp1 = "unimplemented";
-            comp2 = "unimplemented";
+            //たぶんこれは使わない
+            comp1 = NODE[combination4[globals.node_index][0]];
+            comp2 = NODE[combination4[globals.node_index][1]];
         }
 
         makeTextView(" ", 20, Color.RED, NO_ID, li_la, null, this);
@@ -104,17 +103,51 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
         int id = view.getId();
         Intent intent = new Intent();
 
-        switch (id) {
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
+        /* ボタンから取得 */
+        double temp = pair_comp[id]; // 9から1/9まで
+
+        /* 一対比較行列の作成 */
+        //上層
+        if (globals.ahp_hierarchy == 1) {
+            int x = -1;
+            int y = -1;
+            //今のところ3以外にするつもりはない
+            if (NODE.length == 3) {
+                x = combination3[globals.node_index][1];
+                y = combination3[globals.node_index][0];
+            }
+            globals.matrixForWeight[y][x] = temp;
+            globals.matrixForWeight[x][y] = 1.0 / temp;
+
+        } else { //下層
+            int x;
+            int y;
+            if (globals.indexFlag == 2) {
+                x = combination2[globals.node_index][1];
+                y = combination2[globals.node_index][0];
+            }else if(globals.indexFlag == 3){
+                x = combination3[globals.node_index][1];
+                y = combination3[globals.node_index][0];
+            }else{
+                x = combination4[globals.node_index][1];
+                y = combination4[globals.node_index][0];
+            }
+
+            globals.matrixForCombine[y][x] = temp;
+            globals.matrixForCombine[x][y] = 1.0 / temp;
+        }
+
+        /* べき乗法で固有ベクトルを求める */
+        /* ahpの結果を求められるようにそれぞれの行列を形成 */
+
+        //上層
+        if(globals.ahp_hierarchy == 1){
+            globals.weight = powerMethod(globals.matrixForWeight);
+        }else{ //下層
+            double eigenvector[] = powerMethod(globals.matrixForCombine);
+            for(int i=0; i < globals.indexFlag; i++){
+                globals.conbinedMatrix[i][globals.node_id-1] = eigenvector[i];
+            }
         }
 
         String comp1;
@@ -138,9 +171,9 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
             isScreenTransition = true;
 
             //遷移
-            if(globals.name_index < globals.nameM.size() + globals.nameF.size()) {
+            if (globals.name_index < globals.nameM.size() + globals.nameF.size()) {
                 intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.BeforeQuestionActivity");
-            }else{
+            } else {
                 intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.BeforeResultActivity");
             }
             startActivity(intent);
@@ -154,7 +187,6 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
         }
 
         if (!isScreenTransition) {
-
 
             if (globals.node_id == 0) {
                 text_about.setText("");
@@ -170,11 +202,10 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
                     comp1 = NODE[combination3[globals.node_index][0]];
                     comp2 = NODE[combination3[globals.node_index][1]];
                 } else {
-                    comp1 = "unimplemented";
-                    comp2 = "unimplemented";
+                    comp1 = NODE[combination4[globals.node_index][0]];
+                    comp2 = NODE[combination4[globals.node_index][1]];
                 }
             } else {
-
 
                 if (globals.name_index < globals.nameM.size()) {
 
@@ -185,8 +216,8 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
                         comp1 = globals.nameF.elementAt(combination3[globals.node_index][0]);
                         comp2 = globals.nameF.elementAt(combination3[globals.node_index][1]);
                     } else {
-                        comp1 = "unimplemented";
-                        comp2 = "unimplemented";
+                        comp1 = globals.nameF.elementAt(combination4[globals.node_index][0]);
+                        comp2 = globals.nameF.elementAt(combination4[globals.node_index][1]);
                     }
                 } else {
                     if (globals.nameF.size() == 2) {
@@ -196,8 +227,8 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
                         comp1 = globals.nameM.elementAt(combination3[globals.node_index][0]);
                         comp2 = globals.nameM.elementAt(combination3[globals.node_index][1]);
                     } else {
-                        comp1 = "unimplemented";
-                        comp2 = "unimplemented";
+                        comp1 = globals.nameM.elementAt(combination4[globals.node_index][0]);
+                        comp2 = globals.nameM.elementAt(combination4[globals.node_index][1]);
                     }
                 }
             }
