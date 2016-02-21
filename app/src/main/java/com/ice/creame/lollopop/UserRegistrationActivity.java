@@ -126,6 +126,7 @@ public class UserRegistrationActivity extends BaseActivity implements View.OnCli
                 //遷移
                 intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.BeforeQuestionActivity");
                 startActivity(intent);
+                UserRegistrationActivity.this.finish();
 
                 break;
         }

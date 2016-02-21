@@ -120,6 +120,8 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
         String comp1;
         String comp2;
 
+        boolean isScreenTransition = false;
+
         //変数を次の値に
         if (globals.ahp_hierarchy == 1 && globals.node_index == (NODE.length * (NODE.length - 1)) / 2 - 1) {
             globals.node_index = 0;
@@ -133,8 +135,14 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
             globals.node_index = 0;
             globals.ahp_hierarchy = 1;
             globals.node_id = 0;
+            isScreenTransition = true;
+
             //遷移
-            intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.BeforeQuestionActivity");
+            if(globals.name_index < globals.nameM.size() + globals.nameF.size()) {
+                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.BeforeQuestionActivity");
+            }else{
+                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.BeforeResultActivity");
+            }
             startActivity(intent);
             QuestionActivity.this.finish();
 
@@ -145,70 +153,73 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
             globals.node_index++;
         }
 
+        if (!isScreenTransition) {
 
-        if (globals.node_id == 0) {
-            text_about.setText("");
-        } else {
-            text_about.setText("「" + NODE[globals.node_id - 1] + "」のみで考えると");
-        }
 
-        if (globals.ahp_hierarchy == 1) {
-            if (NODE.length == 2) {
-                comp1 = NODE[combination2[globals.node_index][0]];
-                comp2 = NODE[combination2[globals.node_index][1]];
-            } else if (NODE.length == 3) {
-                comp1 = NODE[combination3[globals.node_index][0]];
-                comp2 = NODE[combination3[globals.node_index][1]];
+            if (globals.node_id == 0) {
+                text_about.setText("");
             } else {
-                comp1 = "unimplemented";
-                comp2 = "unimplemented";
+                text_about.setText("「" + NODE[globals.node_id - 1] + "」のみで考えると");
             }
-        } else {
+
+            if (globals.ahp_hierarchy == 1) {
+                if (NODE.length == 2) {
+                    comp1 = NODE[combination2[globals.node_index][0]];
+                    comp2 = NODE[combination2[globals.node_index][1]];
+                } else if (NODE.length == 3) {
+                    comp1 = NODE[combination3[globals.node_index][0]];
+                    comp2 = NODE[combination3[globals.node_index][1]];
+                } else {
+                    comp1 = "unimplemented";
+                    comp2 = "unimplemented";
+                }
+            } else {
 
 
+                if (globals.name_index < globals.nameM.size()) {
+
+                    if (globals.nameF.size() == 2) {
+                        comp1 = globals.nameF.elementAt(combination2[globals.node_index][0]);
+                        comp2 = globals.nameF.elementAt(combination2[globals.node_index][1]);
+                    } else if (globals.nameF.size() == 3) {
+                        comp1 = globals.nameF.elementAt(combination3[globals.node_index][0]);
+                        comp2 = globals.nameF.elementAt(combination3[globals.node_index][1]);
+                    } else {
+                        comp1 = "unimplemented";
+                        comp2 = "unimplemented";
+                    }
+                } else {
+                    if (globals.nameF.size() == 2) {
+                        comp1 = globals.nameM.elementAt(combination2[globals.node_index][0]);
+                        comp2 = globals.nameM.elementAt(combination2[globals.node_index][1]);
+                    } else if (globals.nameM.size() == 3) {
+                        comp1 = globals.nameM.elementAt(combination3[globals.node_index][0]);
+                        comp2 = globals.nameM.elementAt(combination3[globals.node_index][1]);
+                    } else {
+                        comp1 = "unimplemented";
+                        comp2 = "unimplemented";
+                    }
+                }
+            }
+
+            text_question.setText(comp1 + " VS " + comp2);
+
+            //男女の切り替え
             if (globals.name_index < globals.nameM.size()) {
-
-                if (globals.nameF.size() == 2) {
-                    comp1 = globals.nameF.elementAt(combination2[globals.node_index][0]);
-                    comp2 = globals.nameF.elementAt(combination2[globals.node_index][1]);
-                } else if (globals.nameF.size() == 3) {
-                    comp1 = globals.nameF.elementAt(combination3[globals.node_index][0]);
-                    comp2 = globals.nameF.elementAt(combination3[globals.node_index][1]);
-                } else {
-                    comp1 = "unimplemented";
-                    comp2 = "unimplemented";
-                }
+                text_name.setText(globals.nameM.elementAt(globals.name_index) + "の番");
             } else {
-                if (globals.nameF.size() == 2) {
-                    comp1 = globals.nameM.elementAt(combination2[globals.node_index][0]);
-                    comp2 = globals.nameM.elementAt(combination2[globals.node_index][1]);
-                } else if (globals.nameM.size() == 3) {
-                    comp1 = globals.nameM.elementAt(combination3[globals.node_index][0]);
-                    comp2 = globals.nameM.elementAt(combination3[globals.node_index][1]);
-                } else {
-                    comp1 = "unimplemented";
-                    comp2 = "unimplemented";
-                }
+                text_name.setText(globals.nameF.elementAt(globals.name_index - globals.nameM.size()) + "の番");
             }
-        }
 
-        text_question.setText(comp1 + " VS " + comp2);
-
-        //男女の切り替え
-        if (globals.name_index < globals.nameM.size()) {
-            text_name.setText(globals.nameM.elementAt(globals.name_index) + "の番");
-        } else {
-            text_name.setText(globals.nameF.elementAt(globals.name_index - globals.nameM.size()) + "の番");
-        }
-
-        for (int i = 0; i < SELECT.length * 2 - 1; i++) {
-            Button b = (Button) findViewById(i);
-            if (i < SELECT.length - 1) {
-                b.setText(comp1 + SELECT[i]);
-            } else if (i == SELECT.length - 1) {
-                b.setText(SELECT[i]);
-            } else {
-                b.setText(comp2 + SELECT[SELECT.length * 2 - 2 - i]);
+            for (int i = 0; i < SELECT.length * 2 - 1; i++) {
+                Button b = (Button) findViewById(i);
+                if (i < SELECT.length - 1) {
+                    b.setText(comp1 + SELECT[i]);
+                } else if (i == SELECT.length - 1) {
+                    b.setText(SELECT[i]);
+                } else {
+                    b.setText(comp2 + SELECT[SELECT.length * 2 - 2 - i]);
+                }
             }
         }
     }
