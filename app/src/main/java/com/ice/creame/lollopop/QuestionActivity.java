@@ -53,7 +53,11 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
 
         setContentView(li_la_super);
 
-        text_name = makeTextView(globals.nameM.elementAt(globals.name_index) + "の番", 40, TITLE_COLOR, NO_ID, makeRelativeLayout(COLOR_3, li_la_super, null, this), param1, this);
+        if (globals.name_index < globals.nameM.size()) {
+            text_name = makeTextView(globals.nameM.elementAt(globals.name_index) + "の番", 40, TITLE_COLOR, NO_ID, makeRelativeLayout(COLOR_3, li_la_super, null, this), param1, this);
+        } else {
+            text_name = makeTextView(globals.nameF.elementAt(globals.name_index - globals.nameM.size()) + "の番", 40, TITLE_COLOR, NO_ID, makeRelativeLayout(COLOR_3, li_la_super, null, this), param1, this);
+        }
 
         ScrollView sc_vi = makeScrollView(COLOR_1, li_la_super, this);
         LinearLayout li_la = makeLinearLayout(COLOR_1, LinearLayout.VERTICAL, sc_vi, this);
@@ -120,7 +124,7 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
         if (globals.ahp_hierarchy == 1 && globals.node_index == (NODE.length * (NODE.length - 1)) / 2 - 1) {
             globals.node_index = 0;
             globals.ahp_hierarchy++;
-            globals. node_id++;
+            globals.node_id++;
         } else if (globals.ahp_hierarchy == 1) {
             globals.node_index++;
             //ユーザチェンジ
@@ -142,7 +146,6 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
         }
 
 
-
         if (globals.node_id == 0) {
             text_about.setText("");
         } else {
@@ -162,20 +165,41 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
             }
         } else {
 
-            if (globals.nameF.size() == 2) {
-                comp1 = globals.nameF.elementAt(combination2[globals.node_index][0]);
-                comp2 = globals.nameF.elementAt(combination2[globals.node_index][1]);
-            } else if (globals.nameF.size() == 3) {
-                comp1 = globals.nameF.elementAt(combination3[globals.node_index][0]);
-                comp2 = globals.nameF.elementAt(combination3[globals.node_index][1]);
+
+            if (globals.name_index < globals.nameM.size()) {
+
+                if (globals.nameF.size() == 2) {
+                    comp1 = globals.nameF.elementAt(combination2[globals.node_index][0]);
+                    comp2 = globals.nameF.elementAt(combination2[globals.node_index][1]);
+                } else if (globals.nameF.size() == 3) {
+                    comp1 = globals.nameF.elementAt(combination3[globals.node_index][0]);
+                    comp2 = globals.nameF.elementAt(combination3[globals.node_index][1]);
+                } else {
+                    comp1 = "unimplemented";
+                    comp2 = "unimplemented";
+                }
             } else {
-                comp1 = "unimplemented";
-                comp2 = "unimplemented";
+                if (globals.nameF.size() == 2) {
+                    comp1 = globals.nameM.elementAt(combination2[globals.node_index][0]);
+                    comp2 = globals.nameM.elementAt(combination2[globals.node_index][1]);
+                } else if (globals.nameM.size() == 3) {
+                    comp1 = globals.nameM.elementAt(combination3[globals.node_index][0]);
+                    comp2 = globals.nameM.elementAt(combination3[globals.node_index][1]);
+                } else {
+                    comp1 = "unimplemented";
+                    comp2 = "unimplemented";
+                }
             }
         }
 
         text_question.setText(comp1 + " VS " + comp2);
-        text_name.setText(globals.nameM.elementAt(globals.name_index) + "の番");
+
+        //男女の切り替え
+        if (globals.name_index < globals.nameM.size()) {
+            text_name.setText(globals.nameM.elementAt(globals.name_index) + "の番");
+        } else {
+            text_name.setText(globals.nameF.elementAt(globals.name_index - globals.nameM.size()) + "の番");
+        }
 
         for (int i = 0; i < SELECT.length * 2 - 1; i++) {
             Button b = (Button) findViewById(i);

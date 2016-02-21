@@ -28,8 +28,10 @@ public class BaseActivity extends AppCompatActivity {
     final String APP_NAME = "Lolliopop";
 
     //default_text
-    final String DEFAULT_NAME_M[] = {"太郎", "ポール", "アキラ", "タカシ"};
-    final String DEFAULT_NAME_F[] = {"花子", "スーザン", "よーこ", "八重"};
+//    final String DEFAULT_NAME_M[] = {"太郎", "ポール", "アキラ", "タカシ"};
+//    final String DEFAULT_NAME_F[] = {"花子", "スーザン", "よーこ", "八重"};
+    final String DEFAULT_NAME_M[] = {"A男", "B男", "C男", "D男"};
+    final String DEFAULT_NAME_F[] = {"A子", "B子", "C子", "D子"};
 
     //index_text
     final String INDEX[] = {"2 : 2", "3 : 3", "4 : 4"};
