@@ -88,7 +88,7 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
         //遷移
         intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.UserRegistrationActivity");
         startActivity(intent);
-
+        IndexActivity.this.finish();
     }
 
 }
