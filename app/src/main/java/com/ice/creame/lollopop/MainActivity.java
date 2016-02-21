@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.RotateAnimation;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -20,6 +21,8 @@ import static com.ice.creame.lollopop.MethodLibrary.makeScrollView;
 import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
 
 public class MainActivity extends BaseActivity {
+
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +49,7 @@ public class MainActivity extends BaseActivity {
         makeTextView(" ", 60, Color.RED, NO_ID, li_la, null, this);
         makeTextView(APP_NAME, 48, TEXT_COLOR_1, NO_ID, makeRelativeLayout(COLOR_1, li_la, null, this), param1, this);
         makeTextView(" ", 110, Color.RED, NO_ID, li_la, null, this);
-        TextView textView = makeTextView("Tap to start", 40, TEXT_COLOR_1, NO_ID, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
+        textView = makeTextView("Tap to start", 40, TEXT_COLOR_1, 1, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
         textView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("mydebug", "Main_onClick_taptostart");
@@ -56,6 +59,21 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+
+        if (hasFocus) {
+
+            RotateAnimation a2 = new RotateAnimation(-2.0f, 2.0f, textView.getWidth() / 2, textView.getHeight() / 2);
+            a2.setDuration(10);
+            a2.setRepeatCount(15);
+            a2.setRepeatMode(a2.REVERSE);
+            a2.setStartOffset(10);
+
+            textView.startAnimation(a2);
+        }
     }
 
 //    @Override

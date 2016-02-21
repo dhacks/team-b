@@ -89,6 +89,7 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
 
     }
 
+
     @Override
     public void onClick(View view) {
         int id = view.getId();
