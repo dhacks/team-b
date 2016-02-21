@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -51,9 +52,9 @@ public class BeforeQuestionActivity extends BaseActivity implements View.OnClick
         makeTextView(" ", 20, Color.RED, NO_ID, li_la, null, this);
         //男女の切り替え
         TextView tv;
-        if(globals.name_index < globals.nameM.size()) {
+        if (globals.name_index < globals.nameM.size()) {
             tv = makeTextView(globals.nameM.elementAt(globals.name_index) + "の番", 32, TEXT_COLOR_1, NO_ID, li_la, null, this);
-        }else{
+        } else {
             tv = makeTextView(globals.nameF.elementAt(globals.name_index - globals.nameM.size()) + "の番", 32, TEXT_COLOR_1, NO_ID, li_la, null, this);
         }
         tv.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -70,6 +71,23 @@ public class BeforeQuestionActivity extends BaseActivity implements View.OnClick
         button.setWidth(w);
         button.setHeight(h);
 
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+
+        if (hasFocus) {
+
+            Button button = (Button) findViewById(0);
+            RotateAnimation a2 = new RotateAnimation(-2.0f, 2.0f, button.getWidth() / 2, button.getHeight() / 2);
+            a2.setDuration(10);
+            a2.setRepeatCount(15);
+            a2.setRepeatMode(a2.REVERSE);
+            a2.setStartOffset(10);
+
+            button.startAnimation(a2);
+
+        }
     }
 
     @Override

@@ -30,6 +30,9 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        /* Mainだけ特別 */
+        thread = null;
+
         /* パラメータ設定 */
         //aapname用
         RelativeLayout.LayoutParams param1 = new RelativeLayout.LayoutParams(WC, WC);
@@ -67,7 +70,6 @@ public class MainActivity extends BaseActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
 
         if (hasFocus) {
-
             if (thread == null) {
                 thread = new Thread(new Runnable() {
                     @Override
