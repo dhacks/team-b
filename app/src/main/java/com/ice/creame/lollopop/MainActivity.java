@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -23,6 +24,7 @@ import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
 public class MainActivity extends BaseActivity {
 
     TextView textView;
+    static Thread thread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,42 +68,40 @@ public class MainActivity extends BaseActivity {
 
         if (hasFocus) {
 
-            RotateAnimation a2 = new RotateAnimation(-2.0f, 2.0f, textView.getWidth() / 2, textView.getHeight() / 2);
-            a2.setDuration(10);
-            a2.setRepeatCount(15);
-            a2.setRepeatMode(a2.REVERSE);
-            a2.setStartOffset(10);
+            if (thread == null) {
+                thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
 
-            textView.startAnimation(a2);
+                        while (true) {
+                            // ネットワーク処理などの時間のかかる処理
+
+                            MainActivity.this.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    RotateAnimation a2 = new RotateAnimation(-2.0f, 2.0f, textView.getWidth() / 2, textView.getHeight() / 2);
+                                    a2.setDuration(10);
+                                    a2.setRepeatCount(15);
+                                    a2.setRepeatMode(a2.REVERSE);
+                                    a2.setStartOffset(10);
+
+                                    textView.startAnimation(a2);
+                                }
+                            });
+                            try {
+                                //15秒停止します。
+                                Thread.sleep(5000);
+                            } catch (InterruptedException e) {
+                            }
+
+                        }
+
+                    }
+                });
+                thread.start();
+            }
+
         }
     }
-
-//    @Override
-//    public void onClick(View view) {// クリック時に呼ばれる
-////        int id = view.getId();
-////        Intent intent = new Intent(this, MainActivity.class);
-////
-////		/* 遷移先の指定 */
-////
-////        intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.IndexActivity");
-////        startActivity(intent);
-//////        MainActivity.this.finish();
-//
-//
-//    }
-
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        Intent intent = new Intent(this, MainActivity.class);
-//        switch (event.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                Log.d("mydebug", "Main_onToucEvent_ACTION_DOWN");
-//                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.IndexActivity");
-//                startActivity(intent);
-//                break;
-//        }
-//        return false;
-//    }
 
     // BACKボタンで終了させる
     @Override
