@@ -91,22 +91,15 @@ public class AHPCalculation {
     //行列の掛け算（スタブ）
     public static double [] matrixMultiplication(double a[][], double b[]){
 
-        int row = a.length;
-        double result[];
-        if(row == 2){
-            result = new double[2];
-        }else if(row == 3){
-            result = new double[3];
-        }else{
-            result = new double[4];
-        }
-
-        //1,2,3,…
-        for(int i = 0; i < result.length; i++){
-            result[i] = (double)i + 1;
+        double result[] = new double[a.length];
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < a[i].length; j++) {
+                result[i] += a[i][j] * b[j];
+            }
         }
 
         return result;
+
     }
 
 }
