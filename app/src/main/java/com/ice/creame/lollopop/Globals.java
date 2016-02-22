@@ -26,6 +26,7 @@ public class Globals extends Application {
     public double personResult[]; //ahpの結果
     public double peopleResult[][]; //personResultを全員分まとめたもの
     public double finalResult[][];
+    public double rank[][];
 
     public void GlobalsAllInit() {
         indexFlag = -1;
@@ -50,6 +51,7 @@ public class Globals extends Application {
         personResult = null;
         peopleResult = null;
         finalResult = null;
+        rank = null;
     }
 
     public void GlobalsALLmatrixSet(int indexFlag, int node_length) {

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -15,11 +16,14 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 import static com.ice.creame.lollopop.MethodLibrary.makeButton;
 import static com.ice.creame.lollopop.MethodLibrary.makeLinearLayout;
 import static com.ice.creame.lollopop.MethodLibrary.makeRelativeLayout;
 import static com.ice.creame.lollopop.MethodLibrary.makeScrollView;
 import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
+import static com.ice.creame.lollopop.DBHelper.*;
 
 /**
  * Created by hideya on 2016/02/21.
@@ -51,15 +55,17 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
 
         makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
 
-        makeTextView("finalResult", 20, Color.RED, NO_ID, li_la, null, this);
-        for(int i = 0; i < globals.finalResult.length;i++){
-
-            for (int j = 0; j < globals.finalResult[0].length;j++){
-                makeTextView(globals.nameM.elementAt(i) +"と"+globals.nameF.elementAt(j)+ ":" + globals.finalResult[i][j], 20, Color.RED, NO_ID, li_la, null, this);
-//                s += globals.finalResult[i][j] + "  ";
+        makeTextView("finalResult", 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
+        for (int i = 0; i < globals.finalResult.length; i++) {
+            for (int j = 0; j < globals.finalResult[0].length; j++) {
+                makeTextView(globals.nameM.elementAt(i) + "と" + globals.nameF.elementAt(j) + ":" + globals.finalResult[i][j], 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
             }
-
         }
+        makeTextView("rank", 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
+        for (int i = 0; i < globals.rank.length - 1; i++) {
+            makeTextView((i + 1) + "位" + globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]) + ":" + globals.rank[i][2], 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
+        }
+
 
         makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
 
@@ -104,6 +110,57 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
                 startActivity(intent);
                 ResultActivity.this.finish();
                 break;
+
+            case 1:
+
+                final Calendar calendar = Calendar.getInstance();
+                final int year = calendar.get(Calendar.YEAR);
+                final int month = calendar.get(Calendar.MONTH);
+                final int day = calendar.get(Calendar.DAY_OF_MONTH);
+                final int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                final int minute = calendar.get(Calendar.MINUTE);
+                final int second = calendar.get(Calendar.SECOND);
+
+                String date = year + "/" + (month + 1) + "/" + day + "/" + " " +
+                        hour + ":" + minute + ":" + second;
+
+                Log.d("mydebug", date);
+
+                int cnt = 0;
+                for (int i = 0; ; i++) {
+                    try {
+                        readDB(String.valueOf(i), DBHelper.DB_TABLE, db);
+                        cnt++;
+                    } catch (Exception e) {
+                        break;
+                    }
+                }
+
+                try {
+                    writeDB(String.valueOf(cnt), date, "a", "b", "c", DBHelper.DB_TABLE, db);
+                } catch (Exception e) {
+                    Log.d("mydebug", "aaaaaa");
+                }
+
+                for (int i = 0; i <= cnt; i++) {
+                    try {
+                        Log.d("mydebug", " id : " + readDB(String.valueOf(i), DBHelper.DB_TABLE, db)[0]);
+                        Log.d("mydebug", " date : " + readDB(String.valueOf(i), DBHelper.DB_TABLE, db)[1]);
+                        Log.d("mydebug", " v1 : " + readDB(String.valueOf(i), DBHelper.DB_TABLE, db)[2]);
+                        Log.d("mydebug", " v2 : " + readDB(String.valueOf(i), DBHelper.DB_TABLE, db)[3]);
+                        Log.d("mydebug", " v3 : " + readDB(String.valueOf(i), DBHelper.DB_TABLE, db)[4]);
+
+                    } catch (Exception e) {
+                        Log.d("mydebug", "dbError");
+                    }
+                }
+
+                //遷移
+                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.IndexActivity");
+                startActivity(intent);
+                ResultActivity.this.finish();
+                break;
+
             case 2:
                 new AlertDialog.Builder(this).setTitle("確認").setMessage("危険！！")
                         .setPositiveButton("はい", new DialogInterface.OnClickListener() {

@@ -101,6 +101,8 @@ public class AHPCalculation {
         return result;
 
     }
+
+
     public static double[][] getFinalResult(double Peopleresult[][]) {
         double result[][] = new double[Peopleresult.length /2][Peopleresult[0].length];
         for (int i = 0; i < Peopleresult[0].length; i++) {
@@ -113,6 +115,57 @@ public class AHPCalculation {
         return result;
     }
 
+    static double[][] getRank(double result[][]) {
+        double rank[][] = { { -1, -1, -1 },
+                { -1, -1, -1 },
+                { -1, -1, -1 },
+                { -1, -1, -1 }
+        };
+        double max = 0.0;
+        double nextMax = 100.0;
+        double min = 100.0;
+        int A[][] = { { -1, -1 },
+                { -1, -1 },
+                { -1, -1 },
+        };
+        int n = 0;
 
+        for (int k = 0; k < 3; k++) {
+            for (int i = 0; i < result.length; i++) {
+                for (int j = 0; j < result.length; j++) {
+                    if (max <= result[i][j]) {
+                        if (((i == A[0][0]) && (j == A[0][1])) || ((i == A[1][0]) && (j == A[1][1]))
+                                || ((i == A[2][0]) && (j == A[2][1]))) {
+
+                        } else {
+                            rank[k][0] = j;
+                            rank[k][1] = i;
+                            rank[k][2] = result[i][j];
+                            max = result[i][j];
+                            A[n][0] = i;
+                            A[n][1] = j;
+
+                        }
+                    }
+                }
+            }
+            n++;
+            max = 0.0;
+
+        }
+
+        for (int i = 0; i < result.length; i++) {
+            for (int j = 0; j < result.length; j++) {
+                if (min > result[i][j]) {
+                    rank[3][0] = i;
+                    rank[3][1] = j;
+                    rank[3][2] = result[i][j];
+                    min = result[i][j];
+                }
+            }
+        }
+
+        return rank;
+    }
 
 }

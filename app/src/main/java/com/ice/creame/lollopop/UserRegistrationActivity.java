@@ -109,18 +109,18 @@ public class UserRegistrationActivity extends BaseActivity implements View.OnCli
 
         switch (id) {
             case 0:
-                Log.d("mydebug", "UserRegistration_onClick_0");
+//                Log.d("mydebug", "UserRegistration_onClick_0");
 
                 for (int i = 0; i < globals.indexFlag; i++) {
                     //globalに名前登録
                     EditText et = (EditText) findViewById(i);
-                    Log.d("mydebug", "name : " + et.getText().toString());
+//                    Log.d("mydebug", "name : " + et.getText().toString());
                     globals.nameM.add(et.getText().toString());
                 }
 
                 for (int i = 0; i < globals.indexFlag; i++) {
                     EditText et = (EditText) findViewById(i + globals.indexFlag);
-                    Log.d("mydebug", "name : " + et.getText().toString());
+//                    Log.d("mydebug", "name : " + et.getText().toString());
                     globals.nameF.add(et.getText().toString());
                 }
 

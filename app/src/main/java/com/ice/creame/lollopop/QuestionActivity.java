@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import static com.ice.creame.lollopop.AHPCalculation.getRank;
 import static com.ice.creame.lollopop.MethodLibrary.makeButton;
 import static com.ice.creame.lollopop.MethodLibrary.makeLinearLayout;
 import static com.ice.creame.lollopop.MethodLibrary.makeRelativeLayout;
@@ -84,7 +85,6 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
         int w = (int) (p.x / 1.3);
         int h = (int) (p.y / 7.9);
         for (int i = 0; i < SELECT.length * 2 - 1; i++) {
-            Log.d("mydebug", "i:" + i);
             Button button;
             if (i < SELECT.length - 1) {
                 button = makeButton(comp1 + SELECT[i], i, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
@@ -185,6 +185,7 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
                 intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.BeforeQuestionActivity");
             } else {
                 globals.finalResult = getFinalResult(globals.peopleResult);
+                globals.rank = getRank(globals.finalResult);
                 intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.BeforeResultActivity");
             }
             startActivity(intent);

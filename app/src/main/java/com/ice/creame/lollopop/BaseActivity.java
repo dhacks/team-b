@@ -7,8 +7,13 @@ import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Display;
 import android.widget.LinearLayout;
+
+import java.util.Calendar;
+
+import static com.ice.creame.lollopop.DBHelper.*;
 
 /**
  * Created by hideya on 2016/02/20.
@@ -77,9 +82,7 @@ public class BaseActivity extends AppCompatActivity {
     //DBデータ
     /* DBデータ */
     SQLiteDatabase db; //データベースオブジェクト
-    static final String DB_NAME = "mydatabase.db";//DB名
-    static final String DB_TABLE = "testtable"; //テーブル名
-    static final int DB_VERSION = 1; //バージョン
+
 
     //グローバル変数
     Globals globals;
@@ -89,6 +92,12 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         globals = (Globals) this.getApplication();
+
+        /* データベースオブジェクトの取得 */
+        DBHelper dbHelper = new DBHelper(this);
+        db = dbHelper.getWritableDatabase();
+
+
 
         /* 画面サイズ取得→機種対応 */
         display = getWindowManager().getDefaultDisplay();
