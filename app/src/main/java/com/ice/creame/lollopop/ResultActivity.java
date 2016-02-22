@@ -51,13 +51,14 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
 
         makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
 
-        makeTextView("peopleResult", 20, Color.RED, NO_ID, li_la, null, this);
-        for(int i = 0; i < globals.peopleResult.length;i++){
-            String s = "personReslut:  ";
-            for (int j = 0; j < globals.peopleResult[0].length;j++){
-                s += globals.peopleResult[i][j] + "  ";
+        makeTextView("finalResult", 20, Color.RED, NO_ID, li_la, null, this);
+        for(int i = 0; i < globals.finalResult.length;i++){
+
+            for (int j = 0; j < globals.finalResult[0].length;j++){
+                makeTextView(globals.nameM.elementAt(i) +"と"+globals.nameF.elementAt(j)+ ":" + globals.finalResult[i][j], 20, Color.RED, NO_ID, li_la, null, this);
+//                s += globals.finalResult[i][j] + "  ";
             }
-            makeTextView(s, 20, Color.RED, NO_ID, li_la, null, this);
+
         }
 
         makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);

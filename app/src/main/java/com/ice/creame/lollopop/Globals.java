@@ -10,13 +10,13 @@ import java.util.Vector;
  * Created by hideya on 2016/02/20.
  */
 public class Globals extends Application {
-    public int indexFlag = -1;
+    public int indexFlag = -1; //２：２の場合２
     public int node_id = 0;
-    public int name_index = 0;
+    public int name_index = 0; //ユーザーのインデックス
     public int node_index = 0;
     public int ahp_hierarchy = 1; //ahpの階層
-    public Vector<String> nameM = new Vector<>();
-    public Vector<String> nameF = new Vector<>();
+    public Vector<String> nameM = new Vector<>(); //男の名前リスト
+    public Vector<String> nameF = new Vector<>(); //女
 
     //一対比較行列
     public double matrixForWeight[][];
@@ -25,6 +25,7 @@ public class Globals extends Application {
     public double weight[];
     public double personResult[]; //ahpの結果
     public double peopleResult[][]; //personResultを全員分まとめたもの
+    public double finalResult[][];
 
     public void GlobalsAllInit() {
         indexFlag = -1;
@@ -48,6 +49,7 @@ public class Globals extends Application {
         weight = null;
         personResult = null;
         peopleResult = null;
+        finalResult = null;
     }
 
     public void GlobalsALLmatrixSet(int indexFlag, int node_length) {

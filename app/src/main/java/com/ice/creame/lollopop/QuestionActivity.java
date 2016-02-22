@@ -23,6 +23,7 @@ import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
 
 import static com.ice.creame.lollopop.AHPCalculation.powerMethod;
 import static com.ice.creame.lollopop.AHPCalculation.matrixMultiplication;
+import static com.ice.creame.lollopop.AHPCalculation.getFinalResult;
 
 /**
  * Created by hideya on 2016/02/20.
@@ -183,6 +184,7 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
             if (globals.name_index < globals.nameM.size() + globals.nameF.size()) {
                 intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.BeforeQuestionActivity");
             } else {
+                globals.finalResult = getFinalResult(globals.peopleResult);
                 intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.BeforeResultActivity");
             }
             startActivity(intent);

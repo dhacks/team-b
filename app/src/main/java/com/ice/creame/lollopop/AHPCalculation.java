@@ -101,5 +101,18 @@ public class AHPCalculation {
         return result;
 
     }
+    public static double[][] getFinalResult(double Peopleresult[][]) {
+        double result[][] = new double[Peopleresult.length /2][Peopleresult[0].length];
+        for (int i = 0; i < Peopleresult[0].length; i++) {
+            for (int j = 0; j < Peopleresult[0].length; j++) {
+                result[i][j] = Peopleresult[i][j]
+                        * Peopleresult[j + Peopleresult.length / 2][i];
+            }
+        }
+
+        return result;
+    }
+
+
 
 }

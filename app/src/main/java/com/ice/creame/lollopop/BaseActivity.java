@@ -1,6 +1,7 @@
 package com.ice.creame.lollopop;
 
 
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
@@ -54,7 +55,6 @@ public class BaseActivity extends AppCompatActivity {
     public static final int MP = LinearLayout.LayoutParams.MATCH_PARENT; //画面最大
     public static final int WC = LinearLayout.LayoutParams.WRAP_CONTENT; //自動調節
 
-
     //色
     final int COLOR_D = Color.RED;
     final int COLOR_1 = Color.argb(0, 0, 0, 0);
@@ -73,9 +73,13 @@ public class BaseActivity extends AppCompatActivity {
 
     //画像（背景）
     public final int BACK_GROUND_IMAGE = R.drawable.background;
-//    public TextView textView;
-//    public String str = "NotRead";
-//    public XmlPullParser xmlPullParser = Xml.newPullParser();
+
+    //DBデータ
+    /* DBデータ */
+    SQLiteDatabase db; //データベースオブジェクト
+    static final String DB_NAME = "mydatabase.db";//DB名
+    static final String DB_TABLE = "testtable"; //テーブル名
+    static final int DB_VERSION = 1; //バージョン
 
     //グローバル変数
     Globals globals;
