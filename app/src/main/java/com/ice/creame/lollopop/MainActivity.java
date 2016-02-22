@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.RotateAnimation;
+import android.view.animation.ScaleAnimation;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -23,8 +24,10 @@ import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
 
 public class MainActivity extends BaseActivity {
 
+    //Mainactivityのみ
+    TextView titleView;
     TextView textView;
-    static Thread thread;
+    static volatile Thread thread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +55,13 @@ public class MainActivity extends BaseActivity {
 
         makeTextView(" ", 32, Color.RED, NO_ID, makeRelativeLayout(COLOR_1, li_la, null, this), null, this);
         makeTextView(" ", 60, Color.RED, NO_ID, li_la, null, this);
-        makeTextView(APP_NAME, 48, TEXT_COLOR_1, NO_ID, makeRelativeLayout(COLOR_1, li_la, null, this), param1, this);
+        titleView = makeTextView(APP_NAME, 56, TEXT_COLOR_1, NO_ID, makeRelativeLayout(COLOR_1, li_la, null, this), param1, this);
         makeTextView(" ", 110, Color.RED, NO_ID, li_la, null, this);
         textView = makeTextView("Tap to start", 40, TEXT_COLOR_1, 1, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
         textView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("mydebug", "Main_onClick_taptostart");
+                //画面遷移
                 Intent intent = new Intent();
                 intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.IndexActivity");
                 startActivity(intent);
@@ -70,6 +74,14 @@ public class MainActivity extends BaseActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
 
         if (hasFocus) {
+            /* title */
+            ScaleAnimation a = new ScaleAnimation(0.5f, 1, 0.5f, 1,titleView.getWidth() / 2, titleView.getHeight() / 2);
+            a.setDuration(3000); // 3000msかけてアニメーションする
+//            a.setRepeatCount(1);
+            a.setStartOffset(10);
+            titleView.startAnimation(a); // アニメーション適用
+
+            /* Tap to Start */
             if (thread == null) {
                 thread = new Thread(new Runnable() {
                     @Override

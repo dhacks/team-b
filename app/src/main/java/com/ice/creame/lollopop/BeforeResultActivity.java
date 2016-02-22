@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,9 +26,13 @@ import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
  */
 public class BeforeResultActivity extends BaseActivity implements View.OnClickListener {
 
+    static volatile Thread thread;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        thread = null;
 
         /* パラメータ設定 */
         //タイトル用
@@ -65,6 +70,47 @@ public class BeforeResultActivity extends BaseActivity implements View.OnClickLi
         button.setWidth(w);
         button.setHeight(h);
 
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+
+        if (hasFocus) {
+
+            if (thread == null) {
+                thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        while (true) {
+                            // ネットワーク処理などの時間のかかる処理
+
+                            BeforeResultActivity.this.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Button button = (Button) findViewById(0);
+                                    RotateAnimation a2 = new RotateAnimation(-2.0f, 2.0f, button.getWidth() / 2, button.getHeight() / 2);
+                                    a2.setDuration(10);
+                                    a2.setRepeatCount(15);
+                                    a2.setRepeatMode(a2.REVERSE);
+                                    a2.setStartOffset(10);
+
+                                    button.startAnimation(a2);
+                                }
+                            });
+                            try {
+                                //15秒停止します。
+                                Thread.sleep(5000);
+                            } catch (InterruptedException e) {
+                            }
+
+                        }
+
+                    }
+                });
+                thread.start();
+            }
+
+        }
     }
 
     @Override
