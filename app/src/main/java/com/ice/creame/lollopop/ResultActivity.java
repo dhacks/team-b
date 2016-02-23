@@ -134,10 +134,16 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
                     }
                 }
 
+                String value[] = new String [3];
+                for (int i = 0; i < globals.rank.length - 1; i++) {
+                    value[i] = globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]);
+//                    makeTextView((i + 1) + "位" + globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]) + ":" + globals.rank[i][2], 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
+                }
+
                 try {
-                    writeDB(String.valueOf(cnt), date, "a", "b", "c", DBHelper.DB_TABLE, db);
+                    writeDB(String.valueOf(cnt), date, value[0], value[1], value[2], DBHelper.DB_TABLE, db);
                 } catch (Exception e) {
-                    Log.d("mydebug", "aaaaaa");
+                    Log.d("mydebug", "dbError");
                 }
 
                 for (int i = 0; i <= cnt; i++) {
@@ -160,7 +166,7 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
                 break;
 
             case 2:
-                new AlertDialog.Builder(this).setTitle("確認").setMessage("危険！！")
+                new AlertDialog.Builder(this).setTitle("確認").setMessage("本当に見ますか？")
                         .setPositiveButton("はい", new DialogInterface.OnClickListener() {
 
                             @Override

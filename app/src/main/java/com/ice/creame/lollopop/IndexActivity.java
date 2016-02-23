@@ -47,17 +47,27 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
         ScrollView sc_vi = makeScrollView(COLOR_1, li_la_super, this);
         LinearLayout li_la = makeLinearLayout(COLOR_1, LinearLayout.VERTICAL, sc_vi, this);
 
-        makeTextView(" ", 40, Color.RED, NO_ID, li_la, null, this);
+        makeTextView(" ", TEXT_SIZE4, TEXT_COLOR_1, NO_ID, li_la, null, this);
 
         int w = (int) (p.x / 1.3);
         int h = (int) (p.y / 7.9);
-        for(int i = 0; i < INDEX.length; i++) {
+        for (int i = 0; i < INDEX.length; i++) {
             Button button = makeButton(INDEX[i], i, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
             button.setTextColor(TEXT_COLOR_1);
-            button.setTextSize(40);
+            button.setTextSize(TEXT_SIZE4);
             button.setWidth(w);
             button.setHeight(h);
         }
+
+        makeTextView(" ", TEXT_SIZE4, TEXT_COLOR_1, NO_ID, li_la, null, this);
+
+        //idはindex.lengthで自動調節
+        Button button = makeButton("今までの記録", INDEX.length, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
+        button.setTextColor(TEXT_COLOR_1);
+        button.setTextSize(TEXT_SIZE4);
+        button.setWidth(w);
+        button.setHeight(h);
+
     }
 
     @Override
@@ -67,7 +77,9 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
 
         globals.GlobalsAllInit();
 
-        switch(id){
+        boolean goRecord = false;
+
+        switch (id) {
             case 0:
                 Log.d("mydebug", "Index_onClick_0");
                 globals.indexFlag = 2;
@@ -80,13 +92,18 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
                 Log.d("mydebug", "Index_onClick_2");
                 globals.indexFlag = 4;
                 break;
+            case 3:
+                Log.d("mydebug", "Index_onClick_3");
+                goRecord = true;
+                break;
         }
 
-        //AHPに必要な行列サイズのセット
-        globals.GlobalsALLmatrixSet(globals.indexFlag, NODE.length);
-
-        //遷移
-        intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.UserRegistrationActivity");
+        if (goRecord) {
+            intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.RecordActivity");
+        } else {
+            globals.GlobalsALLmatrixSet(globals.indexFlag, NODE.length); //AHPに必要な行列サイズのセット
+            intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.UserRegistrationActivity");
+        }
         startActivity(intent);
         IndexActivity.this.finish();
     }

@@ -31,7 +31,7 @@ public class BaseActivity extends AppCompatActivity {
     final String NO_TAG = "-1";
 
     //name
-    final String APP_NAME = "Lolliopop";
+    final String APP_NAME = "Lollipop";
 
     //default_text
 //    final String DEFAULT_NAME_M[] = {"太郎", "ポール", "アキラ", "タカシ"};
@@ -71,7 +71,10 @@ public class BaseActivity extends AppCompatActivity {
     final int TEXT_COLOR_1 = Color.rgb(255, 80, 80);
 
     //サイズ
+    final int TEXT_SIZE1 = 10;
     final int TEXT_SIZE2 = 20;
+    final int TEXT_SIZE3 = 30;
+    final int TEXT_SIZE4 = 40;
 
     //制限定数
     final int LIMIT_NAME = 6; //名前の最大文字数
