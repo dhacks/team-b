@@ -62,7 +62,7 @@ public class TestActivity extends BaseActivity {
         r2.setBackgroundColor(COLOR_3);
 
         Button b = (Button)findViewById(R.id.button);
-        b.setBackgroundResource(R.drawable.button2);
+//        b.setBackgroundResource(R.drawable.button2);
         b.setTypeface(tf);
 
     }
