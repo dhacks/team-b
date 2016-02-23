@@ -45,8 +45,15 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
         ScrollView sc = (ScrollView) findViewById(R.id.scrollView2);
         sc.setBackgroundColor(COLOR_1);
 
+//<<<<<<< HEAD
         LinearLayout ll1 = (LinearLayout) findViewById(R.id.ll1);
 
+//=======
+//        setContentView(li_la_super);
+//        makeTextView("今までの記録", TEXT_SIZE4, TITLE_COLOR, NO_ID, makeRelativeLayout(COLOR_3, li_la_super, null, this), param1, this);
+//        ScrollView sc_vi = makeScrollView(COLOR_1, li_la_super, this);
+//        LinearLayout li_la = makeLinearLayout(COLOR_1, LinearLayout.VERTICAL, sc_vi, this);
+//>>>>>>> textchange
 
         makeTextView(" ", TEXT_SIZE3, TEXT_COLOR_1, NO_ID, ll1, null, this);
 

@@ -46,7 +46,8 @@ public class BaseActivity extends AppCompatActivity {
     final String NODE[] = {"性格", "ルックス", "知的さ"};
 
     //select_text
-    final String SELECT[] = {"が非常に重要", "がやや重要", "同等"};
+    final String SELECT1[] = {"が非常に重要", "がやや重要", "同等"};
+    final String SELECT2[]={"が好き","のほうが少し好き","同じぐらい好き"};
 
     //hash_table
     final int combination2[][] = {{0, 1}};

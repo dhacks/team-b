@@ -34,11 +34,13 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
     TextView text_name;
     TextView text_about;
     TextView text_question;
+    //質問回数のカウント
+    private static int count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        count = 0;
         /* パラメータ設定 */
         //タイトル用
         RelativeLayout.LayoutParams param1 = new RelativeLayout.LayoutParams(WC, WC);
@@ -84,14 +86,14 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
 
         int w = (int) (p.x / 1.3);
         int h = (int) (p.y / 7.9);
-        for (int i = 0; i < SELECT.length * 2 - 1; i++) {
+        for (int i = 0; i < SELECT1.length * 2 - 1; i++) {
             Button button;
-            if (i < SELECT.length - 1) {
-                button = makeButton(comp1 + SELECT[i], i, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
-            } else if (i == SELECT.length - 1) {
-                button = makeButton(SELECT[i], i, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
+            if (i < SELECT1.length - 1) {
+                button = makeButton(comp1 + SELECT1[i], i, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
+            } else if (i == SELECT1.length - 1) {
+                button = makeButton(SELECT1[i], i, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
             } else {
-                button = makeButton(comp2 + SELECT[SELECT.length * 2 - 2 - i], i, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
+                button = makeButton(comp2 + SELECT1[SELECT1.length * 2 - 2 - i], i, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
             }
             button.setTextColor(TEXT_COLOR_1);
             button.setTextSize(20);
@@ -199,7 +201,6 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
         }
 
         if (!isScreenTransition) {
-
             if (globals.node_id == 0) {
                 text_about.setText("");
             } else {
@@ -245,8 +246,6 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
                 }
             }
 
-            text_question.setText(comp1 + " VS " + comp2);
-
             //男女の切り替え
             if (globals.name_index < globals.nameM.size()) {
                 text_name.setText(globals.nameM.elementAt(globals.name_index) + "の番");
@@ -254,16 +253,36 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
                 text_name.setText(globals.nameF.elementAt(globals.name_index - globals.nameM.size()) + "の番");
             }
 
-            for (int i = 0; i < SELECT.length * 2 - 1; i++) {
-                Button b = (Button) findViewById(i);
-                if (i < SELECT.length - 1) {
-                    b.setText(comp1 + SELECT[i]);
-                } else if (i == SELECT.length - 1) {
-                    b.setText(SELECT[i]);
-                } else {
-                    b.setText(comp2 + SELECT[SELECT.length * 2 - 2 - i]);
+            text_question.setText(comp1 + " VS " + comp2);
+
+            //回答ボタンの表記変更
+            if (count < NODE.length - 1) {
+                for (int i = 0; i < SELECT1.length * 2 - 1; i++) {
+                    Button b = (Button) findViewById(i);
+                    if (i < SELECT1.length - 1) {
+                        b.setText(comp1 + SELECT1[i]);
+                    } else if (i == SELECT1.length - 1) {
+                        b.setText(SELECT1[i]);
+                    } else {
+                        b.setText(comp2 + SELECT1[SELECT1.length * 2 - 2 - i]);
+                    }
                 }
+                count++;
+            } else {
+                for (int i = 0; i < SELECT2.length * 2 - 1; i++) {
+                    Button b = (Button) findViewById(i);
+                    if (i < SELECT2.length - 1) {
+                        b.setText(comp1 + SELECT2[i]);
+                    } else if (i == SELECT2.length - 1) {
+                        b.setText(SELECT2[i]);
+                    } else {
+                        b.setText(comp2 + SELECT2[SELECT2.length * 2 - 2 - i]);
+                    }
+                }
+
             }
+
+
         }
     }
 

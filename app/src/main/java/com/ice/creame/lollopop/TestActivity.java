@@ -68,9 +68,14 @@ public class TestActivity extends BaseActivity {
         RelativeLayout r2 = (RelativeLayout) findViewById(R.id.r2);
         r2.setBackgroundColor(COLOR_3);
 
+//<<<<<<< HEAD
         Button b = (Button) findViewById(R.id.button);
         b.setTextSize(TEXT_SIZE3);
-        b.setTextColor(TITLE_COLOR);
+//        b.setTextColor(TITLE_COLOR);
+//=======
+//        Button b = (Button)findViewById(R.id.button);
+//        b.setBackgroundResource(R.drawable.button2);
+//>>>>>>> textchange
         b.setTypeface(tf);
 
     }
