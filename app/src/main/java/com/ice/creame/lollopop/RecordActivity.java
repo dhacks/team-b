@@ -1,87 +1,90 @@
 package com.ice.creame.lollopop;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-
-import java.util.Calendar;
+import android.widget.TextView;
 
 import static com.ice.creame.lollopop.DBHelper.readDB;
-import static com.ice.creame.lollopop.DBHelper.writeDB;
-import static com.ice.creame.lollopop.MethodLibrary.makeButton;
-import static com.ice.creame.lollopop.MethodLibrary.makeLinearLayout;
-import static com.ice.creame.lollopop.MethodLibrary.makeRelativeLayout;
-import static com.ice.creame.lollopop.MethodLibrary.makeScrollView;
 import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
 
 /**
  * Created by hideya on 2016/02/23.
  */
-public class RecordActivity  extends BaseActivity implements View.OnClickListener {
+public class RecordActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.record);
 
-        /* パラメータ設定 */
-        //タイトル用
-        RelativeLayout.LayoutParams param1 = new RelativeLayout.LayoutParams(WC, WC);
-        param1.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        // TableLayoutのグループを取得
+        LinearLayout parent = (LinearLayout) findViewById(R.id.parent);
+        parent.setBackgroundResource(R.drawable.carpet);
 
-        //ボタン用
-        RelativeLayout.LayoutParams param2 = new RelativeLayout.LayoutParams(WC, WC);
-        param2.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        RelativeLayout r1 = (RelativeLayout) findViewById(R.id.r1);
+        r1.setBackgroundColor(COLOR_3);
 
-        /* 画面レイアウト */
-        LinearLayout li_la_super = makeLinearLayout(COLOR_D, LinearLayout.VERTICAL, null, this);
-        li_la_super.setBackgroundResource(BACK_GROUND_IMAGE);
+        TextView t3 = (TextView) findViewById(R.id.textView3);
+        t3.setText("今までの記録");
+        t3.setTextSize(TEXT_SIZE3);
+        t3.setTextColor(TITLE_COLOR);
+        t3.setTypeface(tf);
 
-        setContentView(li_la_super);
+        FrameLayout fr_la = (FrameLayout) findViewById(R.id.frame2);
+        fr_la.setBackgroundResource(R.drawable.waku);
 
-        makeTextView("今までの記録", TEXT_SIZE4, TITLE_COLOR, NO_ID, makeRelativeLayout(COLOR_3, li_la_super, null, this), param1, this);
-        ScrollView sc_vi = makeScrollView(COLOR_1, li_la_super, this);
-        LinearLayout li_la = makeLinearLayout(COLOR_1, LinearLayout.VERTICAL, sc_vi, this);
 
-        makeTextView(" ", TEXT_SIZE1, TEXT_COLOR_1, NO_ID, li_la, null, this);
+        ScrollView sc = (ScrollView) findViewById(R.id.scrollView2);
+        sc.setBackgroundColor(COLOR_1);
 
-        int cnt = 0;
+        LinearLayout ll1 = (LinearLayout) findViewById(R.id.ll1);
+
+
+        makeTextView(" ", TEXT_SIZE3, TEXT_COLOR_1, NO_ID, ll1, null, this);
+
         for (int i = 0; ; i++) {
+
             try {
                 String date = readDB(String.valueOf(i), DBHelper.DB_TABLE, db)[1];
-                makeTextView(date, TEXT_SIZE2, TEXT_COLOR_1, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
-                for(int k=2; k < 5; k++){
+
+                makeTextView(date, TEXT_SIZE2, TEXT_COLOR_4, NO_ID, ll1, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
+                for (int k = 2; k < 5; k++) {
+
                     String data = readDB(String.valueOf(i), DBHelper.DB_TABLE, db)[k];
-                    makeTextView(k-1+"位 : " + data, TEXT_SIZE3, TEXT_COLOR_1, NO_ID, li_la, null, this);
+                    makeTextView((k - 1) + "位  " + data, TEXT_SIZE2, TEXT_COLOR_3, NO_ID, ll1, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
                 }
             } catch (Exception e) {
                 break;
             }
-            makeTextView(" ", TEXT_SIZE2, TEXT_COLOR_1, NO_ID, li_la, null, this);
+            makeTextView(" ", TEXT_SIZE2, TEXT_COLOR_1, NO_ID, ll1, null, this);
 
         }
 
-        int w = (int) (p.x / 1.3);
-        int h = (int) (p.y / 7.9);
-        Button button = makeButton("戻る", 0, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
-        button.setTextColor(TEXT_COLOR_1);
-        button.setTextSize(20);
-        button.setWidth(w);
-        button.setHeight(h);
+        RelativeLayout r2 = (RelativeLayout) findViewById(R.id.r2);
+        r2.setBackgroundColor(COLOR_3);
 
-        makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
+        Button b = (Button) findViewById(R.id.button);
+        b.setTextSize(TEXT_SIZE3);
+        b.setTextColor(TITLE_COLOR);
+        b.setTypeface(tf);
+        b.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //画面遷移
+                Intent intent = new Intent();
+                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.IndexActivity");
+                startActivity(intent);
+            }
+        });
 
     }
-
 
     @Override
     public void onClick(View view) {

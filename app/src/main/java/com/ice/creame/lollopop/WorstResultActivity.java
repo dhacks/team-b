@@ -57,12 +57,12 @@ public class WorstResultActivity extends BaseActivity implements View.OnClickLis
         makeTextView("finalResult", 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
         for (int i = 0; i < globals.finalResult.length; i++) {
             for (int j = 0; j < globals.finalResult[0].length; j++) {
-                makeTextView(globals.nameM.elementAt(i) + "と" + globals.nameF.elementAt(j) + ":" + globals.finalResult[i][j], 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
+                makeTextView(globals.nameM.elementAt(i) + " " + globals.nameF.elementAt(j) + ":" + globals.finalResult[i][j], 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
             }
         }
         makeTextView("Worst", 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
 
-        makeTextView("1位" + globals.nameM.elementAt((int) globals.rank[3][1]) + "と" + globals.nameF.elementAt((int) globals.rank[3][0]) + ":" + globals.rank[3][2], 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
+        makeTextView("1位 " + globals.nameM.elementAt((int) globals.rank[3][1]) + "と" + globals.nameF.elementAt((int) globals.rank[3][0]) + ":" + globals.rank[3][2], 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
 
         makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
 
@@ -135,7 +135,6 @@ public class WorstResultActivity extends BaseActivity implements View.OnClickLis
                 String value[] = new String [3];
                 for (int i = 0; i < globals.rank.length - 1; i++) {
                     value[i] = globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]);
-//                    makeTextView((i + 1) + "位" + globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]) + ":" + globals.rank[i][2], 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
                 }
 
                 try {

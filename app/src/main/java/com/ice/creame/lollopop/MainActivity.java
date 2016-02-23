@@ -58,6 +58,7 @@ public class MainActivity extends BaseActivity {
         titleView = makeTextView(APP_NAME, 56, TEXT_COLOR_1, NO_ID, makeRelativeLayout(COLOR_1, li_la, null, this), param1, this);
         makeTextView(" ", 110, Color.RED, NO_ID, li_la, null, this);
         textView = makeTextView("Tap to start", 40, TEXT_COLOR_1, 1, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
+        textView.setElevation(10);
         textView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("mydebug", "Main_onClick_taptostart");

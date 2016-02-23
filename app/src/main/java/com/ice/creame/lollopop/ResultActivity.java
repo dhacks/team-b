@@ -56,12 +56,12 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
         makeTextView("finalResult", 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
         for (int i = 0; i < globals.finalResult.length; i++) {
             for (int j = 0; j < globals.finalResult[0].length; j++) {
-                makeTextView(globals.nameM.elementAt(i) + "と" + globals.nameF.elementAt(j) + ":" + globals.finalResult[i][j], 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
+                makeTextView(globals.nameM.elementAt(i) + " " + globals.nameF.elementAt(j) + ":" + globals.finalResult[i][j], 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
             }
         }
         makeTextView("rank", 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
         for (int i = 0; i < globals.rank.length - 1; i++) {
-            makeTextView((i + 1) + "位" + globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]) + ":" + globals.rank[i][2], 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
+            makeTextView((i + 1) + "位 " + globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]) + ":" + globals.rank[i][2], 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
         }
 
 
@@ -137,7 +137,6 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
                 String value[] = new String [3];
                 for (int i = 0; i < globals.rank.length - 1; i++) {
                     value[i] = globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]);
-//                    makeTextView((i + 1) + "位" + globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]) + ":" + globals.rank[i][2], 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
                 }
 
                 try {

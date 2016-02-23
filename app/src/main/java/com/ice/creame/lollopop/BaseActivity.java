@@ -67,11 +67,12 @@ public class BaseActivity extends AppCompatActivity {
 //    final int COLOR_3 = Color.argb(255, 176, 48, 96);
     final int COLOR_3 = Color.BLACK;
 
-    final int TITLE_COLOR = Color.rgb(255, 192, 203);
+    final int TITLE_COLOR = Color.rgb(67, 110, 238);
 
     final int TEXT_COLOR_1 = Color.rgb(255, 80, 80);
     final int TEXT_COLOR_2 = Color.BLACK;
     final int TEXT_COLOR_3 = Color.WHITE;
+    final int TEXT_COLOR_4 = Color.rgb(156, 156, 156	);
 
     //サイズ
     final int TEXT_SIZE1 = 10;
@@ -86,7 +87,7 @@ public class BaseActivity extends AppCompatActivity {
     public static Typeface tf;
 
     //画像（背景）
-    public final int BACK_GROUND_IMAGE = R.drawable.background;
+    public final int BACK_GROUND_IMAGE = R.drawable.carpet;
 
     //DBデータ
     /* DBデータ */
