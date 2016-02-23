@@ -83,6 +83,7 @@ public class MethodLibrary {
         Button button = new Button(context);
         button.setText(text);
         button.setBackgroundResource(R.drawable.abc_popup_background_mtrl_mult);
+//        button.setBackgroundResource(R.drawable.test2);
 //		button.setBackgroundResource(R.drawable.button_brock);
         button.setId(id);
         button.setTag(tag);// ここではボタンが押されたかを判断（0：押されていない　1：押された）

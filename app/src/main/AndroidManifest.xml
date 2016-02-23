@@ -44,7 +44,11 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".RecordActivity"
+        android:name=".RecordActivity"
+        android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".TestActivity"
             android:screenOrientation="portrait" >
         </activity>
     </application>

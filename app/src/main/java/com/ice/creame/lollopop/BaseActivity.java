@@ -64,11 +64,14 @@ public class BaseActivity extends AppCompatActivity {
     final int COLOR_D = Color.RED;
     final int COLOR_1 = Color.argb(0, 0, 0, 0);
     final int COLOR_2 = Color.BLACK;
-    final int COLOR_3 = Color.argb(255, 176, 48, 96);
+//    final int COLOR_3 = Color.argb(255, 176, 48, 96);
+    final int COLOR_3 = Color.BLACK;
 
     final int TITLE_COLOR = Color.rgb(255, 192, 203);
 
     final int TEXT_COLOR_1 = Color.rgb(255, 80, 80);
+    final int TEXT_COLOR_2 = Color.BLACK;
+    final int TEXT_COLOR_3 = Color.WHITE;
 
     //サイズ
     final int TEXT_SIZE1 = 10;

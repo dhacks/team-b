@@ -68,6 +68,14 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
         button.setWidth(w);
         button.setHeight(h);
 
+        Button button2 = makeButton("testview", INDEX.length, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), null, this);
+        button2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.TestActivity");
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
