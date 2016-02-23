@@ -54,7 +54,7 @@ public class UserRegistrationActivity extends BaseActivity implements View.OnCli
         LinearLayout li_la = makeLinearLayout(COLOR_1, LinearLayout.VERTICAL, sc_vi, this);
 
         makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
-        makeTextView("※名前は6文字まで", 20, Color.BLACK, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
+        makeTextView("※名前は6文字まで", TEXT_SIZE2, Color.BLACK, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
         makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
         int textSize = (int) (p.x / 28.8);
 

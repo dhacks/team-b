@@ -39,5 +39,9 @@
             android:name=".ResultActivity"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name=".WorstResultActivity"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 </manifest>

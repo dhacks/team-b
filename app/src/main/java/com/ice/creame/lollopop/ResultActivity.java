@@ -6,24 +6,22 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
 import java.util.Calendar;
 
+import static com.ice.creame.lollopop.DBHelper.readDB;
+import static com.ice.creame.lollopop.DBHelper.writeDB;
 import static com.ice.creame.lollopop.MethodLibrary.makeButton;
 import static com.ice.creame.lollopop.MethodLibrary.makeLinearLayout;
 import static com.ice.creame.lollopop.MethodLibrary.makeRelativeLayout;
 import static com.ice.creame.lollopop.MethodLibrary.makeScrollView;
 import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
-import static com.ice.creame.lollopop.DBHelper.*;
 
 /**
  * Created by hideya on 2016/02/21.
@@ -167,7 +165,11 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent();
                                 /* ここで画面遷移 */
+                                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.WorstResultActivity");
+                                startActivity(intent);
+                                ResultActivity.this.finish();
                             }
                         }).setNegativeButton("いいえ", new DialogInterface.OnClickListener() {
 

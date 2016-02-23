@@ -70,6 +70,9 @@ public class BaseActivity extends AppCompatActivity {
 
     final int TEXT_COLOR_1 = Color.rgb(255, 80, 80);
 
+    //サイズ
+    final int TEXT_SIZE2 = 20;
+
     //制限定数
     final int LIMIT_NAME = 6; //名前の最大文字数
 
