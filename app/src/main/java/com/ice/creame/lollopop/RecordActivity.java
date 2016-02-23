@@ -27,7 +27,7 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
 
         // TableLayoutのグループを取得
         LinearLayout parent = (LinearLayout) findViewById(R.id.parent);
-        parent.setBackgroundResource(R.drawable.carpet);
+        parent.setBackgroundResource(BACK_GROUND_IMAGE);
 
         RelativeLayout r1 = (RelativeLayout) findViewById(R.id.r1);
         r1.setBackgroundColor(COLOR_3);
@@ -81,6 +81,7 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
                 Intent intent = new Intent();
                 intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.IndexActivity");
                 startActivity(intent);
+                RecordActivity.this.finish();
             }
         });
 
