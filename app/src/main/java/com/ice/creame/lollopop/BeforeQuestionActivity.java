@@ -53,7 +53,7 @@ public class BeforeQuestionActivity extends BaseActivity implements View.OnClick
         ScrollView sc_vi = makeScrollView(COLOR_1, li_la_super, this);
         LinearLayout li_la = makeLinearLayout(COLOR_1, LinearLayout.VERTICAL, sc_vi, this);
 
-        makeTextView(" ", 20, Color.RED, NO_ID, li_la, null, this);
+        makeTextView(" ", 150, Color.RED, NO_ID, li_la, null, this);
         //男女の切り替え
         TextView tv;
         if (globals.name_index < globals.nameM.size()) {

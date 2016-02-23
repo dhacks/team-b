@@ -69,6 +69,7 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
         button.setHeight(h);
 
         Button button2 = makeButton("testview", INDEX.length, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), null, this);
+        button2.setTextColor(TEXT_COLOR_1);
         button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -86,7 +87,7 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
         globals.GlobalsAllInit();
 
         boolean goRecord = false;
-
+        //id=0~2が2:2,3:3,4:4の設定,id=3が記録の閲覧
         switch (id) {
             case 0:
                 Log.d("mydebug", "Index_onClick_0");

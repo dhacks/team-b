@@ -53,7 +53,7 @@ public class BeforeResultActivity extends BaseActivity implements View.OnClickLi
         ScrollView sc_vi = makeScrollView(COLOR_1, li_la_super, this);
         LinearLayout li_la = makeLinearLayout(COLOR_1, LinearLayout.VERTICAL, sc_vi, this);
 
-        makeTextView(" ", 20, Color.RED, NO_ID, li_la, null, this);
+        makeTextView(" ", 150, Color.RED, NO_ID, li_la, null, this);
 
         TextView tv = makeTextView("結果発表", 32, TEXT_COLOR_1, NO_ID, li_la, null, this);
         tv.setGravity(Gravity.CENTER_HORIZONTAL);
