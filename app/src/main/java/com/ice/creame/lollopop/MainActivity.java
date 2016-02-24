@@ -18,7 +18,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import static com.ice.creame.lollopop.DBHelper.readDB;
 import static com.ice.creame.lollopop.MethodLibrary.makeLinearLayout;
 import static com.ice.creame.lollopop.MethodLibrary.makeRelativeLayout;
 import static com.ice.creame.lollopop.MethodLibrary.makeScrollView;
@@ -64,6 +66,25 @@ public class MainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+
+
+
+
+
+
+
+        //ノード情報の設定
+        try {
+            NODE = readDB(null, DBHelper.DB_TABLE_NODE, db);
+            Toast.makeText(this, "base設定", Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
     }
 
     @Override

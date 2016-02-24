@@ -54,12 +54,12 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
         for (int i = 0; ; i++) {
 
             try {
-                String date = readDB(String.valueOf(i), DBHelper.DB_TABLE, db)[1];
+                String date = readDB(String.valueOf(i), DBHelper.DB_TABLE_RECORD, db)[1];
 
                 makeTextView(date, TEXT_SIZE2, TEXT_COLOR_4, NO_ID, ll1, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
                 for (int k = 2; k < 5; k++) {
 
-                    String data = readDB(String.valueOf(i), DBHelper.DB_TABLE, db)[k];
+                    String data = readDB(String.valueOf(i), DBHelper.DB_TABLE_RECORD, db)[k];
                     makeTextView((k - 1) + "位  " + data, TEXT_SIZE2, TEXT_COLOR_3, NO_ID, ll1, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
                 }
             } catch (Exception e) {
