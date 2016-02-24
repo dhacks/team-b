@@ -78,7 +78,7 @@ public class WorstResultActivity extends BaseActivity implements View.OnClickLis
         makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
 
         makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
-        makeTextView("※ワースト1位は保存されません", TEXT_SIZE2, Color.BLACK, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
+        makeTextView("※ワースト1位は保存されません", TEXT_SIZE2, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
         makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
 
         Button button2 = makeButton("データを保存して終了", 1, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);

@@ -68,7 +68,8 @@ public class BaseActivity extends AppCompatActivity {
 //    final int COLOR_3 = Color.argb(255, 176, 48, 96);
     final int COLOR_3 = Color.BLACK;
 
-    final int TITLE_COLOR = Color.rgb(67, 110, 238);
+//    final int TITLE_COLOR = Color.rgb(67, 110, 238);
+    final int TITLE_COLOR = Color.rgb(255, 80, 80);
 
     final int TEXT_COLOR_1 = Color.rgb(255, 80, 80);
     final int TEXT_COLOR_2 = Color.BLACK;
@@ -79,7 +80,9 @@ public class BaseActivity extends AppCompatActivity {
     final int TEXT_SIZE1 = 10;
     final int TEXT_SIZE2 = 20;
     final int TEXT_SIZE3 = 30;
+    final int TEXT_SIZE3_5 = 35;
     final int TEXT_SIZE4 = 40;
+    final int TEXT_SIZE5 = 50;
 
     //制限定数
     final int LIMIT_NAME = 6; //名前の最大文字数

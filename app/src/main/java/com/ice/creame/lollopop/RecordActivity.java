@@ -32,17 +32,17 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
         RelativeLayout r1 = (RelativeLayout) findViewById(R.id.r1);
         r1.setBackgroundColor(COLOR_3);
 
-        TextView t3 = (TextView) findViewById(R.id.textView3);
+        TextView t3 = (TextView) findViewById(R.id.textView);
         t3.setText("今までの記録");
         t3.setTextSize(TEXT_SIZE3);
         t3.setTextColor(TITLE_COLOR);
         t3.setTypeface(tf);
 
-        FrameLayout fr_la = (FrameLayout) findViewById(R.id.frame2);
+        FrameLayout fr_la = (FrameLayout) findViewById(R.id.frame1_2);
         fr_la.setBackgroundResource(R.drawable.waku);
 
 
-        ScrollView sc = (ScrollView) findViewById(R.id.scrollView2);
+        ScrollView sc = (ScrollView) findViewById(R.id.scrollView1);
         sc.setBackgroundColor(COLOR_1);
 
 //<<<<<<< HEAD
@@ -75,7 +75,7 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
 
         }
 
-        RelativeLayout r2 = (RelativeLayout) findViewById(R.id.r2);
+        RelativeLayout r2 = (RelativeLayout) findViewById(R.id.r1_2);
         r2.setBackgroundColor(COLOR_3);
 
         Button b = (Button) findViewById(R.id.button);

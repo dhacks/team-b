@@ -10,8 +10,10 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnimationSet;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -24,42 +26,36 @@ import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
 
 public class MainActivity extends BaseActivity {
 
-    //Mainactivityのみ
-    TextView titleView;
-    TextView textView;
     static volatile Thread thread;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
 
-        /* Mainだけ特別 */
         thread = null;
 
-        /* パラメータ設定 */
-        //aapname用
-        RelativeLayout.LayoutParams param1 = new RelativeLayout.LayoutParams(WC, WC);
-        param1.addRule(RelativeLayout.CENTER_IN_PARENT);
+        LinearLayout li_la = (LinearLayout) findViewById(R.id.ll2);
+        li_la.setBackgroundResource(R.drawable.carpet);
 
-        //tap to start用
-        RelativeLayout.LayoutParams param2 = new RelativeLayout.LayoutParams(WC, WC);
-        param2.addRule(RelativeLayout.CENTER_IN_PARENT);
+        FrameLayout fr_la2 = (FrameLayout) findViewById(R.id.fl2_2);
+        fr_la2.setBackgroundResource(R.drawable.frame2);
 
-        /* 画面レイアウト */
-        LinearLayout li_la_super = makeLinearLayout(COLOR_D, LinearLayout.VERTICAL, null, this);
-        li_la_super.setBackgroundResource(BACK_GROUND_IMAGE);
+        FrameLayout fr_la3 = (FrameLayout) findViewById(R.id.fl2_3);
+        fr_la3.setBackgroundResource(R.drawable.corner);
 
-        setContentView(li_la_super);
-        ScrollView sc_vi = makeScrollView(COLOR_1, li_la_super, this);
-        LinearLayout li_la = makeLinearLayout(COLOR_1, LinearLayout.VERTICAL, sc_vi, this);
+        TextView te_vi = (TextView) findViewById(R.id.textView2_1);
+        te_vi.setText(APP_NAME);
+        te_vi.setTextSize(TEXT_SIZE5);
+        te_vi.setTextColor(TITLE_COLOR);
+        te_vi.setTypeface(tf);
 
-        makeTextView(" ", 32, Color.RED, NO_ID, makeRelativeLayout(COLOR_1, li_la, null, this), null, this);
-        makeTextView(" ", 60, Color.RED, NO_ID, li_la, null, this);
-        titleView = makeTextView(APP_NAME, 56, TEXT_COLOR_1, NO_ID, makeRelativeLayout(COLOR_1, li_la, null, this), param1, this);
-        makeTextView(" ", 110, Color.RED, NO_ID, li_la, null, this);
-        textView = makeTextView("Tap to start", 40, TEXT_COLOR_1, 1, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
-        textView.setElevation(10);
-        textView.setOnClickListener(new View.OnClickListener() {
+        TextView te_vi2 = (TextView) findViewById(R.id.textView2_2);
+        te_vi2.setText("Tap to start");
+        te_vi2.setTextSize(TEXT_SIZE3_5);
+        te_vi2.setTextColor(TITLE_COLOR);
+        te_vi2.setTypeface(tf);
+        te_vi2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("mydebug", "Main_onClick_taptostart");
                 //画面遷移
@@ -68,23 +64,32 @@ public class MainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
 
+        TextView titleView = (TextView) findViewById(R.id.textView2_1);
+
         if (hasFocus) {
             /* title */
-            ScaleAnimation a = new ScaleAnimation(0.5f, 1, 0.5f, 1,titleView.getWidth() / 2, titleView.getHeight() / 2);
-            a.setDuration(3000); // 3000msかけてアニメーションする
-//            a.setRepeatCount(1);
-            a.setStartOffset(10);
-            titleView.startAnimation(a); // アニメーション適用
+            AnimationSet set = new AnimationSet(true);
+
+            RotateAnimation rotate = new RotateAnimation(0, 360, titleView.getWidth()/2, titleView.getHeight()/2); // imgの中心を軸に、0度から360度にかけて回転
+            rotate.setDuration(5000);
+            set.addAnimation(rotate);
+
+            ScaleAnimation a = new ScaleAnimation(0.0f, 1, 0.0f, 1, titleView.getWidth() / 2, titleView.getHeight() / 2);
+            a.setDuration(5000);
+            set.addAnimation(a);
+
+            titleView.startAnimation(set);
 
             /* Tap to Start */
             if (thread == null) {
                 thread = new Thread(new Runnable() {
+
+
                     @Override
                     public void run() {
 
@@ -93,6 +98,7 @@ public class MainActivity extends BaseActivity {
 
                             MainActivity.this.runOnUiThread(new Runnable() {
                                 public void run() {
+                                    TextView textView = (TextView) findViewById(R.id.textView2_2);
                                     RotateAnimation a2 = new RotateAnimation(-2.0f, 2.0f, textView.getWidth() / 2, textView.getHeight() / 2);
                                     a2.setDuration(10);
                                     a2.setRepeatCount(15);
