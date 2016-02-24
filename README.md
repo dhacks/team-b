@@ -1,1 +1,1 @@
-"# Lollipop"
+Lollipop

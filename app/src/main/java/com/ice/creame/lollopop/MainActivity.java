@@ -36,7 +36,7 @@ public class MainActivity extends BaseActivity {
         thread = null;
 
         LinearLayout li_la = (LinearLayout) findViewById(R.id.ll2);
-        li_la.setBackgroundResource(R.drawable.carpet);
+        li_la.setBackgroundResource(BACK_GROUND_IMAGE);
 
         FrameLayout fr_la2 = (FrameLayout) findViewById(R.id.fl2_2);
         fr_la2.setBackgroundResource(R.drawable.frame2);
