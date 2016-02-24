@@ -5,44 +5,33 @@
     android:orientation="vertical"
     android:id="@+id/parent4">
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/r4_1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textView4"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="329dp"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal">
+        android:id="@+id/scrollView4"
+        android:layout_gravity="center_horizontal"
+        android:background="#c8000000">
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal|top"
-            android:id="@+id/rl4">
+            android:layout_height="match_parent"
+            android:id="@+id/ll4"></LinearLayout>
+    </ScrollView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/textView4"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
-        </RelativeLayout>
-
-        <FrameLayout
-            android:layout_width="330dp"
-            android:layout_height="564dp"
-            android:layout_gravity="center_horizontal|bottom"
-            android:background="#72000000">
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="565dp"
-                android:id="@+id/scrollView2"
-                android:layout_gravity="center_horizontal|top" >
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/ll4"></LinearLayout>
-            </ScrollView>
-        </FrameLayout>
-    </FrameLayout>
 </LinearLayout>
