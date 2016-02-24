@@ -47,7 +47,7 @@ public class BaseActivity extends AppCompatActivity {
 
     //select_text
     final String SELECT1[] = {"が非常に重要", "がやや重要", "同等"};
-    final String SELECT2[]={"が好き","のほうが少し好き","同じぐらい好き"};
+    final String SELECT2[]={"が非常に良い","がやや良い","同等"};
 
     //hash_table
     final int combination2[][] = {{0, 1}};
@@ -110,7 +110,6 @@ public class BaseActivity extends AppCompatActivity {
         /* データベースオブジェクトの取得 */
         DBHelper dbHelper = new DBHelper(this);
         db = dbHelper.getWritableDatabase();
-
 
 
         /* 画面サイズ取得→機種対応 */

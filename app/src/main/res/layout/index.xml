@@ -17,7 +17,7 @@
             android:background="#85000000">
 
             <FrameLayout
-                android:layout_width="288dp"
+                android:layout_width="280dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal|top"
                 android:id="@+id/fl3_1">
@@ -35,7 +35,14 @@
                         android:id="@+id/ll3">
                     </LinearLayout>
                 </ScrollView>
+
             </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="352dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:id="@+id/fl3"></FrameLayout>
 
         </FrameLayout>
 

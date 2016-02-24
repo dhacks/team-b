@@ -26,6 +26,10 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
         LinearLayout parent = (LinearLayout) findViewById(R.id.parent3);
         parent.setBackgroundResource(BACK_GROUND_IMAGE);
 
+        FrameLayout fr_la = (FrameLayout) findViewById(R.id.fl3);
+        fr_la.setBackgroundResource(R.drawable.waku2);
+        fr_la.bringToFront();
+
         RelativeLayout r1 = (RelativeLayout) findViewById(R.id.r3_1);
         r1.setBackgroundColor(COLOR_3);
 
