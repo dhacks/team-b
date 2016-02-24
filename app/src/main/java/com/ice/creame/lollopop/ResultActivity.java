@@ -127,7 +127,7 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
                 int cnt = 0;
                 for (int i = 0; ; i++) {
                     try {
-                        readDB(String.valueOf(i), DBHelper.DB_TABLE, db);
+                        readDB(String.valueOf(i), DBHelper.DB_TABLE_RECORD, db);
                         cnt++;
                     } catch (Exception e) {
                         break;
@@ -140,18 +140,18 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
                 }
 
                 try {
-                    writeDB(String.valueOf(cnt), date, value[0], value[1], value[2], DBHelper.DB_TABLE, db);
+                    writeDB(String.valueOf(cnt), date, value[0], value[1], value[2], DBHelper.DB_TABLE_RECORD, db);
                 } catch (Exception e) {
                     Log.d("mydebug", "dbError");
                 }
 
                 for (int i = 0; i <= cnt; i++) {
                     try {
-                        Log.d("mydebug", " id : " + readDB(String.valueOf(i), DBHelper.DB_TABLE, db)[0]);
-                        Log.d("mydebug", " date : " + readDB(String.valueOf(i), DBHelper.DB_TABLE, db)[1]);
-                        Log.d("mydebug", " v1 : " + readDB(String.valueOf(i), DBHelper.DB_TABLE, db)[2]);
-                        Log.d("mydebug", " v2 : " + readDB(String.valueOf(i), DBHelper.DB_TABLE, db)[3]);
-                        Log.d("mydebug", " v3 : " + readDB(String.valueOf(i), DBHelper.DB_TABLE, db)[4]);
+                        Log.d("mydebug", " id : " + readDB(String.valueOf(i), DBHelper.DB_TABLE_RECORD, db)[0]);
+                        Log.d("mydebug", " date : " + readDB(String.valueOf(i), DBHelper.DB_TABLE_RECORD, db)[1]);
+                        Log.d("mydebug", " v1 : " + readDB(String.valueOf(i), DBHelper.DB_TABLE_RECORD, db)[2]);
+                        Log.d("mydebug", " v2 : " + readDB(String.valueOf(i), DBHelper.DB_TABLE_RECORD, db)[3]);
+                        Log.d("mydebug", " v3 : " + readDB(String.valueOf(i), DBHelper.DB_TABLE_RECORD, db)[4]);
 
                     } catch (Exception e) {
                         Log.d("mydebug", "dbError");

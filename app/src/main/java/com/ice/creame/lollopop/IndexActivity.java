@@ -100,17 +100,27 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
             }
         });
 
+        //nodeカスタマイズ
+        Button button3 = makeButton("testview", INDEX.length, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), null, this);
+        button3.setTextColor(TEXT_COLOR_1);
+        button3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.NodeCustomizeActivity");
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        Intent intent = new Intent(this, IndexActivity.class);
+        Intent intent = new Intent();
 
         globals.GlobalsAllInit();
 
-        boolean goRecord = false;
-        //id=0~2が2:2,3:3,4:4の設定,id=3が記録の閲覧
+        //id=0~2が2:2,3:3,4:4の設定
         switch (id) {
             case 0:
                 Log.d("mydebug", "Index_onClick_0");
