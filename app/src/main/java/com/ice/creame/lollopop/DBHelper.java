@@ -90,10 +90,6 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         if (db_table.equals(DB_TABLE_NODE)) {
-//            values.put("condition1", value1);
-//            values.put("condition2", value2);
-//            values.put("condition3", value3);
-//            long Id = db.insert(db_table, "", values);
 
             String sql = "update " + DB_TABLE_NODE + " set condition ='" + value1 + "' where id = '" + id + "';";
 
@@ -104,8 +100,6 @@ public class DBHelper extends SQLiteOpenHelper {
             values.put("value1", value1);
             values.put("value2", value2);
             values.put("value3", value3);
-//        int colNum = db.update(db_table, values, null, null);
-//        if (colNum == 0)
             db.insert(db_table, "", values);
         }
     }
