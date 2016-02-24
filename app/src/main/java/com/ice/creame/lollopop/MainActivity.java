@@ -145,6 +145,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+
     // BACKボタンで終了させる
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
