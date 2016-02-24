@@ -113,6 +113,15 @@ public class BaseActivity extends AppCompatActivity {
         DBHelper dbHelper = new DBHelper(this);
         db = dbHelper.getWritableDatabase();
 
+        try {
+            NODE[0] = readDB("0", DB_TABLE_NODE, db)[1];
+            NODE[1] = readDB("1", DB_TABLE_NODE, db)[1];
+            NODE[2] = readDB("2", DB_TABLE_NODE, db)[1];
+
+        } catch (Exception e) {
+            Log.d("d", "dbError");
+        }
+
         /* 画面サイズ取得→機種対応 */
         display = getWindowManager().getDefaultDisplay();
         p = new Point();

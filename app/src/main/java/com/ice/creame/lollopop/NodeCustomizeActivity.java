@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import static com.ice.creame.lollopop.DBHelper.DB_TABLE_NODE;
 import static com.ice.creame.lollopop.DBHelper.readDB;
 import static com.ice.creame.lollopop.DBHelper.writeDB;
 import static com.ice.creame.lollopop.MethodLibrary.makeButton;
@@ -65,15 +66,22 @@ public class NodeCustomizeActivity extends BaseActivity implements View.OnClickL
 
         //ノード設定edit text
         for (int i = 0; i < NODE.length; i++) {
-            makeTextView("ノード" + (i + 1), 40, TEXT_COLOR_1, NO_ID, makeRelativeLayout(COLOR_1, li_la, null, this), param3, this);
-            et[i] = makeEditText(NODE[i], textSize, i, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), param4, this);
+            makeTextView("  " +i , 40, TEXT_COLOR_1, NO_ID, makeRelativeLayout(COLOR_1, li_la, null, this), param3, this);
+            String text = "bubu-";
+            try {
+                text = readDB(String.valueOf(i), DB_TABLE_NODE, db)[1];
+            }catch (Exception e){
+
+            }
+
+            et[i] = makeEditText(text, textSize, i, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), param4, this);
             et[i].setWidth((int) (p.x / 1.44));
 //            //入力文字数制限
-//            InputFilter[] _inputFilter = new InputFilter[1];
-//            _inputFilter[0] = new InputFilter.LengthFilter(LIMIT_NAME); //文字数指定
-//            et.setFilters(_inputFilter);
-//            et.setBackgroundResource(R.drawable.layout_shape); //XMLでフレーム定義
-//            makeTextView(" ", 20, Color.RED, NO_ID, li_la, null, this);
+            InputFilter[] _inputFilter = new InputFilter[1];
+            _inputFilter[0] = new InputFilter.LengthFilter(LIMIT_NAME); //文字数指定
+            et[i].setFilters(_inputFilter);
+            et[i].setBackgroundResource(R.drawable.layout_shape); //XMLでフレーム定義
+            makeTextView(" ", 20, Color.RED, NO_ID, li_la, null, this);
         }
 
         int w = (int) (p.x / 1.3);
@@ -90,27 +98,17 @@ public class NodeCustomizeActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        String value[] = {null, null, null};
         Intent intent = new Intent();
         switch (id) {
             case 0:
                 //DBに登録する
-                for (int i = 0; i < NODE.length; i++) value[i] = et[i].getText().toString();
-                try {
-                    writeDB(null, null, value[0], value[1], value[2], DBHelper.DB_TABLE_NODE, db);
+                for (int i = 0; i < NODE.length; i++) {
+                    try {
+                        writeDB(String.valueOf(i), null,et[i].getText().toString() , null, null, DBHelper.DB_TABLE_NODE, db);
 
-                    Toast.makeText(this, "登録ok", Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    Log.d("mydebug", "dbError");
-                }
-                        //DBから変更の読み込み
-                try {
-                    NODE = readDB(null, DBHelper.DB_TABLE_NODE, db);
-
-                    Toast.makeText(this, "読み込みok", Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(this, "読み込みng", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Log.d("mydebug", "dbError");
+                    }
                 }
 
                 //遷移

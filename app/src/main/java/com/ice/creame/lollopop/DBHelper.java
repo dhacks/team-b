@@ -30,16 +30,14 @@ public class DBHelper extends SQLiteOpenHelper {
         //テーブルの生成
         Log.d("mydebug", "DBのonCreate");
         db.execSQL("create table if not exists " + DB_TABLE_RECORD + "(id text primary key, date text, value1 text, value2 text, value3 text)");
-        Log.d("mydebug", "DBのonCreate2");
-        db.execSQL("create table if not exists " + DB_TABLE_NODE + "(condition1 text, condition2 text, condition3 text)");
 
-        //ノードデフォルト設定
-        String d_node[] = {"性格さふぁ", "ルックス", "知的さ"};
-        ContentValues d_values = new ContentValues();
-        d_values.put("condition1", d_node[0]);
-        d_values.put("condition2", d_node[1]);
-        d_values.put("condition3", d_node[2]);
-        db.insert(DB_TABLE_NODE, "", d_values);
+        Log.d("mydebug", "DBのonCreate2");
+        db.execSQL("create table if not exists " + DB_TABLE_NODE + "(id text primary key, condition text)");
+
+        db.execSQL("Insert into " + DB_TABLE_NODE + " values('0', '性格')");
+        db.execSQL("Insert into " + DB_TABLE_NODE + " values('1', 'ルックス')");
+        db.execSQL("Insert into " + DB_TABLE_NODE + " values('2', '知的さ')");
+
     }
 
     //データベースのアップグレード
@@ -59,13 +57,12 @@ public class DBHelper extends SQLiteOpenHelper {
         //node
         if (db_table.equals(DB_TABLE_NODE)) {
             Cursor c = null;
-            c = db.query(db_table, new String[]{"condition1", "condition2", "condition3"},null, null, null, null, null);
+            c = db.query(db_table, new String[]{"id", "condition"},"id='" + id + "'", null, null, null, null);
             if (c.getCount() == 0) throw new Exception();
             c.moveToFirst();
-            String str[] = new String[3];
-            str[0] = c.getString(1);
-            str[1] = c.getString(2);
-            str[2] = c.getString(3);
+            String str[] = new String[2];
+            str[0] = c.getString(0);
+            str[1] = c.getString(1);
             c.close();
             return str;
         }
@@ -93,10 +90,14 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         if (db_table.equals(DB_TABLE_NODE)) {
-            values.put("condition1", value1);
-            values.put("condition2", value2);
-            values.put("condition3", value3);
-            long Id = db.insert(db_table, "", values);
+//            values.put("condition1", value1);
+//            values.put("condition2", value2);
+//            values.put("condition3", value3);
+//            long Id = db.insert(db_table, "", values);
+
+            String sql = "update " + DB_TABLE_NODE + " set condition ='" + value1 + "' where id = '" + id + "';";
+
+            db.execSQL(sql);
         } else {
             values.put("id", id);
             values.put("date", date);
@@ -108,6 +109,5 @@ public class DBHelper extends SQLiteOpenHelper {
             db.insert(db_table, "", values);
         }
     }
-
 
 }
