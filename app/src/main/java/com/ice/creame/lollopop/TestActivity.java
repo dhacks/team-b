@@ -1,16 +1,21 @@
 package com.ice.creame.lollopop;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import static com.ice.creame.lollopop.MethodLibrary.makeButton;
+import static com.ice.creame.lollopop.MethodLibrary.makeEditText;
 import static com.ice.creame.lollopop.MethodLibrary.makeRelativeLayout;
 import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
 
@@ -25,53 +30,44 @@ public class TestActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.userresistration);
 
-//        LinearLayout parent = (LinearLayout) findViewById(R.id.parent3);
-//        parent.setBackgroundResource(BACK_GROUND_IMAGE);
-//
-//        RelativeLayout r1 = (RelativeLayout) findViewById(R.id.r3_1);
-//        r1.setBackgroundColor(COLOR_3);
-//
-//        RelativeLayout r2 = (RelativeLayout) findViewById(R.id.r3_2);
-//        r2.setBackgroundColor(COLOR_3);
-//
-//        TextView t = (TextView) findViewById(R.id.textView3);
-//        t.setText("男女比を選ぼう");
-//        t.setTextSize(TEXT_SIZE3);
-//        t.setTextColor(TITLE_COLOR);
-//        t.setTypeface(tf);
-//
-//
-//        int w = (int) (p.x / 1.3);
-//        int h = (int) (p.y / 7.9);
-//
-//        LinearLayout li_la = (LinearLayout) findViewById(R.id.ll3);
-//
-//        RelativeLayout.LayoutParams param1 = new RelativeLayout.LayoutParams(w, h);
-//        param1.addRule(RelativeLayout.CENTER_HORIZONTAL);
-//
-//        makeTextView(" ", TEXT_SIZE4, TEXT_COLOR_1, NO_ID, li_la, null, this);
-//
-//        for (int i = 0; i < INDEX.length; i++) {
-//            FrameLayout fl = new FrameLayout(this);
-//            fl.setLayoutParams(param1);
-//            li_la.addView(fl);
-//
-//            Button b = new Button(this);
-//            b.setBackgroundResource(R.drawable.button);
-//            b.setText(INDEX[i]);
-//            b.setTypeface(tf);
-//            b.setTextSize(TEXT_SIZE3);
-//            b.setId(i);
-//            b.setOnClickListener((View.OnClickListener) this);
-//            fl.addView(b);
-//
-//        }
-//
-//        makeTextView(" ", TEXT_SIZE4, TEXT_COLOR_1, NO_ID, li_la, null, this);
-//
-//        FrameLayout fl = new FrameLayout(this);
-//        fl.setLayoutParams(param1);
-//        li_la.addView(fl);
+        LinearLayout parent = (LinearLayout) findViewById(R.id.parent4);
+        parent.setBackgroundResource(BACK_GROUND_IMAGE);
+
+        RelativeLayout r1 = (RelativeLayout) findViewById(R.id.rl4);
+        r1.setBackgroundColor(COLOR_3);
+
+        TextView t = (TextView) findViewById(R.id.textView4);
+        t.setText("名前を入力してください");
+        t.setTextSize(TEXT_SIZE3);
+        t.setTextColor(TITLE_COLOR);
+        t.setTypeface(tf);
+
+        LinearLayout li_la = (LinearLayout) findViewById(R.id.ll4);
+
+        makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
+        makeTextView("※名前は6文字まで", TEXT_SIZE2, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
+        makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
+        int textSize = (int) (p.x / 28.8);
+
+        //エディットテキスト用
+        RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(WC, WC);
+        param.addRule(RelativeLayout.CENTER_HORIZONTAL);
+
+        //男
+        for (int i = 0; i < globals.indexFlag; i++) {
+            makeTextView("男" + (i + 1), 40, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
+
+            EditText et = makeEditText(DEFAULT_NAME_M[i], textSize, i, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this)
+                    , param, this);
+            et.setWidth((int) (p.x / 1.44));
+            //入力文字数制限
+            InputFilter[] _inputFilter = new InputFilter[1];
+            _inputFilter[0] = new InputFilter.LengthFilter(LIMIT_NAME); //文字数指定
+            et.setFilters(_inputFilter);
+            et.setBackgroundResource(R.drawable.layout_shape); //XMLでフレーム定義
+            makeTextView(" ", 20, Color.RED, NO_ID, li_la, null, this);
+        }
+
 //        Button b1 = new Button(this);
 //        b1.setBackgroundResource(R.drawable.button);
 //        b1.setText("今までの記録");
@@ -87,16 +83,7 @@ public class TestActivity extends BaseActivity {
 //            }
 //        });
 //        fl.addView(b1);
-//
-//        Button button2 = makeButton("testview", INDEX.length, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), null, this);
-//        button2.setTextColor(TEXT_COLOR_1);
-//        button2.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent();
-//                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.TestActivity");
-//                startActivity(intent);
-//            }
-//        });
+
 
     }
 
