@@ -43,8 +43,8 @@
         </RelativeLayout>
 
         <FrameLayout
-            android:layout_width="331dp"
-            android:layout_height="466dp"
+            android:layout_width="330dp"
+            android:layout_height="480dp"
             android:layout_gravity="center"
             android:id="@+id/frame"
             android:background="#000000">

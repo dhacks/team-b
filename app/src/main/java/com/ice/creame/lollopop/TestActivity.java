@@ -23,7 +23,7 @@ public class TestActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.userresistration);
 
 //        LinearLayout parent = (LinearLayout) findViewById(R.id.parent3);
 //        parent.setBackgroundResource(BACK_GROUND_IMAGE);

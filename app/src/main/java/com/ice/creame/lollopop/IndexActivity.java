@@ -37,7 +37,7 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
         r2.setBackgroundColor(COLOR_3);
 
         TextView t = (TextView) findViewById(R.id.textView3);
-        t.setText("男女比を選ぼう");
+        t.setText("男女比を選んでください");
         t.setTextSize(TEXT_SIZE3);
         t.setTextColor(TITLE_COLOR);
         t.setTypeface(tf);
