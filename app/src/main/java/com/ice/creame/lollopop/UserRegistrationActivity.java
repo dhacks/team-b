@@ -110,30 +110,34 @@ public class UserRegistrationActivity extends BaseActivity {
                 //音の再生
                 seplay(globals.soundpool, globals.sound1, globals.soundFlag);
                 //空白の検出
+                boolean flag=true;
                 for (int i = 0; i < globals.indexFlag * 2; i++) {
                     EditText et = (EditText) findViewById(i);
                     if (et.getText().toString().equals("")) {
                         Toast.makeText(UserRegistrationActivity.this, "すべての項目に入力してください", Toast.LENGTH_SHORT).show();
-
+                        flag=false;
                     }
                 }
+                if(flag) {
 
-                //名前の登録
-                for (int i = 0; i < globals.indexFlag; i++) {
-                    EditText et = (EditText) findViewById(i);
-                    globals.nameM.add(et.getText().toString());
+                    //名前の登録
+                    for (int i = 0; i < globals.indexFlag; i++) {
+                        EditText et = (EditText) findViewById(i);
+                        globals.nameM.add(et.getText().toString());
+                    }
+
+                    for (int i = 0; i < globals.indexFlag; i++) {
+                        EditText et = (EditText) findViewById(i + globals.indexFlag);
+                        globals.nameF.add(et.getText().toString());
+                    }
+                    //画面遷移
+                    Intent intent = new Intent();
+                    intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.BeforeQuestionActivity");
+                    startActivity(intent);
+                    UserRegistrationActivity.this.finish();
+                }
                 }
 
-                for (int i = 0; i < globals.indexFlag; i++) {
-                    EditText et = (EditText) findViewById(i + globals.indexFlag);
-                    globals.nameF.add(et.getText().toString());
-                }
-                //画面遷移
-                Intent intent = new Intent();
-                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.BeforeQuestionActivity");
-                startActivity(intent);
-                UserRegistrationActivity.this.finish();
-            }
         });
         fl.addView(b1);
 
