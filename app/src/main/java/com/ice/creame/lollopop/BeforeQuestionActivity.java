@@ -32,7 +32,6 @@ public class BeforeQuestionActivity extends BaseActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         thread = null;
 
         setContentView(R.layout.beforequestion);
