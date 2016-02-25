@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -30,6 +31,8 @@ import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
  * Created by hideya on 2016/02/23.
  */
 public class WorstResultActivity extends BaseActivity implements View.OnClickListener {
+
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +60,8 @@ public class WorstResultActivity extends BaseActivity implements View.OnClickLis
 
         makeTextView(" ", TEXT_SIZE3_5, TEXT_COLOR_1, NO_ID, li_la, null, this);
 
-        makeTextView(globals.nameM.elementAt((int) globals.rank[3][1]) + "と" + globals.nameF.elementAt((int) globals.rank[3][0]), TEXT_SIZE3_5, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
+        textView = makeTextView(globals.nameM.elementAt((int) globals.rank[3][1]) + "と" + globals.nameF.elementAt((int) globals.rank[3][0]), TEXT_SIZE3_5, TEXT_COLOR_3, NO_ID, li_la, null, this);
+        textView.setGravity(Gravity.CENTER_HORIZONTAL);
 
         makeTextView(" ", TEXT_SIZE5, TEXT_COLOR_1, NO_ID, li_la, null, this);
 
@@ -158,6 +162,21 @@ public class WorstResultActivity extends BaseActivity implements View.OnClickLis
         }
 
 
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+
+
+        if (hasFocus) {
+
+            ScaleAnimation a = new ScaleAnimation(0.0f, 1, 0.0f, 1, textView.getWidth() / 2, textView.getHeight() / 2);
+            a.setDuration(5000);
+            a.setStartOffset(1000);
+            textView.startAnimation(a);
+
+
+        }
     }
 
     // BACKボタンで終了させる

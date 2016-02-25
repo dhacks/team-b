@@ -9,12 +9,17 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.AnimationSet;
+import android.view.animation.RotateAnimation;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.Calendar;
 
@@ -31,6 +36,7 @@ import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
  */
 public class ResultActivity extends BaseActivity implements View.OnClickListener {
 
+    TextView textView[] = {null, null, null};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +58,11 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
 
         LinearLayout li_la = (LinearLayout) findViewById(R.id.ll5);
 
-        makeTextView(" ", TEXT_SIZE4, TEXT_COLOR_1, NO_ID, li_la, null, this);
+        makeTextView(" ", TEXT_SIZE5, TEXT_COLOR_1, NO_ID, li_la, null, this);
 
         for (int i = 0; i < globals.rank.length - 1; i++) {
-            makeTextView((i + 1) + "位 " + globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]) , TEXT_SIZE3, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
+            textView[i] = makeTextView((i + 1) + "位 " + globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]) , TEXT_SIZE3, TEXT_COLOR_3, NO_ID, li_la, null, this);
+            textView[i].setGravity(Gravity.CENTER_HORIZONTAL);
         }
 
         makeTextView(" ", TEXT_SIZE3_5, TEXT_COLOR_1, NO_ID, li_la, null, this);
@@ -175,6 +182,34 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
                 }).show();
 
                 break;
+        }
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+
+
+        if (hasFocus) {
+            /* title */
+
+            AnimationSet set2 = new AnimationSet(true);
+            ScaleAnimation a2 = new ScaleAnimation(0.0f, 1, 0.0f, 1, textView[2].getWidth() / 2, textView[2].getHeight() / 2);
+            a2.setDuration(5000);
+            a2.setStartOffset(1000);
+            textView[2].startAnimation(a2);
+
+            ScaleAnimation a1 = new ScaleAnimation(0.0f, 1, 0.0f, 1, textView[1].getWidth() / 2, textView[2].getHeight() / 2);
+            a1.setDuration(5000);
+            a1.setStartOffset(6000);
+            textView[1].startAnimation(a1);
+
+
+            ScaleAnimation a = new ScaleAnimation(0.0f, 1, 0.0f, 1, textView[0].getWidth() / 2, textView[2].getHeight() / 2);
+            a.setDuration(5000);
+            a.setStartOffset(11000);
+            textView[0].startAnimation(a);
+
+
         }
     }
 
