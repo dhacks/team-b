@@ -100,7 +100,7 @@ public class BeforeQuestionActivity extends BaseActivity implements View.OnClick
 
 
 
-        
+
     }
 
     @Override
