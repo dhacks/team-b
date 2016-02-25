@@ -34,7 +34,6 @@ public class BeforeQuestionActivity extends BaseActivity implements View.OnClick
         super.onCreate(savedInstanceState);
 
         thread = null;
-
         setContentView(R.layout.beforequestion);
 
         LinearLayout parent = (LinearLayout) findViewById(R.id.parent4);
