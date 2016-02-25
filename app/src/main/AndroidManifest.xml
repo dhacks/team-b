@@ -56,5 +56,9 @@
             android:name=".NodeCustomizeActivity"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name=".SettingActivity"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 </manifest>

@@ -106,6 +106,9 @@ public class UserRegistrationActivity extends BaseActivity {
         b1.setTextSize(TEXT_SIZE3);
         b1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //音の再生
+                seplay(globals.soundpool,globals.sound1,globals.soundFlag);
+
                 for (int i = 0; i < globals.indexFlag; i++) {
                     EditText et = (EditText) findViewById(i);
                     globals.nameM.add(et.getText().toString());

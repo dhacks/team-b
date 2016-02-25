@@ -5,10 +5,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -62,7 +65,7 @@ public class BaseActivity extends AppCompatActivity {
 
     //ahp_param
     final double pair_comp[] = {9.0, 5.0, 1.0, 1.0 / 5.0, 1.0 / 9.0};
-//    final double pair_comp[] = {1.0/3.0, 1.0/8.0, 1.0/5.0, 1.0 / 5.0, 1.0 / 9.0}; //テスト
+    //final double pair_comp[] = {1.0/3.0, 1.0/8.0, 1.0/5.0, 1.0 / 5.0, 1.0 / 9.0}; //テスト
 
     public static final int MP = LinearLayout.LayoutParams.MATCH_PARENT; //画面最大
     public static final int WC = LinearLayout.LayoutParams.WRAP_CONTENT; //自動調節
@@ -71,11 +74,16 @@ public class BaseActivity extends AppCompatActivity {
     final int COLOR_D = Color.RED;
     final int COLOR_1 = Color.argb(0, 0, 0, 0);
     final int COLOR_2 = Color.BLACK;
-    //    final int COLOR_3 = Color.argb(255, 176, 48, 96);
+    //final int COLOR_3 = Color.argb(255, 176, 48, 96);
     final int COLOR_3 = Color.BLACK;
 
+//<<<<<<< HEAD
     //    final int TITLE_COLOR = Color.rgb(67, 110, 238);
     final int TITLE_COLOR = Color.rgb(205, 0, 0);
+//=======
+//    //final int TITLE_COLOR = Color.rgb(67, 110, 238);
+//    final int TITLE_COLOR = Color.rgb(255, 80, 80);
+//>>>>>>> origin/settingA
 
     final int TEXT_COLOR_1 = Color.rgb(255, 80, 80);
     final int TEXT_COLOR_2 = Color.BLACK;
@@ -133,7 +141,31 @@ public class BaseActivity extends AppCompatActivity {
         display.getSize(p);
         //フォント情報
         tf = Typeface.createFromAsset(getAssets(), "TanukiMagic.ttf");
+        //連打対応カウント
+        globals.soundFlag=false;
+    }
 
+    protected void onResume(){
+        super.onResume();
+        globals.soundpool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        globals.sound1 = globals.soundpool.load(this, R.raw.click, 1);
+        globals.soundFlag=false;
+    }
 
+    protected void onPause(){
+        super.onPause();
+        //音の再生
+        globals.soundpool.unload(globals.sound1);
+        globals.soundpool.release();
+
+    }
+
+    public void seplay(SoundPool pool,int sound,boolean count){
+        //カウントtrueで連打
+        if(count) pool.play(sound, 0.2f, 0.2f, 1, 0, 1.0f);
+        else{
+            pool.play(sound, 0.2f, 0.2f, 1, 0, 1.0f);
+            try { Thread.sleep(400);} catch (InterruptedException e) {};
+        }
     }
 }

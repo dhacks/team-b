@@ -124,6 +124,28 @@ public class BeforeResultActivity extends BaseActivity {
         }
     }
 
+//<<<<<<< HEAD
+//=======
+//    @Override
+//    public void onClick(View view) {
+//        int id = view.getId();
+//
+//        Intent intent = new Intent();
+//
+//        //音の再生
+//        seplay(globals.soundpool,globals.sound1,globals.soundFlag);
+//
+//        switch (id) {
+//            case 0:
+//                //遷移
+//                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.ResultActivity");
+//                startActivity(intent);
+//                BeforeResultActivity.this.finish();
+//                break;
+//        }
+//    }
+
+//>>>>>>> origin/settingA
     // BACKボタンで終了させる
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

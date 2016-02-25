@@ -21,6 +21,7 @@ import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
  */
 public class RecordActivity extends BaseActivity implements View.OnClickListener {
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,14 +71,14 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
 
         }
 
-
-
         Button b = (Button) findViewById(R.id.button);
         b.setTextSize(TEXT_SIZE3);
         b.setTextColor(TITLE_COLOR);
         b.setTypeface(tf);
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //音の再生
+                seplay(globals.soundpool,globals.sound1,globals.soundFlag);
                 //画面遷移
                 Intent intent = new Intent();
                 intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.IndexActivity");
@@ -91,8 +92,9 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View view) {
         int id = view.getId();
-
         Intent intent = new Intent();
+        //音の再生
+        seplay(globals.soundpool,globals.sound1,globals.soundFlag);
         switch (id) {
             case 0:
                 //遷移
@@ -100,9 +102,9 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
                 startActivity(intent);
                 RecordActivity.this.finish();
                 break;
-
         }
     }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

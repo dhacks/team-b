@@ -45,10 +45,16 @@ public class BeforeQuestionActivity extends BaseActivity implements View.OnClick
 
         LinearLayout li_la = (LinearLayout) findViewById(R.id.ll4);
 
+//<<<<<<< HEAD
         makeTextView(" ", 50, Color.RED, NO_ID, li_la, null, this);
         makeTextView(" ", 50, Color.RED, NO_ID, li_la, null, this);
+//=======
+//        makeTextView(" ", 150, Color.RED, NO_ID, li_la, null, this);
+//
+//>>>>>>> origin/settingA
         //男女の切り替え
         TextView tv;
+
         if (globals.name_index < globals.nameM.size()) {
             tv = makeTextView(globals.nameM.elementAt(globals.name_index) + "の番", 32, TEXT_COLOR_3, NO_ID, li_la, null, this);
         } else {
@@ -98,7 +104,6 @@ public class BeforeQuestionActivity extends BaseActivity implements View.OnClick
         if (hasFocus) {
 
 
-
             if (thread == null) {
                 thread = new Thread(new Runnable() {
                     @Override
@@ -131,15 +136,16 @@ public class BeforeQuestionActivity extends BaseActivity implements View.OnClick
                 });
                 thread.start();
             }
-
         }
     }
 
     @Override
     public void onClick(View view) {
         int id = view.getId();
-
         Intent intent = new Intent();
+        //音の再生
+        seplay(globals.soundpool, globals.sound1,globals.soundFlag);
+
         switch (id) {
             case 0:
                 //遷移

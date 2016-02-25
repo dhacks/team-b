@@ -81,6 +81,8 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
         b1.setTextSize(TEXT_SIZE3);
         b1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //音の再生
+                seplay(globals.soundpool,globals.sound1,globals.soundFlag);
                 //画面遷移
                 Intent intent = new Intent();
                 intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.RecordActivity");
@@ -94,6 +96,9 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
         button2.setTextColor(TEXT_COLOR_1);
         button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //音の再生
+                seplay(globals.soundpool,globals.sound1,globals.soundFlag);
+                //画面遷移
                 Intent intent = new Intent();
                 intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.TestActivity");
                 startActivity(intent);
@@ -105,8 +110,25 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
         button3.setTextColor(TEXT_COLOR_1);
         button3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //音の再生
+                seplay(globals.soundpool,globals.sound1,globals.soundFlag);
+                //画面遷移
                 Intent intent = new Intent();
                 intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.NodeCustomizeActivity");
+                startActivity(intent);
+            }
+        });
+
+        //設定
+        Button button4 = makeButton("testview", INDEX.length, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), null, this);
+        button4.setTextColor(TEXT_COLOR_1);
+        button4.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //音の再生
+                seplay(globals.soundpool,globals.sound1,globals.soundFlag);
+                //画面遷移
+                Intent intent = new Intent();
+                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.SettingActivity");
                 startActivity(intent);
             }
         });
@@ -119,7 +141,8 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
         Intent intent = new Intent();
 
         globals.GlobalsAllInit();
-
+        //音の再生
+        seplay(globals.soundpool,globals.sound1,globals.soundFlag);
         //id=0~2が2:2,3:3,4:4の設定
         switch (id) {
             case 0:
@@ -138,9 +161,13 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
 
         globals.GlobalsALLmatrixSet(globals.indexFlag, NODE.length); //AHPに必要な行列サイズのセット
         intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.UserRegistrationActivity");
-
-        startActivity(intent);
         IndexActivity.this.finish();
+        startActivity(intent);
+
+    }
+
+    public void onDestroy(){
+        super.onDestroy();
     }
 
 }
