@@ -117,7 +117,7 @@ public class UserRegistrationActivity extends BaseActivity {
                 }
                 //画面遷移
                 Intent intent = new Intent();
-                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.TestActivity");
+                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.BeforeQuestionActivity");
                 startActivity(intent);
                 UserRegistrationActivity.this.finish();
             }
