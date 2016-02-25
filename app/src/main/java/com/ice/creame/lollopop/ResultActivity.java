@@ -101,6 +101,9 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
         int id = view.getId();
 
         Intent intent = new Intent();
+        //音の再生
+        seplay(globals.soundpool,globals.sound1,globals.soundFlag);
+
         switch (id) {
             case 0:
                 //遷移

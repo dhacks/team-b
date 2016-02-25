@@ -41,6 +41,9 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         count = 0;
+        //連打対応
+        globals.soundFlag=true;
+
         /* パラメータ設定 */
         //タイトル用
         RelativeLayout.LayoutParams param1 = new RelativeLayout.LayoutParams(WC, WC);
@@ -182,6 +185,12 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
 
             globals.GlobalsPortmatrixSet(globals.indexFlag, NODE.length);
 
+            //連打機能停止
+            globals.soundFlag=false;
+            //音の再生
+            //seplay(globals.soundpool,globals.sound1,globals.soundFlag);
+
+
             //遷移
             if (globals.name_index < globals.nameM.size() + globals.nameF.size()) {
                 intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.BeforeQuestionActivity");
@@ -284,6 +293,9 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
 
 
         }
+        //音の再生
+        seplay(globals.soundpool,globals.sound1,globals.soundFlag);
+
     }
 
     // BACKボタンで終了させる

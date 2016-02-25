@@ -38,13 +38,13 @@ public class MainActivity extends BaseActivity {
         thread = null;
 
         LinearLayout li_la = (LinearLayout) findViewById(R.id.ll2);
-        //li_la.setBackgroundResource(BACK_GROUND_IMAGE);
+        li_la.setBackgroundResource(BACK_GROUND_IMAGE);
 
         FrameLayout fr_la2 = (FrameLayout) findViewById(R.id.fl2_2);
-        //fr_la2.setBackgroundResource(R.drawable.frame2);
+        fr_la2.setBackgroundResource(R.drawable.frame2);
 
         FrameLayout fr_la3 = (FrameLayout) findViewById(R.id.fl2_3);
-        //fr_la3.setBackgroundResource(R.drawable.corner);
+        fr_la3.setBackgroundResource(R.drawable.corner);
 
         TextView te_vi = (TextView) findViewById(R.id.textView2_1);
         te_vi.setText(APP_NAME);
@@ -59,6 +59,8 @@ public class MainActivity extends BaseActivity {
         te_vi2.setTypeface(tf);
         te_vi2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //音の再生
+                seplay(globals.soundpool,globals.sound1,globals.soundFlag);
                 Log.d("mydebug", "Main_onClick_taptostart");
                 //画面遷移
                 Intent intent = new Intent();
@@ -81,9 +83,6 @@ public class MainActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
 
     }
 

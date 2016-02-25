@@ -1,6 +1,7 @@
 package com.ice.creame.lollopop;
 
 import android.app.Application;
+import android.media.SoundPool;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
@@ -27,6 +28,11 @@ public class Globals extends Application {
     public double peopleResult[][]; //personResultを全員分まとめたもの
     public double finalResult[][];
     public double rank[][];
+
+    //音の情報
+    public SoundPool soundpool;
+    public int sound1;
+    public boolean soundFlag;
 
     public void GlobalsAllInit() {
         indexFlag = -1;

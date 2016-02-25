@@ -99,6 +99,9 @@ public class NodeCustomizeActivity extends BaseActivity implements View.OnClickL
     public void onClick(View view) {
         int id = view.getId();
         Intent intent = new Intent();
+        //音の再生
+        seplay(globals.soundpool,globals.sound1,globals.soundFlag);
+
         switch (id) {
             case 0:
                 //DBに登録する

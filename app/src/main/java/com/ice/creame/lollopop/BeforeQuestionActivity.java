@@ -85,7 +85,6 @@ public class BeforeQuestionActivity extends BaseActivity implements View.OnClick
         if (hasFocus) {
 
 
-
             if (thread == null) {
                 thread = new Thread(new Runnable() {
                     @Override
@@ -118,15 +117,16 @@ public class BeforeQuestionActivity extends BaseActivity implements View.OnClick
                 });
                 thread.start();
             }
-
         }
     }
 
     @Override
     public void onClick(View view) {
         int id = view.getId();
-
         Intent intent = new Intent();
+        //音の再生
+        seplay(globals.soundpool, globals.sound1,globals.soundFlag);
+
         switch (id) {
             case 0:
                 //遷移
