@@ -42,8 +42,9 @@ public class SettingActivity extends BaseActivity{
 
         makeTextView(" ", 150, Color.RED, NO_ID, li_la, null, this);
 
+        makeTextView("fasdfa", 150, Color.RED, NO_ID, li_la, null, this);
 
-
+        makeTextView(" ", 150, Color.RED, NO_ID, li_la, null, this);
 
     }
 }

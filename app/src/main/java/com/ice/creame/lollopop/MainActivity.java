@@ -38,13 +38,13 @@ public class MainActivity extends BaseActivity {
         thread = null;
 
         LinearLayout li_la = (LinearLayout) findViewById(R.id.ll2);
-        li_la.setBackgroundResource(BACK_GROUND_IMAGE);
+        //li_la.setBackgroundResource(BACK_GROUND_IMAGE);
 
         FrameLayout fr_la2 = (FrameLayout) findViewById(R.id.fl2_2);
-        fr_la2.setBackgroundResource(R.drawable.frame2);
+        //fr_la2.setBackgroundResource(R.drawable.frame2);
 
         FrameLayout fr_la3 = (FrameLayout) findViewById(R.id.fl2_3);
-        fr_la3.setBackgroundResource(R.drawable.corner);
+        //fr_la3.setBackgroundResource(R.drawable.corner);
 
         TextView te_vi = (TextView) findViewById(R.id.textView2_1);
         te_vi.setText(APP_NAME);

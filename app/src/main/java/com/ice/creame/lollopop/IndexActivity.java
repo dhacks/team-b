@@ -149,9 +149,13 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
 
         globals.GlobalsALLmatrixSet(globals.indexFlag, NODE.length); //AHPに必要な行列サイズのセット
         intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.UserRegistrationActivity");
-
-        startActivity(intent);
         IndexActivity.this.finish();
+        startActivity(intent);
+
+    }
+
+    public void onDestroy(){
+        super.onDestroy();
     }
 
 }

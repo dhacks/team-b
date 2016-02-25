@@ -54,8 +54,10 @@ public class BeforeQuestionActivity extends BaseActivity implements View.OnClick
         LinearLayout li_la = makeLinearLayout(COLOR_1, LinearLayout.VERTICAL, sc_vi, this);
 
         makeTextView(" ", 150, Color.RED, NO_ID, li_la, null, this);
+
         //男女の切り替え
         TextView tv;
+
         if (globals.name_index < globals.nameM.size()) {
             tv = makeTextView(globals.nameM.elementAt(globals.name_index) + "の番", 32, TEXT_COLOR_1, NO_ID, li_la, null, this);
         } else {
