@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static com.ice.creame.lollopop.DBHelper.DB_TABLE_NODE;
 import static com.ice.creame.lollopop.DBHelper.readDB;
@@ -28,7 +29,7 @@ import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
 /**
  * Created by hpyus on 2016/02/24.
  */
-public class SettingActivity extends BaseActivity implements View.OnClickListener {
+public class SettingActivity extends BaseActivity {
 
     EditText[] et = {null, null, null};
 
@@ -69,11 +70,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             String text = "readError";
             try {
                 text = readDB(String.valueOf(i), DB_TABLE_NODE, db)[1];
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
 
-            makeTextView("条件" + (i+1), TEXT_SIZE2_5, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
+            makeTextView("条件" + (i + 1), TEXT_SIZE2_5, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
 
             RelativeLayout re = new RelativeLayout(this);
             li_la.addView(re);
@@ -82,13 +83,13 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             fl.setLayoutParams(param);
             re.addView(fl);
 
-            EditText et = makeEditText(text, textSize, i, NO_TAG, fl, null, this);
-            et.setWidth((int) (p.x / 1.44));
+            et[i] = makeEditText(text, textSize, i, NO_TAG, fl, null, this);
+            et[i].setWidth((int) (p.x / 1.44));
             //入力文字数制限
             InputFilter[] _inputFilter = new InputFilter[1];
             _inputFilter[0] = new InputFilter.LengthFilter(LIMIT_NAME); //文字数指定
-            et.setFilters(_inputFilter);
-            et.setBackgroundResource(R.drawable.edittext);
+            et[i].setFilters(_inputFilter);
+            et[i].setBackgroundResource(R.drawable.edittext);
             makeTextView(" ", TEXT_SIZE3_5, Color.RED, NO_ID, li_la, null, this);
         }
 
@@ -105,27 +106,18 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         Button b1 = new Button(this);
         b1.setBackgroundResource(R.drawable.button);
         b1.setText("登録");
-        b1.setId(0);
         b1.setTypeface(tf);
         b1.setTextSize(TEXT_SIZE3);
+        b1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                //音の再生
+                seplay(globals.soundpool, globals.sound1, globals.soundFlag);
 
-        fl.addView(b1);
-
-    }
-
-    @Override
-    public void onClick(View view) {
-        int id = view.getId();
-        Intent intent = new Intent();
-        //音の再生
-        seplay(globals.soundpool,globals.sound1,globals.soundFlag);
-
-        switch (id) {
-            case 0:
                 //DBに登録する
                 for (int i = 0; i < NODE.length; i++) {
                     try {
-                        writeDB(String.valueOf(i), null,et[i].getText().toString() , null, null, DBHelper.DB_TABLE_NODE, db);
+                        writeDB(String.valueOf(i), null, et[i].getText().toString(), null, null, DBHelper.DB_TABLE_NODE, db);
 
                     } catch (Exception e) {
                         Log.d("mydebug", "dbError");
@@ -136,8 +128,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.IndexActivity");
                 startActivity(intent);
                 SettingActivity.this.finish();
-                break;
-        }
+            }
+
+        });
+        fl.addView(b1);
+
     }
 
 }
