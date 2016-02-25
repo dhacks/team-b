@@ -40,6 +40,9 @@ public class WorstResultActivity extends BaseActivity implements View.OnClickLis
         LinearLayout parent = (LinearLayout) findViewById(R.id.parent6);
         parent.setBackgroundResource(BACK_GROUND_IMAGE);
 
+        FrameLayout fl_2 = (FrameLayout) findViewById(R.id.fl6_2);
+        fl_2.setBackgroundResource(R.drawable.waku2);
+
         TextView tv = (TextView) findViewById(R.id.textView6);
         tv.setText("結果発表");
         tv.setTextSize(TEXT_SIZE3);
@@ -47,6 +50,7 @@ public class WorstResultActivity extends BaseActivity implements View.OnClickLis
         tv.setTypeface(tf);
 
         LinearLayout li_la = (LinearLayout) findViewById(R.id.ll6);
+//        li_la
 
         makeTextView(" ", TEXT_SIZE3_5, TEXT_COLOR_1, NO_ID, li_la, null, this);
 

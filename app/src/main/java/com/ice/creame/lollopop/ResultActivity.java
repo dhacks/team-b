@@ -41,6 +41,9 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
         LinearLayout parent = (LinearLayout) findViewById(R.id.parent5);
         parent.setBackgroundResource(BACK_GROUND_IMAGE);
 
+        FrameLayout fl_2 = (FrameLayout) findViewById(R.id.fl5_2);
+        fl_2.setBackgroundResource(R.drawable.waku2);
+
         TextView tv = (TextView) findViewById(R.id.textView5);
         tv.setText("結果発表");
         tv.setTextSize(TEXT_SIZE3);
@@ -49,7 +52,7 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
 
         LinearLayout li_la = (LinearLayout) findViewById(R.id.ll5);
 
-        makeTextView(" ", TEXT_SIZE3_5, TEXT_COLOR_1, NO_ID, li_la, null, this);
+        makeTextView(" ", TEXT_SIZE4, TEXT_COLOR_1, NO_ID, li_la, null, this);
 
         for (int i = 0; i < globals.rank.length - 1; i++) {
             makeTextView((i + 1) + "位 " + globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]) , TEXT_SIZE3, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);

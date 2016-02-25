@@ -20,9 +20,14 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal|top"
+                android:layout_gravity="center"
                 android:id="@+id/ll5"
                 android:background="#000000"></LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/fl5_2"></FrameLayout>
         </FrameLayout>
 
         <RelativeLayout

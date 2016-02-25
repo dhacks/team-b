@@ -40,6 +40,8 @@ public class BeforeResultActivity extends BaseActivity {
         LinearLayout parent = (LinearLayout) findViewById(R.id.parent5);
         parent.setBackgroundResource(BACK_GROUND_IMAGE);
 
+        FrameLayout fl_2 = (FrameLayout) findViewById(R.id.fl5_2);
+        fl_2.setBackgroundResource(R.drawable.waku2);
 
         LinearLayout li_la = (LinearLayout) findViewById(R.id.ll5);
         makeTextView(" ", 50, Color.RED, NO_ID, li_la, null, this);

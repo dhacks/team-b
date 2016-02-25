@@ -53,6 +53,9 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
         LinearLayout parent = (LinearLayout) findViewById(R.id.parent5);
         parent.setBackgroundResource(BACK_GROUND_IMAGE);
 
+        FrameLayout fl_2 = (FrameLayout) findViewById(R.id.fl5_2);
+        fl_2.setBackgroundResource(R.drawable.waku2);
+
         text_name = (TextView) findViewById(R.id.textView5);
 
 
@@ -80,7 +83,9 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
 
 
         LinearLayout li_la = (LinearLayout) findViewById(R.id.ll5);
+        li_la.bringToFront();
 
+        makeTextView(" ", TEXT_SIZE1, TEXT_COLOR_3, NO_ID, li_la, null, this);
         text_about = makeTextView(" ", 24, TEXT_COLOR_3, NO_ID, li_la, null, this);
         text_about.setGravity(Gravity.CENTER_HORIZONTAL);
         text_question = makeTextView(comp1 + " VS " + comp2, 32, TEXT_COLOR_3, NO_ID, li_la, null, this);

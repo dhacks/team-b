@@ -40,6 +40,8 @@ public class BeforeQuestionActivity extends BaseActivity implements View.OnClick
         LinearLayout parent = (LinearLayout) findViewById(R.id.parent4);
         parent.setBackgroundResource(BACK_GROUND_IMAGE);
 
+        FrameLayout fl_2 = (FrameLayout) findViewById(R.id.fl4_2);
+        fl_2.setBackgroundResource(R.drawable.waku2);
 
         LinearLayout li_la = (LinearLayout) findViewById(R.id.ll4);
 
