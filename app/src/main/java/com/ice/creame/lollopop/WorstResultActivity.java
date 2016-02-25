@@ -50,7 +50,6 @@ public class WorstResultActivity extends BaseActivity implements View.OnClickLis
         tv.setTypeface(tf);
 
         LinearLayout li_la = (LinearLayout) findViewById(R.id.ll6);
-//        li_la
 
         makeTextView(" ", TEXT_SIZE3_5, TEXT_COLOR_1, NO_ID, li_la, null, this);
 
