@@ -33,7 +33,6 @@ public class BeforeQuestionActivity extends BaseActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         thread = null;
-
         setContentView(R.layout.beforequestion);
 
         LinearLayout parent = (LinearLayout) findViewById(R.id.parent4);

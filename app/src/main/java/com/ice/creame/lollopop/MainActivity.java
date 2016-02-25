@@ -95,7 +95,7 @@ public class MainActivity extends BaseActivity {
             /* title */
             AnimationSet set = new AnimationSet(true);
 
-            RotateAnimation rotate = new RotateAnimation(0, 360, titleView.getWidth()/2, titleView.getHeight()/2); // imgの中心を軸に、0度から360度にかけて回転
+            RotateAnimation rotate = new RotateAnimation(0, 1440, titleView.getWidth()/2, titleView.getHeight()/2); // imgの中心を軸に、0度から360度にかけて回転
             rotate.setDuration(5000);
             set.addAnimation(rotate);
 
