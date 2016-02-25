@@ -111,6 +111,17 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
             }
         });
 
+        //設定
+        Button button4 = makeButton("testview", INDEX.length, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), null, this);
+        button4.setTextColor(TEXT_COLOR_1);
+        button4.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.SettingActivity");
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
