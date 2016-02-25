@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -78,6 +79,8 @@ public class UserRegistrationActivity extends BaseActivity {
             _inputFilter[0] = new InputFilter.LengthFilter(LIMIT_NAME); //文字数指定
             et.setFilters(_inputFilter);
             et.setBackgroundResource(R.drawable.edittext);
+
+            et.setInputType(InputType.TYPE_CLASS_TEXT);//改行禁止
             makeTextView(" ", TEXT_SIZE3_5, Color.RED, NO_ID, li_la, null, this);
         }
 
@@ -99,6 +102,7 @@ public class UserRegistrationActivity extends BaseActivity {
             _inputFilter[0] = new InputFilter.LengthFilter(LIMIT_NAME); //文字数指定
             et.setFilters(_inputFilter);
             et.setBackgroundResource(R.drawable.edittext);
+            et.setInputType(InputType.TYPE_CLASS_TEXT);//改行禁止
             makeTextView(" ", TEXT_SIZE3_5, Color.RED, NO_ID, li_la, null, this);
         }
 
@@ -124,15 +128,15 @@ public class UserRegistrationActivity extends BaseActivity {
                 //音の再生
                 seplay(globals.soundpool, globals.sound1, globals.soundFlag);
                 //空白の検出
-                boolean flag=true;
+                boolean flag = true;
                 for (int i = 0; i < globals.indexFlag * 2; i++) {
                     EditText et = (EditText) findViewById(i);
-                    if (et.getText().toString().equals("")) {
+                    if (et.getText().toString().equals("") ) {
                         Toast.makeText(UserRegistrationActivity.this, "すべての項目に入力してください", Toast.LENGTH_SHORT).show();
-                        flag=false;
+                        flag = false;
                     }
                 }
-                if(flag) {
+                if (flag) {
 
                     //名前の登録
                     for (int i = 0; i < globals.indexFlag; i++) {
@@ -150,7 +154,7 @@ public class UserRegistrationActivity extends BaseActivity {
                     startActivity(intent);
                     UserRegistrationActivity.this.finish();
                 }
-                }
+            }
 
         });
         fl.addView(b1);

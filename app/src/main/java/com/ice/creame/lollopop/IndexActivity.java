@@ -124,7 +124,7 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
 
         globals.GlobalsAllInit();
         //音の再生
-        seplay(globals.soundpool,globals.sound1,globals.soundFlag);
+        seplay(globals.soundpool, globals.sound1, globals.soundFlag);
         //id=0~2が2:2,3:3,4:4の設定
         switch (id) {
             case 0:
@@ -148,7 +148,7 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
 
     }
 
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
     }
 

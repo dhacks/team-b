@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -90,6 +91,7 @@ public class SettingActivity extends BaseActivity {
             _inputFilter[0] = new InputFilter.LengthFilter(LIMIT_NAME); //文字数指定
             et[i].setFilters(_inputFilter);
             et[i].setBackgroundResource(R.drawable.edittext);
+            et[i].setInputType(InputType.TYPE_CLASS_TEXT);
             makeTextView(" ", TEXT_SIZE3_5, Color.RED, NO_ID, li_la, null, this);
         }
 
@@ -113,21 +115,30 @@ public class SettingActivity extends BaseActivity {
                 Intent intent = new Intent();
                 //音の再生
                 seplay(globals.soundpool, globals.sound1, globals.soundFlag);
-
-                //DBに登録する
+                boolean flag = true;
                 for (int i = 0; i < NODE.length; i++) {
-                    try {
-                        writeDB(String.valueOf(i), null, et[i].getText().toString(), null, null, DBHelper.DB_TABLE_NODE, db);
-
-                    } catch (Exception e) {
-                        Log.d("mydebug", "dbError");
+                    EditText et = (EditText) findViewById(i);
+                    if (et.getText().toString().equals("")) {
+                        Toast.makeText(SettingActivity.this, "すべての項目に入力してください", Toast.LENGTH_SHORT).show();
+                        flag = false;
                     }
                 }
+                if (flag) {
+                    //DBに登録する
+                    for (int i = 0; i < NODE.length; i++) {
+                        try {
+                            writeDB(String.valueOf(i), null, et[i].getText().toString(), null, null, DBHelper.DB_TABLE_NODE, db);
 
-                //遷移
-                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.IndexActivity");
-                startActivity(intent);
-                SettingActivity.this.finish();
+                        } catch (Exception e) {
+                            Log.d("mydebug", "dbError");
+                        }
+                    }
+
+                    //遷移
+                    intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.IndexActivity");
+                    startActivity(intent);
+                    SettingActivity.this.finish();
+                }
             }
 
         });

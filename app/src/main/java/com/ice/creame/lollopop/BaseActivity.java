@@ -47,16 +47,11 @@ public class BaseActivity extends AppCompatActivity {
     final String INDEX[] = {"2 : 2", "3 : 3", "4 : 4"};
 
     //node_text
- //   String NODE[] = {"性格", "ルックス", "知的さ"};
     String NODE[]={null,null,null};
 
     //select_text
     final String SELECT1[] = {"が非常に重要", "がやや重要", "同等"};
-//<<<<<<< HEAD
     final String SELECT2[]={"が非常に良い","がやや良い","同等"};
-//=======
-//    final String SELECT2[] = {"が好き", "のほうが少し好き", "同じぐらい好き"};
-//>>>>>>> newbranch
 
     //hash_table
     final int combination2[][] = {{0, 1}};
@@ -65,7 +60,6 @@ public class BaseActivity extends AppCompatActivity {
 
     //ahp_param
     final double pair_comp[] = {9.0, 5.0, 1.0, 1.0 / 5.0, 1.0 / 9.0};
-    //final double pair_comp[] = {1.0/3.0, 1.0/8.0, 1.0/5.0, 1.0 / 5.0, 1.0 / 9.0}; //テスト
 
     public static final int MP = LinearLayout.LayoutParams.MATCH_PARENT; //画面最大
     public static final int WC = LinearLayout.LayoutParams.WRAP_CONTENT; //自動調節
@@ -74,16 +68,10 @@ public class BaseActivity extends AppCompatActivity {
     final int COLOR_D = Color.RED;
     final int COLOR_1 = Color.argb(0, 0, 0, 0);
     final int COLOR_2 = Color.BLACK;
-    //final int COLOR_3 = Color.argb(255, 176, 48, 96);
     final int COLOR_3 = Color.BLACK;
 
-//<<<<<<< HEAD
-    //    final int TITLE_COLOR = Color.rgb(67, 110, 238);
     final int TITLE_COLOR = Color.rgb(205, 0, 0);
-//=======
-//    //final int TITLE_COLOR = Color.rgb(67, 110, 238);
-//    final int TITLE_COLOR = Color.rgb(255, 80, 80);
-//>>>>>>> origin/settingA
+
 
     final int TEXT_COLOR_1 = Color.rgb(255, 80, 80);
     final int TEXT_COLOR_2 = Color.BLACK;
