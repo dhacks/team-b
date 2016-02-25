@@ -1,6 +1,7 @@
 package com.ice.creame.lollopop;
 
 import android.app.Application;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
 
 import java.lang.reflect.Array;
@@ -31,8 +32,12 @@ public class Globals extends Application {
 
     //音の情報
     public SoundPool soundpool;
-    public int sound1;
+    public int soundClick;
+    public int soundError;
+    public int sound;
     public boolean soundFlag;
+    public MediaPlayer mpUserstart;
+    public MediaPlayer mpFirst;
 
     public void GlobalsAllInit() {
         indexFlag = -1;

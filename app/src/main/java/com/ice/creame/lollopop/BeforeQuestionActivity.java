@@ -4,6 +4,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -43,13 +46,14 @@ public class BeforeQuestionActivity extends BaseActivity implements View.OnClick
 
         LinearLayout li_la = (LinearLayout) findViewById(R.id.ll4);
 
-//<<<<<<< HEAD
         makeTextView(" ", 50, Color.RED, NO_ID, li_la, null, this);
         makeTextView(" ", 50, Color.RED, NO_ID, li_la, null, this);
-//=======
-//        makeTextView(" ", 150, Color.RED, NO_ID, li_la, null, this);
-//
-//>>>>>>> origin/settingA
+
+        //ユーザチェンジの音再生
+
+        globals.mpUserstart = MediaPlayer.create(this, R.raw.one35);
+        globals.mpUserstart.start();
+
         //男女の切り替え
         TextView tv;
 
@@ -86,7 +90,7 @@ public class BeforeQuestionActivity extends BaseActivity implements View.OnClick
         b1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //音の再生
-                seplay(globals.soundpool,globals.sound1,globals.soundFlag);
+                seplay(globals.soundpool,globals.soundClick,globals.soundFlag);
                 //画面遷移
                 Intent intent = new Intent();
                 intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.QuestionActivity");
@@ -147,7 +151,7 @@ public class BeforeQuestionActivity extends BaseActivity implements View.OnClick
         int id = view.getId();
         Intent intent = new Intent();
         //音の再生
-        seplay(globals.soundpool, globals.sound1,globals.soundFlag);
+        seplay(globals.soundpool, globals.soundClick,globals.soundFlag);
 
         switch (id) {
             case 0:
@@ -181,5 +185,12 @@ public class BeforeQuestionActivity extends BaseActivity implements View.OnClick
             return true;
         }
         return false;
+    }
+
+    protected void onDestroy(){
+        super.onDestroy();
+        globals.mpUserstart.stop();
+        globals.mpUserstart.release();
+        globals.mpUserstart=null;
     }
 }

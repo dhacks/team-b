@@ -60,7 +60,7 @@ public class MainActivity extends BaseActivity {
         te_vi2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //音の再生
-                seplay(globals.soundpool,globals.sound1,globals.soundFlag);
+                seplay(globals.soundpool,globals.soundClick,globals.soundFlag);
                 Log.d("mydebug", "Main_onClick_taptostart");
                 //画面遷移
                 Intent intent = new Intent();
@@ -68,12 +68,6 @@ public class MainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
-
-
 
         //ノード情報の設定
         try {

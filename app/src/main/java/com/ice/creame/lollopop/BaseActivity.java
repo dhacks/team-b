@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -47,11 +48,11 @@ public class BaseActivity extends AppCompatActivity {
     final String INDEX[] = {"2 : 2", "3 : 3", "4 : 4"};
 
     //node_text
-    String NODE[]={null,null,null};
+    String NODE[] = {null, null, null};
 
     //select_text
     final String SELECT1[] = {"が非常に重要", "がやや重要", "同等"};
-    final String SELECT2[]={"が非常に良い","がやや良い","同等"};
+    final String SELECT2[] = {"が非常に良い", "がやや良い", "同等"};
 
     //hash_table
     final int combination2[][] = {{0, 1}};
@@ -128,30 +129,36 @@ public class BaseActivity extends AppCompatActivity {
         //フォント情報
         tf = Typeface.createFromAsset(getAssets(), "TanukiMagic.ttf");
         //連打対応カウント
-        globals.soundFlag=false;
+        globals.soundFlag = false;
     }
 
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
-        globals.soundpool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-        globals.sound1 = globals.soundpool.load(this, R.raw.click, 1);
-        globals.soundFlag=false;
+        globals.soundpool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
+        globals.soundClick = globals.soundpool.load(this, R.raw.click, 1);
+        globals.soundError = globals.soundpool.load(this, R.raw.miss, 1);
+        globals.soundFlag = false;
     }
 
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
-        //音の再生
-        globals.soundpool.unload(globals.sound1);
+        //解放
+        globals.soundpool.unload(globals.soundClick);
+        globals.soundpool.unload(globals.soundError);
         globals.soundpool.release();
-
     }
 
-    public void seplay(SoundPool pool,int sound,boolean count){
+
+    public void seplay(SoundPool pool, int sound, boolean count) {
         //カウントtrueで連打
-        if(count) pool.play(sound, 0.2f, 0.2f, 1, 0, 1.0f);
-        else{
+        if (count) pool.play(sound, 0.2f, 0.2f, 1, 0, 1.0f);
+        else {
             pool.play(sound, 0.2f, 0.2f, 1, 0, 1.0f);
-            try { Thread.sleep(400);} catch (InterruptedException e) {};
+            try {
+                Thread.sleep(400);
+            } catch (InterruptedException e) {
+            }
+            ;
         }
     }
 }

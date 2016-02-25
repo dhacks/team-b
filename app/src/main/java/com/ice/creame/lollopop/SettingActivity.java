@@ -113,17 +113,20 @@ public class SettingActivity extends BaseActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent();
-                //音の再生
-                seplay(globals.soundpool, globals.sound1, globals.soundFlag);
+
                 boolean flag = true;
                 for (int i = 0; i < NODE.length; i++) {
                     EditText et = (EditText) findViewById(i);
                     if (et.getText().toString().equals("")) {
+                        //音の再生
+                        seplay(globals.soundpool, globals.soundError, globals.soundFlag);
                         Toast.makeText(SettingActivity.this, "すべての項目に入力してください", Toast.LENGTH_SHORT).show();
                         flag = false;
                     }
                 }
                 if (flag) {
+                    //音の再生
+                    seplay(globals.soundpool, globals.soundClick, globals.soundFlag);
                     //DBに登録する
                     for (int i = 0; i < NODE.length; i++) {
                         try {

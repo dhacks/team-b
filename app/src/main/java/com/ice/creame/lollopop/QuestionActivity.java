@@ -213,9 +213,6 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
 
             //連打機能停止
             globals.soundFlag=false;
-            //音の再生
-            //seplay(globals.soundpool,globals.sound1,globals.soundFlag);
-
 
             //遷移
             if (globals.name_index < globals.nameM.size() + globals.nameF.size()) {
@@ -320,8 +317,7 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
 
         }
         //音の再生
-        seplay(globals.soundpool,globals.sound1,globals.soundFlag);
-
+        seplay(globals.soundpool,globals.soundClick,globals.soundFlag);
     }
 
 

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -98,7 +99,7 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
 
         Intent intent = new Intent();
         //音の再生
-        seplay(globals.soundpool,globals.sound1,globals.soundFlag);
+        seplay(globals.soundpool,globals.soundClick,globals.soundFlag);
 
         switch (id) {
             case 0:
@@ -211,6 +212,9 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
             a.setDuration(5000);
             a.setStartOffset(11000);
             textView[0].startAnimation(a);
+            //BGM再生
+            globals.mpFirst = MediaPlayer.create(this, R.raw.bravo);
+            globals.mpFirst.start();
 
 
         }
@@ -238,5 +242,11 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
             return true;
         }
         return false;
+    }
+
+    public void onDestroy(){
+        super.onDestroy();
+        globals.mpFirst.release();
+        globals.mpFirst=null;
     }
 }

@@ -97,7 +97,7 @@ public class WorstResultActivity extends BaseActivity implements View.OnClickLis
 
         Intent intent = new Intent();
         //音の再生
-        seplay(globals.soundpool,globals.sound1,globals.soundFlag);
+        seplay(globals.soundpool,globals.soundClick,globals.soundFlag);
         switch (id) {
             case 0:
                 //遷移

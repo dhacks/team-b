@@ -82,7 +82,7 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
         b1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //音の再生
-                seplay(globals.soundpool, globals.sound1, globals.soundFlag);
+                seplay(globals.soundpool, globals.soundClick, globals.soundFlag);
                 //画面遷移
                 Intent intent = new Intent();
                 intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.RecordActivity");
@@ -104,7 +104,7 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
         b2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //音の再生
-                seplay(globals.soundpool, globals.sound1, globals.soundFlag);
+                seplay(globals.soundpool, globals.soundClick, globals.soundFlag);
                 //画面遷移
                 Intent intent = new Intent();
                 intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.SettingActivity");
@@ -124,7 +124,7 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
 
         globals.GlobalsAllInit();
         //音の再生
-        seplay(globals.soundpool, globals.sound1, globals.soundFlag);
+        seplay(globals.soundpool, globals.soundClick, globals.soundFlag);
         //id=0~2が2:2,3:3,4:4の設定
         switch (id) {
             case 0:

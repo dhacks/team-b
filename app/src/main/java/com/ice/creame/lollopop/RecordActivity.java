@@ -78,7 +78,7 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //音の再生
-                seplay(globals.soundpool,globals.sound1,globals.soundFlag);
+                seplay(globals.soundpool, globals.soundClick, globals.soundFlag);
                 //画面遷移
                 Intent intent = new Intent();
                 intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.IndexActivity");
@@ -94,7 +94,7 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
         int id = view.getId();
         Intent intent = new Intent();
         //音の再生
-        seplay(globals.soundpool,globals.sound1,globals.soundFlag);
+        seplay(globals.soundpool, globals.soundClick, globals.soundFlag);
         switch (id) {
             case 0:
                 //遷移
