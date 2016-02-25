@@ -108,10 +108,8 @@ public class BaseActivity extends AppCompatActivity {
     //画像（背景）
     public final int BACK_GROUND_IMAGE = R.drawable.carpet;
 
-    //DBデータ
     /* DBデータ */
     SQLiteDatabase db; //データベースオブジェクト
-
 
     //グローバル変数
     Globals globals;
