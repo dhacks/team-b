@@ -71,7 +71,7 @@ public class BeforeResultActivity extends BaseActivity {
             public void onClick(View v) {
                 //画面遷移
                 Intent intent = new Intent();
-                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.TestActivity");
+                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.ResultActivity");
                 startActivity(intent);
                 BeforeResultActivity.this.finish();
             }

@@ -34,43 +34,44 @@ import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
 /**
  * Created by hideya on 2016/02/23.
  */
-public class TestActivity extends BaseActivity implements View.OnClickListener{
+public class TestActivity extends BaseActivity implements View.OnClickListener {
 
-    static volatile Thread thread;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.result);
-        thread = null;
+        setContentView(R.layout.worst);
 
-        LinearLayout parent = (LinearLayout) findViewById(R.id.parent5);
+        LinearLayout parent = (LinearLayout) findViewById(R.id.parent6);
         parent.setBackgroundResource(BACK_GROUND_IMAGE);
 
-        TextView tv = (TextView) findViewById(R.id.textView5);
+        TextView tv = (TextView) findViewById(R.id.textView6);
         tv.setText("結果発表");
         tv.setTextSize(TEXT_SIZE3);
         tv.setTextColor(TITLE_COLOR);
         tv.setTypeface(tf);
 
-        LinearLayout li_la = (LinearLayout) findViewById(R.id.ll5);
+        LinearLayout li_la = (LinearLayout) findViewById(R.id.ll6);
 
         makeTextView(" ", TEXT_SIZE3_5, TEXT_COLOR_1, NO_ID, li_la, null, this);
 
-        for (int i = 0; i < globals.rank.length - 1; i++) {
-            makeTextView((i + 1) + "位 " + globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]) , TEXT_SIZE3, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
-        }
+        makeTextView("ワースト1位", TEXT_SIZE3, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
 
         makeTextView(" ", TEXT_SIZE3_5, TEXT_COLOR_1, NO_ID, li_la, null, this);
 
+        makeTextView(globals.nameM.elementAt((int) globals.rank[3][1]) + "と" + globals.nameF.elementAt((int) globals.rank[3][0]), TEXT_SIZE3_5, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
+
+        makeTextView(" ", TEXT_SIZE5, TEXT_COLOR_1, NO_ID, li_la, null, this);
+
+        makeTextView("※ワースト1位は保存されません", TEXT_SIZE2, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
         int w = (int) (p.x / 1.3);
         int h = (int) (p.y / 7.9);
         RelativeLayout.LayoutParams param1 = new RelativeLayout.LayoutParams(w, h);
         param1.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
-        String text[] = {"データを保存せずに終了", "データを保存して終了" , "ワースト1位を見る"};
-        for(int i = 0 ; i < 3 ; i++) {
+        String text[] = {"データを保存せずに終了", "データを保存して終了"};
+        for (int i = 0; i < text.length; i++) {
             RelativeLayout re = new RelativeLayout(this);
             li_la.addView(re);
             FrameLayout fl = new FrameLayout(this);
@@ -127,7 +128,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
                     }
                 }
 
-                String value[] = new String [3];
+                String value[] = new String[3];
                 for (int i = 0; i < globals.rank.length - 1; i++) {
                     value[i] = globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]);
                 }
@@ -135,7 +136,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
                 try {
                     writeDB(String.valueOf(cnt), date, value[0], value[1], value[2], DBHelper.DB_TABLE_RECORD, db);
                 } catch (Exception e) {
-                    Log.d("mydebug", "dbError");
+                    Log.d("mydebug", "aaaaaa");
                 }
 
                 for (int i = 0; i <= cnt; i++) {
@@ -157,28 +158,33 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
                 TestActivity.this.finish();
                 break;
 
-            case 2:
-                new AlertDialog.Builder(this).setTitle("確認").setMessage("本当に見ますか？")
-                        .setPositiveButton("はい", new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent();
-                                /* ここで画面遷移 */
-                                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.WorstResultActivity");
-                                startActivity(intent);
-                                TestActivity.this.finish();
-                            }
-                        }).setNegativeButton("いいえ", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                }).show();
-
-                break;
         }
+
+
+    }
+
+    // BACKボタンで終了させる
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            new AlertDialog.Builder(this).setTitle("確認").setMessage("途中で終了すると今までに回答したデータが失われますがよろしいですか？")
+                    .setPositiveButton("はい", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            TestActivity.this.finish();
+                        }
+                    }).setNegativeButton("いいえ", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            }).show();
+
+            return true;
+        }
+        return false;
     }
 
 }

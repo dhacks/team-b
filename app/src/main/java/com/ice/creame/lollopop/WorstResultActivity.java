@@ -10,9 +10,11 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import java.util.Calendar;
 
@@ -33,66 +35,54 @@ public class WorstResultActivity extends BaseActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /* パラメータ設定 */
-        //タイトル用
-        RelativeLayout.LayoutParams param1 = new RelativeLayout.LayoutParams(WC, WC);
-        param1.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        setContentView(R.layout.worst);
 
-        //ボタン用
-        RelativeLayout.LayoutParams param2 = new RelativeLayout.LayoutParams(WC, WC);
-        param2.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        LinearLayout parent = (LinearLayout) findViewById(R.id.parent6);
+        parent.setBackgroundResource(BACK_GROUND_IMAGE);
 
-        /* 画面レイアウト */
-        LinearLayout li_la_super = makeLinearLayout(COLOR_D, LinearLayout.VERTICAL, null, this);
-        li_la_super.setBackgroundResource(BACK_GROUND_IMAGE);
+        TextView tv = (TextView) findViewById(R.id.textView6);
+        tv.setText("結果発表");
+        tv.setTextSize(TEXT_SIZE3);
+        tv.setTextColor(TITLE_COLOR);
+        tv.setTypeface(tf);
 
-        setContentView(li_la_super);
+        LinearLayout li_la = (LinearLayout) findViewById(R.id.ll6);
 
-        makeTextView("結果発表", 40, TITLE_COLOR, NO_ID, makeRelativeLayout(COLOR_3, li_la_super, null, this), param1, this);
-        ScrollView sc_vi = makeScrollView(COLOR_1, li_la_super, this);
-        LinearLayout li_la = makeLinearLayout(COLOR_1, LinearLayout.VERTICAL, sc_vi, this);
+        makeTextView(" ", TEXT_SIZE3_5, TEXT_COLOR_1, NO_ID, li_la, null, this);
 
-        makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
+        makeTextView("ワースト1位", TEXT_SIZE3, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
 
-        makeTextView("finalResult", 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
-        for (int i = 0; i < globals.finalResult.length; i++) {
-            for (int j = 0; j < globals.finalResult[0].length; j++) {
-                makeTextView(globals.nameM.elementAt(i) + " " + globals.nameF.elementAt(j) + ":" + globals.finalResult[i][j], 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
-            }
-        }
-        makeTextView("Worst", 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
+        makeTextView(" ", TEXT_SIZE3_5, TEXT_COLOR_1, NO_ID, li_la, null, this);
 
-        makeTextView("1位 " + globals.nameM.elementAt((int) globals.rank[3][1]) + "と" + globals.nameF.elementAt((int) globals.rank[3][0]) + ":" + globals.rank[3][2], 20, TEXT_COLOR_1, NO_ID, li_la, null, this);
+        makeTextView(globals.nameM.elementAt((int) globals.rank[3][1]) + "と" + globals.nameF.elementAt((int) globals.rank[3][0]), TEXT_SIZE3_5, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
 
-        makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
+        makeTextView(" ", TEXT_SIZE5, TEXT_COLOR_1, NO_ID, li_la, null, this);
 
+        makeTextView("※ワースト1位は保存されません", TEXT_SIZE2, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
         int w = (int) (p.x / 1.3);
         int h = (int) (p.y / 7.9);
+        RelativeLayout.LayoutParams param1 = new RelativeLayout.LayoutParams(w, h);
+        param1.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
-        Button button = makeButton("データを保存せずに終了", 0, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
-        button.setTextColor(TEXT_COLOR_1);
-        button.setTextSize(20);
-        button.setWidth(w);
-        button.setHeight(h);
+        String text[] = {"データを保存せずに終了", "データを保存して終了"};
+        for (int i = 0; i < text.length; i++) {
+            RelativeLayout re = new RelativeLayout(this);
+            li_la.addView(re);
+            FrameLayout fl = new FrameLayout(this);
+            fl.setLayoutParams(param1);
+            re.addView(fl);
 
-        makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
-
-        makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
-        makeTextView("※ワースト1位は保存されません", TEXT_SIZE2, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
-        makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
-
-        Button button2 = makeButton("データを保存して終了", 1, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
-        button2.setTextColor(TEXT_COLOR_1);
-        button2.setTextSize(20);
-        button2.setWidth(w);
-        button2.setHeight(h);
-
-        makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
-        makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
-
+            Button b1 = new Button(this);
+            b1.setBackgroundResource(R.drawable.button);
+            b1.setOnClickListener((View.OnClickListener) this);
+            b1.setText(text[i]);
+            b1.setId(i);
+            b1.setTypeface(tf);
+            b1.setTextSize(TEXT_SIZE2);
+            fl.addView(b1);
+        }
 
     }
-
 
     @Override
     public void onClick(View view) {
@@ -132,7 +122,7 @@ public class WorstResultActivity extends BaseActivity implements View.OnClickLis
                     }
                 }
 
-                String value[] = new String [3];
+                String value[] = new String[3];
                 for (int i = 0; i < globals.rank.length - 1; i++) {
                     value[i] = globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]);
                 }
@@ -163,6 +153,8 @@ public class WorstResultActivity extends BaseActivity implements View.OnClickLis
                 break;
 
         }
+
+
     }
 
     // BACKボタンで終了させる
@@ -188,4 +180,5 @@ public class WorstResultActivity extends BaseActivity implements View.OnClickLis
         }
         return false;
     }
+
 }
