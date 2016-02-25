@@ -62,6 +62,7 @@ public class WorstResultActivity extends BaseActivity implements View.OnClickLis
 
         textView = makeTextView(globals.nameM.elementAt((int) globals.rank[3][1]) + "と" + globals.nameF.elementAt((int) globals.rank[3][0]), TEXT_SIZE3_5, TEXT_COLOR_3, NO_ID, li_la, null, this);
         textView.setGravity(Gravity.CENTER_HORIZONTAL);
+        globals.tsubuyaki += "ワースト1位 "+globals.nameM.elementAt((int) globals.rank[3][1]) + "と" + globals.nameF.elementAt((int) globals.rank[3][0]);
 
         makeTextView(" ", TEXT_SIZE5, TEXT_COLOR_1, NO_ID, li_la, null, this);
 
@@ -88,6 +89,27 @@ public class WorstResultActivity extends BaseActivity implements View.OnClickLis
             b1.setTextSize(TEXT_SIZE2);
             fl.addView(b1);
         }
+
+        TextView test = (TextView) findViewById(R.id.textView6_2);
+        test.setText("共有");
+        test.setTextColor(TITLE_COLOR);
+        test.setTypeface(tf);
+        test.setTextSize(TEXT_SIZE3);
+        test.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //音の再生
+                seplay(globals.soundpool, globals.sound1, globals.soundFlag);
+                try {
+                    Intent sentIntent = new Intent();
+                    sentIntent.setAction(Intent.ACTION_SEND);
+                    sentIntent.setType("text/plain");
+                    sentIntent.putExtra(Intent.EXTRA_TEXT, APP_NAME + "の結果\n" + globals.tsubuyaki);
+                    startActivity(sentIntent);
+                }catch(Exception e){
+                    Log.d("mydebug", "not_tsubuyaki");
+                }
+            }
+        });
 
     }
 

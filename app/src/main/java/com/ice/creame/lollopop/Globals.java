@@ -34,6 +34,9 @@ public class Globals extends Application {
     public int sound1;
     public boolean soundFlag;
 
+    //つぶやき
+    public String tsubuyaki = "";
+
     public void GlobalsAllInit() {
         indexFlag = -1;
         GlobalsNameInit();

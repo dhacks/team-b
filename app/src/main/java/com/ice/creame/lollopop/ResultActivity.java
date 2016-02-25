@@ -42,6 +42,8 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        globals.tsubuyaki = "";
+
         setContentView(R.layout.result);
 
         LinearLayout parent = (LinearLayout) findViewById(R.id.parent5);
@@ -61,8 +63,9 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
         makeTextView(" ", TEXT_SIZE5, TEXT_COLOR_1, NO_ID, li_la, null, this);
 
         for (int i = 0; i < globals.rank.length - 1; i++) {
-            textView[i] = makeTextView((i + 1) + "位 " + globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]) , TEXT_SIZE3, TEXT_COLOR_3, NO_ID, li_la, null, this);
+            textView[i] = makeTextView((i + 1) + "位 " + globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]), TEXT_SIZE3, TEXT_COLOR_3, NO_ID, li_la, null, this);
             textView[i].setGravity(Gravity.CENTER_HORIZONTAL);
+            globals.tsubuyaki += (i + 1) + "位 " + globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]) + "\n";
         }
 
         makeTextView(" ", TEXT_SIZE3_5, TEXT_COLOR_1, NO_ID, li_la, null, this);
@@ -72,8 +75,8 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
         RelativeLayout.LayoutParams param1 = new RelativeLayout.LayoutParams(w, h);
         param1.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
-        String text[] = {"データを保存せずに終了", "データを保存して終了" , "ワースト1位を見る"};
-        for(int i = 0 ; i < 3 ; i++) {
+        String text[] = {"データを保存せずに終了", "データを保存して終了", "ワースト1位を見る"};
+        for (int i = 0; i < 3; i++) {
             RelativeLayout re = new RelativeLayout(this);
             li_la.addView(re);
             FrameLayout fl = new FrameLayout(this);
@@ -90,6 +93,27 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
             fl.addView(b1);
         }
 
+        TextView test = (TextView) findViewById(R.id.textView5_2);
+        test.setText("共有");
+        test.setTextColor(TITLE_COLOR);
+        test.setTypeface(tf);
+        test.setTextSize(TEXT_SIZE3);
+        test.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //音の再生
+                seplay(globals.soundpool, globals.sound1, globals.soundFlag);
+                try {
+                    Intent sentIntent = new Intent();
+                    sentIntent.setAction(Intent.ACTION_SEND);
+                    sentIntent.setType("text/plain");
+                    sentIntent.putExtra(Intent.EXTRA_TEXT, APP_NAME + "の結果\n" + globals.tsubuyaki);
+                    startActivity(sentIntent);
+                }catch(Exception e){
+                    Log.d("mydebug", "not_tsubuyaki");
+                }
+            }
+        });
+
     }
 
     @Override
@@ -98,7 +122,7 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
 
         Intent intent = new Intent();
         //音の再生
-        seplay(globals.soundpool,globals.sound1,globals.soundFlag);
+        seplay(globals.soundpool, globals.sound1, globals.soundFlag);
 
         switch (id) {
             case 0:
@@ -133,7 +157,7 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
                     }
                 }
 
-                String value[] = new String [3];
+                String value[] = new String[3];
                 for (int i = 0; i < globals.rank.length - 1; i++) {
                     value[i] = globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]);
                 }
