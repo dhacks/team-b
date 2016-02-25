@@ -205,7 +205,7 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
             } else {
                 globals.finalResult = getFinalResult(globals.peopleResult);
                 globals.rank = getRank(globals.finalResult);
-                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.TestActivity");
+                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.BeforeResultActivity");
             }
             startActivity(intent);
             QuestionActivity.this.finish();

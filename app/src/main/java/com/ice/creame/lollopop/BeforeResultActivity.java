@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -24,53 +25,61 @@ import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
 /**
  * Created by hideya on 2016/02/21.
  */
-public class BeforeResultActivity extends BaseActivity implements View.OnClickListener {
+
+public class BeforeResultActivity extends BaseActivity {
 
     static volatile Thread thread;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.beforeresult);
         thread = null;
 
-        /* パラメータ設定 */
-        //タイトル用
-        RelativeLayout.LayoutParams param1 = new RelativeLayout.LayoutParams(WC, WC);
-        param1.addRule(RelativeLayout.CENTER_HORIZONTAL);
-
-        //ボタン用
-        RelativeLayout.LayoutParams param2 = new RelativeLayout.LayoutParams(WC, WC);
-        param2.addRule(RelativeLayout.CENTER_HORIZONTAL);
-
-        /* 画面レイアウト */
-        LinearLayout li_la_super = makeLinearLayout(COLOR_D, LinearLayout.VERTICAL, null, this);
-        li_la_super.setBackgroundResource(BACK_GROUND_IMAGE);
-
-        setContentView(li_la_super);
+        LinearLayout parent = (LinearLayout) findViewById(R.id.parent5);
+        parent.setBackgroundResource(BACK_GROUND_IMAGE);
 
 
-        ScrollView sc_vi = makeScrollView(COLOR_1, li_la_super, this);
-        LinearLayout li_la = makeLinearLayout(COLOR_1, LinearLayout.VERTICAL, sc_vi, this);
+        LinearLayout li_la = (LinearLayout) findViewById(R.id.ll5);
+        makeTextView(" ", 50, Color.RED, NO_ID, li_la, null, this);
+        makeTextView(" ", 50, Color.RED, NO_ID, li_la, null, this);
 
-        makeTextView(" ", 150, Color.RED, NO_ID, li_la, null, this);
-
-        TextView tv = makeTextView("結果発表", 32, TEXT_COLOR_1, NO_ID, li_la, null, this);
+        TextView tv = makeTextView("結果発表", 32, TEXT_COLOR_3, NO_ID, li_la, null, this);
         tv.setGravity(Gravity.CENTER_HORIZONTAL);
 
-        makeTextView(" ", 20, Color.RED, NO_ID, li_la, null, this);
 
         int w = (int) (p.x / 1.3);
         int h = (int) (p.y / 7.9);
+        RelativeLayout.LayoutParams param1 = new RelativeLayout.LayoutParams(w, h);
+        param1.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
-        Button button = makeButton("見る", 0, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
+        RelativeLayout re = new RelativeLayout(this);
+        li_la.addView(re);
 
-        button.setTextColor(TEXT_COLOR_1);
-        button.setTextSize(20);
-        button.setWidth(w);
-        button.setHeight(h);
+        FrameLayout fl = new FrameLayout(this);
+        fl.setLayoutParams(param1);
+        re.addView(fl);
+
+        Button b1 = new Button(this);
+        b1.setBackgroundResource(R.drawable.button);
+        b1.setText("見る");
+        b1.setId(0);
+        b1.setTypeface(tf);
+        b1.setTextSize(TEXT_SIZE3);
+        b1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //画面遷移
+                Intent intent = new Intent();
+                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.TestActivity");
+                startActivity(intent);
+                BeforeResultActivity.this.finish();
+            }
+        });
+        fl.addView(b1);
 
     }
+
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -110,21 +119,6 @@ public class BeforeResultActivity extends BaseActivity implements View.OnClickLi
                 thread.start();
             }
 
-        }
-    }
-
-    @Override
-    public void onClick(View view) {
-        int id = view.getId();
-
-        Intent intent = new Intent();
-        switch (id) {
-            case 0:
-                //遷移
-                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.ResultActivity");
-                startActivity(intent);
-                BeforeResultActivity.this.finish();
-                break;
         }
     }
 
