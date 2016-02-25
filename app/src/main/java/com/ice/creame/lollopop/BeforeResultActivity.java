@@ -71,6 +71,8 @@ public class BeforeResultActivity extends BaseActivity {
         b1.setTextSize(TEXT_SIZE3);
         b1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //音の再生
+                seplay(globals.soundpool,globals.sound1,globals.soundFlag);
                 //画面遷移
                 Intent intent = new Intent();
                 intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.ResultActivity");
