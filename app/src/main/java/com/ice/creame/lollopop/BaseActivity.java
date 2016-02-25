@@ -134,7 +134,19 @@ public class BaseActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         globals.soundpool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-        globals.sound1 = globals.soundpool.load(this, R.raw.click, 1);
+
+        String isPlaySound = "-1"; //error
+        try{
+            isPlaySound = readDB("sound", DB_TABLE_NODE, db)[1];
+        }catch(Exception e){
+
+        }
+
+        if(isPlaySound.equals("1")){
+            globals.sound1 = globals.soundpool.load(this, R.raw.click, 1);
+        }else{
+            globals.sound1 = 0;
+        }
         globals.soundFlag=false;
     }
 

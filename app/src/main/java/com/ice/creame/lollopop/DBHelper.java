@@ -37,6 +37,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("Insert into " + DB_TABLE_NODE + " values('0', '性格')");
         db.execSQL("Insert into " + DB_TABLE_NODE + " values('1', 'ルックス')");
         db.execSQL("Insert into " + DB_TABLE_NODE + " values('2', '知的さ')");
+        db.execSQL("Insert into " + DB_TABLE_NODE + " values('sound', '1')");
 
     }
 

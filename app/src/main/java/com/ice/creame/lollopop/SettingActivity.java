@@ -33,6 +33,8 @@ import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
 public class SettingActivity extends BaseActivity {
 
     EditText[] et = {null, null, null};
+    String isPlaySound;
+    TextView sound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +97,50 @@ public class SettingActivity extends BaseActivity {
             makeTextView(" ", TEXT_SIZE3_5, Color.RED, NO_ID, li_la, null, this);
         }
 
+        makeTextView("音量", TEXT_SIZE3_5, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
+
+        isPlaySound = "-1"; //error
+        try {
+            isPlaySound = readDB("sound", DB_TABLE_NODE, db)[1];
+        } catch (Exception e) {
+
+        }
+
+        if (isPlaySound.equals("1")) {
+            sound = makeTextView("ON", TEXT_SIZE3_5, TITLE_COLOR, NO_ID, li_la, null, this);
+        } else {
+            sound = makeTextView("OFF", TEXT_SIZE3_5, TITLE_COLOR, NO_ID, li_la, null, this);
+        }
+        sound.setGravity(Gravity.CENTER_HORIZONTAL);
+        sound.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                isPlaySound = "-1"; //error
+                try {
+                    isPlaySound = readDB("sound", DB_TABLE_NODE, db)[1];
+                } catch (Exception e) {
+
+                }
+
+                if (isPlaySound.equals("1")) {
+                    try {
+                        writeDB("sound", null, "0", null, null, DB_TABLE_NODE, db);
+                        sound.setText("OFF");
+                    } catch (Exception e) {
+                        Log.d("mydebug", "aaa1");
+                    }
+                } else {
+                    //音の再生
+                    seplay(globals.soundpool, globals.sound1, globals.soundFlag);
+                    try {
+                        writeDB("sound", null, "1", null, null, DB_TABLE_NODE, db);
+                        sound.setText("ON");
+                    } catch (Exception e) {
+                        Log.d("mydebug", "aaa2");
+                    }
+                }
+            }
+        });
+        makeTextView(" ", TEXT_SIZE3_5, Color.RED, NO_ID, li_la, null, this);
         RelativeLayout.LayoutParams param1 = new RelativeLayout.LayoutParams(w, h);
         param1.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
