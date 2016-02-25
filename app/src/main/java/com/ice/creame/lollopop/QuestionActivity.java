@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -30,7 +31,6 @@ import static com.ice.creame.lollopop.AHPCalculation.getFinalResult;
  * Created by hideya on 2016/02/20.
  */
 public class QuestionActivity extends BaseActivity implements View.OnClickListener {
-
     TextView text_name;
     TextView text_about;
     TextView text_question;
@@ -38,32 +38,33 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
     private static int count;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        count = 0;
+
+
+        setContentView(R.layout.question);
         /* パラメータ設定 */
-        //タイトル用
-        RelativeLayout.LayoutParams param1 = new RelativeLayout.LayoutParams(WC, WC);
-        param1.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
         //ボタン用
         RelativeLayout.LayoutParams param2 = new RelativeLayout.LayoutParams(WC, WC);
         param2.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
-        /* 画面レイアウト */
-        LinearLayout li_la_super = makeLinearLayout(COLOR_D, LinearLayout.VERTICAL, null, this);
-        li_la_super.setBackgroundResource(BACK_GROUND_IMAGE);
 
-        setContentView(li_la_super);
+        LinearLayout parent = (LinearLayout) findViewById(R.id.parent5);
+        parent.setBackgroundResource(BACK_GROUND_IMAGE);
+
+        text_name = (TextView) findViewById(R.id.textView5);
+
 
         if (globals.name_index < globals.nameM.size()) {
-            text_name = makeTextView(globals.nameM.elementAt(globals.name_index) + "の番", 40, TITLE_COLOR, NO_ID, makeRelativeLayout(COLOR_3, li_la_super, null, this), param1, this);
+            text_name.setText(globals.nameM.elementAt(globals.name_index) + "の番");
         } else {
-            text_name = makeTextView(globals.nameF.elementAt(globals.name_index - globals.nameM.size()) + "の番", 40, TITLE_COLOR, NO_ID, makeRelativeLayout(COLOR_3, li_la_super, null, this), param1, this);
+            text_name.setText(globals.nameF.elementAt(globals.name_index - globals.nameM.size()) + "の番");
         }
+        text_name.setTextSize(TEXT_SIZE3);
+        text_name.setTextColor(TITLE_COLOR);
+        text_name.setTypeface(tf);
 
-        ScrollView sc_vi = makeScrollView(COLOR_1, li_la_super, this);
-        LinearLayout li_la = makeLinearLayout(COLOR_1, LinearLayout.VERTICAL, sc_vi, this);
 
         String comp1;
         String comp2;
@@ -77,29 +78,45 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
             comp2 = NODE[combination4[globals.node_index][1]];
         }
 
-        makeTextView(" ", 20, Color.RED, NO_ID, li_la, null, this);
-        text_about = makeTextView("", 24, TEXT_COLOR_1, NO_ID, li_la, null, this);
+
+        LinearLayout li_la = (LinearLayout) findViewById(R.id.ll5);
+
+        text_about = makeTextView(" ", 24, TEXT_COLOR_3, NO_ID, li_la, null, this);
         text_about.setGravity(Gravity.CENTER_HORIZONTAL);
-        text_question = makeTextView(comp1 + " VS " + comp2, 32, TEXT_COLOR_1, NO_ID, li_la, null, this);
+        text_question = makeTextView(comp1 + " VS " + comp2, 32, TEXT_COLOR_3, NO_ID, li_la, null, this);
         text_question.setGravity(Gravity.CENTER_HORIZONTAL);
-        makeTextView(" ", 20, Color.RED, NO_ID, li_la, null, this);
 
         int w = (int) (p.x / 1.3);
         int h = (int) (p.y / 7.9);
         for (int i = 0; i < SELECT1.length * 2 - 1; i++) {
-            Button button;
+
+            RelativeLayout.LayoutParams param1 = new RelativeLayout.LayoutParams(w, h);
+            param1.addRule(RelativeLayout.CENTER_HORIZONTAL);
+
+            RelativeLayout re = new RelativeLayout(this);
+            li_la.addView(re);
+
+            FrameLayout fl = new FrameLayout(this);
+            fl.setLayoutParams(param1);
+            re.addView(fl);
+
+            Button button = new Button(this);
             if (i < SELECT1.length - 1) {
-                button = makeButton(comp1 + SELECT1[i], i, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
+                button.setText(comp1 + SELECT1[i]);
             } else if (i == SELECT1.length - 1) {
-                button = makeButton(SELECT1[i], i, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
+                button.setText(SELECT1[i]);
             } else {
-                button = makeButton(comp2 + SELECT1[SELECT1.length * 2 - 2 - i], i, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this), param2, this);
+                button.setText(comp2 + SELECT1[SELECT1.length * 2 - 2 - i]);
             }
-            button.setTextColor(TEXT_COLOR_1);
-            button.setTextSize(20);
-            button.setWidth(w);
-            button.setHeight(h);
+            button.setId(i);
+            button.setBackgroundResource(R.drawable.button);
+            button.setTextColor(TEXT_COLOR_3);
+            button.setTextSize(TEXT_SIZE2);
+            button.setTypeface(tf);
+            button.setOnClickListener((View.OnClickListener) this);
+            fl.addView(button);
         }
+
     }
 
     @Override
@@ -188,7 +205,7 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
             } else {
                 globals.finalResult = getFinalResult(globals.peopleResult);
                 globals.rank = getRank(globals.finalResult);
-                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.BeforeResultActivity");
+                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.TestActivity");
             }
             startActivity(intent);
             QuestionActivity.this.finish();
@@ -285,6 +302,7 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
 
         }
     }
+
 
     // BACKボタンで終了させる
     @Override

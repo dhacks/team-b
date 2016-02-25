@@ -11,8 +11,8 @@
         android:layout_gravity="center_horizontal">
 
         <FrameLayout
-            android:layout_width="334dp"
-            android:layout_height="506dp"
+            android:layout_width="330dp"
+            android:layout_height="480dp"
             android:layout_gravity="center"
             android:background="#000000">
 
@@ -23,5 +23,17 @@
                 android:layout_gravity="center_horizontal|top"
                 android:id="@+id/ll4"></LinearLayout>
         </FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal|top"
+            android:background="#000000"></RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:background="#000000"></RelativeLayout>
     </FrameLayout>
 </LinearLayout>

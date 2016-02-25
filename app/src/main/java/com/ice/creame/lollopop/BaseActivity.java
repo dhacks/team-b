@@ -85,6 +85,7 @@ public class BaseActivity extends AppCompatActivity {
     //サイズ
     final int TEXT_SIZE1 = 10;
     final int TEXT_SIZE2 = 20;
+    final int TEXT_SIZE2_5 = 25;
     final int TEXT_SIZE3 = 30;
     final int TEXT_SIZE3_5 = 35;
     final int TEXT_SIZE4 = 40;
