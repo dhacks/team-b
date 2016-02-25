@@ -1,55 +1,143 @@
 package com.ice.creame.lollopop;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
+import static com.ice.creame.lollopop.DBHelper.DB_TABLE_NODE;
+import static com.ice.creame.lollopop.DBHelper.readDB;
+import static com.ice.creame.lollopop.DBHelper.writeDB;
+import static com.ice.creame.lollopop.MethodLibrary.makeButton;
+import static com.ice.creame.lollopop.MethodLibrary.makeEditText;
 import static com.ice.creame.lollopop.MethodLibrary.makeLinearLayout;
 import static com.ice.creame.lollopop.MethodLibrary.makeRelativeLayout;
 import static com.ice.creame.lollopop.MethodLibrary.makeScrollView;
 import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
 
 /**
- * Created by hpyus on 2016/02/25.
+ * Created by hpyus on 2016/02/24.
  */
-public class SettingActivity extends BaseActivity{
+public class SettingActivity extends BaseActivity implements View.OnClickListener {
 
+    EditText[] et = {null, null, null};
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /* パラメータ設定 */
-        //タイトル用
-        RelativeLayout.LayoutParams param1 = new RelativeLayout.LayoutParams(WC, WC);
+
+        setContentView(R.layout.setting);
+
+        LinearLayout parent = (LinearLayout) findViewById(R.id.parent7);
+        parent.setBackgroundResource(BACK_GROUND_IMAGE);
+
+        TextView t = (TextView) findViewById(R.id.textView7);
+        t.setText("設定");
+        t.setTextSize(TEXT_SIZE3);
+        t.setTextColor(TITLE_COLOR);
+        t.setTypeface(tf);
+
+        LinearLayout li_la = (LinearLayout) findViewById(R.id.ll7);
+
+        int textSize = (int) (p.x / 28.8);
+
+        int w = (int) (p.x / 1.3);
+        int h = (int) (p.y / 7.9);
+
+        //エディットテキスト用
+        RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(w, h);
+        param.addRule(RelativeLayout.CENTER_HORIZONTAL);
+
+        makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
+        makeTextView("※条件設定は6文字まで", TEXT_SIZE2, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
+        makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
+
+        //ノード設定edit text
+        for (int i = 0; i < NODE.length; i++) {
+
+
+            String text = "readError";
+            try {
+                text = readDB(String.valueOf(i), DB_TABLE_NODE, db)[1];
+            }catch (Exception e){
+
+            }
+
+            makeTextView("条件" + (i+1), TEXT_SIZE2_5, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
+
+            RelativeLayout re = new RelativeLayout(this);
+            li_la.addView(re);
+
+            FrameLayout fl = new FrameLayout(this);
+            fl.setLayoutParams(param);
+            re.addView(fl);
+
+            EditText et = makeEditText(text, textSize, i, NO_TAG, fl, null, this);
+            et.setWidth((int) (p.x / 1.44));
+            //入力文字数制限
+            InputFilter[] _inputFilter = new InputFilter[1];
+            _inputFilter[0] = new InputFilter.LengthFilter(LIMIT_NAME); //文字数指定
+            et.setFilters(_inputFilter);
+            et.setBackgroundResource(R.drawable.edittext);
+            makeTextView(" ", TEXT_SIZE3_5, Color.RED, NO_ID, li_la, null, this);
+        }
+
+        RelativeLayout.LayoutParams param1 = new RelativeLayout.LayoutParams(w, h);
         param1.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
-        //ボタン用
-        RelativeLayout.LayoutParams param2 = new RelativeLayout.LayoutParams(WC, WC);
-        param2.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        RelativeLayout re = new RelativeLayout(this);
+        li_la.addView(re);
 
-        /* 画面レイアウト */
-        LinearLayout li_la_super = makeLinearLayout(COLOR_D, LinearLayout.VERTICAL, null, this);
-        li_la_super.setBackgroundResource(BACK_GROUND_IMAGE);
+        FrameLayout fl = new FrameLayout(this);
+        fl.setLayoutParams(param1);
+        re.addView(fl);
 
-        setContentView(li_la_super);
+        Button b1 = new Button(this);
+        b1.setBackgroundResource(R.drawable.button);
+        b1.setText("登録");
+        b1.setId(0);
+        b1.setTypeface(tf);
+        b1.setTextSize(TEXT_SIZE3);
 
-        makeTextView("設定", 40, TITLE_COLOR, NO_ID, makeRelativeLayout(COLOR_3, li_la_super, null, this), param1, this);
-
-        ScrollView sc_vi = makeScrollView(COLOR_1, li_la_super, this);
-        LinearLayout li_la = makeLinearLayout(COLOR_1, LinearLayout.VERTICAL, sc_vi, this);
-
-        makeTextView(" ", 150, Color.RED, NO_ID, li_la, null, this);
-
-
-
-
-
-
-        makeTextView("fasdfa", 150, Color.RED, NO_ID, li_la, null, this);
-
-        makeTextView(" ", 150, Color.RED, NO_ID, li_la, null, this);
+        fl.addView(b1);
 
     }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        Intent intent = new Intent();
+        //音の再生
+        seplay(globals.soundpool,globals.sound1,globals.soundFlag);
+
+        switch (id) {
+            case 0:
+                //DBに登録する
+                for (int i = 0; i < NODE.length; i++) {
+                    try {
+                        writeDB(String.valueOf(i), null,et[i].getText().toString() , null, null, DBHelper.DB_TABLE_NODE, db);
+
+                    } catch (Exception e) {
+                        Log.d("mydebug", "dbError");
+                    }
+                }
+
+                //遷移
+                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.IndexActivity");
+                startActivity(intent);
+                SettingActivity.this.finish();
+                break;
+        }
+    }
+
 }

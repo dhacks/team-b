@@ -107,7 +107,7 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
                 seplay(globals.soundpool, globals.sound1, globals.soundFlag);
                 //画面遷移
                 Intent intent = new Intent();
-                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.NodeCustomizeActivity");
+                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.SettingActivity");
                 startActivity(intent);
                 IndexActivity.this.finish();
             }

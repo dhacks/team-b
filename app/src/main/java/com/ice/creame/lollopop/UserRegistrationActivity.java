@@ -1,5 +1,6 @@
 package com.ice.creame.lollopop;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -51,47 +52,60 @@ public class UserRegistrationActivity extends BaseActivity {
         makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
         int textSize = (int) (p.x / 28.8);
 
+        int w = (int) (p.x / 1.3);
+        int h = (int) (p.y / 7.9);
+
         //エディットテキスト用
-        RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(WC, WC);
+        RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(w, h);
         param.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
         //男
         for (int i = 0; i < globals.indexFlag; i++) {
-            makeTextView("男" + (i + 1), 40, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
+            makeTextView("男" + (i + 1), TEXT_SIZE2_5, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
 
-            EditText et = makeEditText(DEFAULT_NAME_M[i], textSize, i, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this)
-                    , param, this);
+            RelativeLayout re = new RelativeLayout(this);
+            li_la.addView(re);
+
+            FrameLayout fl = new FrameLayout(this);
+            fl.setLayoutParams(param);
+            re.addView(fl);
+
+            EditText et = makeEditText(DEFAULT_NAME_M[i], textSize, i, NO_TAG, fl, null, this);
             et.setWidth((int) (p.x / 1.44));
             //入力文字数制限
             InputFilter[] _inputFilter = new InputFilter[1];
             _inputFilter[0] = new InputFilter.LengthFilter(LIMIT_NAME); //文字数指定
             et.setFilters(_inputFilter);
-            et.setBackgroundResource(R.drawable.layout_shape); //XMLでフレーム定義
-            makeTextView(" ", 20, Color.RED, NO_ID, li_la, null, this);
+            et.setBackgroundResource(R.drawable.edittext);
+            makeTextView(" ", TEXT_SIZE3_5, Color.RED, NO_ID, li_la, null, this);
         }
 
         //女
         for (int i = 0; i < globals.indexFlag; i++) {
-            makeTextView("女" + (i + 1), 40, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
-            EditText et = makeEditText(DEFAULT_NAME_F[i], textSize, i + globals.indexFlag, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this)
-                    , param, this);
+            makeTextView("女" + (i + 1), TEXT_SIZE2_5, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
+            RelativeLayout re = new RelativeLayout(this);
+            li_la.addView(re);
+
+            FrameLayout fl = new FrameLayout(this);
+            fl.setLayoutParams(param);
+            re.addView(fl);
+
+            EditText et = makeEditText(DEFAULT_NAME_F[i], textSize, i + globals.indexFlag, NO_TAG, fl
+                    , null, this);
             et.setWidth((int) (p.x / 1.44));
             //入力文字数制限
             InputFilter[] _inputFilter = new InputFilter[1];
             _inputFilter[0] = new InputFilter.LengthFilter(LIMIT_NAME); //文字数指定
             et.setFilters(_inputFilter);
-            et.setBackgroundResource(R.drawable.layout_shape); //XMLでフレーム定義
-            makeTextView(" ", 20, Color.RED, NO_ID, li_la, null, this);
+            et.setBackgroundResource(R.drawable.edittext);
+            makeTextView(" ", TEXT_SIZE3_5, Color.RED, NO_ID, li_la, null, this);
         }
 
-        int w = (int) (p.x / 1.3);
-        int h = (int) (p.y / 7.9);
+
 
         RelativeLayout.LayoutParams param1 = new RelativeLayout.LayoutParams(w, h);
         param1.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
-
-        //plus
         RelativeLayout re = new RelativeLayout(this);
         li_la.addView(re);
 
