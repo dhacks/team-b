@@ -30,68 +30,35 @@ public class TestActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.userresistration);
+        setContentView(R.layout.beforequestion);
 
         LinearLayout parent = (LinearLayout) findViewById(R.id.parent4);
         parent.setBackgroundResource(BACK_GROUND_IMAGE);
 
-        RelativeLayout r1 = (RelativeLayout) findViewById(R.id.r4_1);
-        r1.setBackgroundColor(COLOR_3);
-
-        TextView t = (TextView) findViewById(R.id.textView4);
-        t.setText("名前を入力してください");
-        t.setTextSize(TEXT_SIZE3);
-        t.setTextColor(TITLE_COLOR);
-        t.setTypeface(tf);
 
         LinearLayout li_la = (LinearLayout) findViewById(R.id.ll4);
 
-        makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
-        makeTextView("※名前は6文字まで", TEXT_SIZE2, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
-        makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
-        int textSize = (int) (p.x / 28.8);
+        makeTextView(" ", 50, Color.RED, NO_ID, li_la, null, this);
+        makeTextView(" ", 50, Color.RED, NO_ID, li_la, null, this);
+        //男女の切り替え
+        TextView tv;
+        if (globals.name_index < globals.nameM.size()) {
+            tv = makeTextView(globals.nameM.elementAt(globals.name_index) + "の番", 32, TEXT_COLOR_3, NO_ID, li_la, null, this);
+        } else {
+            tv = makeTextView(globals.nameF.elementAt(globals.name_index - globals.nameM.size()) + "の番", 32, TEXT_COLOR_3, NO_ID, li_la, null, this);
+        }
+        tv.setGravity(Gravity.CENTER_HORIZONTAL);
 
         //エディットテキスト用
         RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(WC, WC);
         param.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
-        //男
-        for (int i = 0; i < globals.indexFlag; i++) {
-            makeTextView("男" + (i + 1), 40, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
-
-            EditText et = makeEditText(DEFAULT_NAME_M[i], textSize, i, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this)
-                    , param, this);
-            et.setWidth((int) (p.x / 1.44));
-            //入力文字数制限
-            InputFilter[] _inputFilter = new InputFilter[1];
-            _inputFilter[0] = new InputFilter.LengthFilter(LIMIT_NAME); //文字数指定
-            et.setFilters(_inputFilter);
-            et.setBackgroundResource(R.drawable.layout_shape); //XMLでフレーム定義
-            makeTextView(" ", 20, Color.RED, NO_ID, li_la, null, this);
-        }
-
-        //女
-        for (int i = 0; i < globals.indexFlag; i++) {
-            makeTextView("女" + (i + 1), 40, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
-            EditText et = makeEditText(DEFAULT_NAME_F[i], textSize, i + globals.indexFlag, NO_TAG, makeRelativeLayout(COLOR_1, li_la, null, this)
-                    , param, this);
-            et.setWidth((int) (p.x / 1.44));
-            //入力文字数制限
-            InputFilter[] _inputFilter = new InputFilter[1];
-            _inputFilter[0] = new InputFilter.LengthFilter(LIMIT_NAME); //文字数指定
-            et.setFilters(_inputFilter);
-            et.setBackgroundResource(R.drawable.layout_shape); //XMLでフレーム定義
-            makeTextView(" ", 20, Color.RED, NO_ID, li_la, null, this);
-        }
 
         int w = (int) (p.x / 1.3);
         int h = (int) (p.y / 7.9);
-
         RelativeLayout.LayoutParams param1 = new RelativeLayout.LayoutParams(w, h);
         param1.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
-
-        //plus
         RelativeLayout re = new RelativeLayout(this);
         li_la.addView(re);
 
@@ -106,18 +73,9 @@ public class TestActivity extends BaseActivity {
         b1.setTextSize(TEXT_SIZE3);
         b1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                for (int i = 0; i < globals.indexFlag; i++) {
-                    EditText et = (EditText) findViewById(i);
-                    globals.nameM.add(et.getText().toString());
-                }
-
-                for (int i = 0; i < globals.indexFlag; i++) {
-                    EditText et = (EditText) findViewById(i + globals.indexFlag);
-                    globals.nameF.add(et.getText().toString());
-                }
                 //画面遷移
                 Intent intent = new Intent();
-                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.BeforeQuestionActivity");
+                intent.setClassName("com.ice.creame.lollopop", "com.ice.creame.lollopop.QuestionActivity");
                 startActivity(intent);
                 TestActivity.this.finish();
             }
@@ -126,6 +84,7 @@ public class TestActivity extends BaseActivity {
 
 
     }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
