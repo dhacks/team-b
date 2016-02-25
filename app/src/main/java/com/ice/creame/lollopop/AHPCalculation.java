@@ -10,7 +10,7 @@ public class AHPCalculation {
 
     public static double[] powerMethod(double[][] matrix) {
 
-        //幾何平均法
+        //幾何平均
         int n = matrix.length;
         double result[] = new double[n];
         Arrays.fill(result, 1);
