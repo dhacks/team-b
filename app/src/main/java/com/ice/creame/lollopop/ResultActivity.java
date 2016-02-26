@@ -227,7 +227,6 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
         if (hasFocus) {
             /* title */
 
-            AnimationSet set2 = new AnimationSet(true);
             ScaleAnimation a2 = new ScaleAnimation(0.0f, 1, 0.0f, 1, textView[2].getWidth() / 2, textView[2].getHeight() / 2);
             a2.setDuration(5000);
             a2.setStartOffset(1000);
@@ -301,7 +300,6 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
                     public void run() {
 
                             try {
-                                //15秒停止します。
                                 Thread.sleep(13000);
                             } catch (InterruptedException e) {
                             }

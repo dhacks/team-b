@@ -38,7 +38,7 @@ public class BaseActivity extends AppCompatActivity {
     final String NO_TAG = "-1";
 
     //name
-    final String APP_NAME = "Lollipop";
+    final String APP_NAME = "Deep Matching";
 
     //default_text
 //    final String DEFAULT_NAME_M[] = {"太郎", "ポール", "アキラ", "タカシ"};
