@@ -125,19 +125,21 @@ public class UserRegistrationActivity extends BaseActivity {
         b1.setTextSize(TEXT_SIZE3);
         b1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //音の再生
-                seplay(globals.soundpool, globals.sound1, globals.soundFlag);
+
                 //空白の検出
                 boolean flag = true;
                 for (int i = 0; i < globals.indexFlag * 2; i++) {
                     EditText et = (EditText) findViewById(i);
                     if (et.getText().toString().equals("") ) {
+                        //音の再生
+                        seplay(globals.soundpool, globals.soundError, globals.soundFlag);
                         Toast.makeText(UserRegistrationActivity.this, "すべての項目に入力してください", Toast.LENGTH_SHORT).show();
                         flag = false;
                     }
                 }
                 if (flag) {
-
+                    //音の再生
+                    seplay(globals.soundpool, globals.soundClick, globals.soundFlag);
                     //名前の登録
                     for (int i = 0; i < globals.indexFlag; i++) {
                         EditText et = (EditText) findViewById(i);

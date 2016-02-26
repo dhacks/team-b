@@ -60,9 +60,9 @@ public class WorstResultActivity extends BaseActivity implements View.OnClickLis
 
         makeTextView(" ", TEXT_SIZE3_5, TEXT_COLOR_1, NO_ID, li_la, null, this);
 
-        textView = makeTextView(globals.nameM.elementAt((int) globals.rank[3][1]) + "と" + globals.nameF.elementAt((int) globals.rank[3][0]), TEXT_SIZE3_5, TEXT_COLOR_3, NO_ID, li_la, null, this);
+        textView = makeTextView(globals.nameM.elementAt((int) globals.rank[3][1]) + "×" + globals.nameF.elementAt((int) globals.rank[3][0]), TEXT_SIZE3_5, TEXT_COLOR_3, NO_ID, li_la, null, this);
         textView.setGravity(Gravity.CENTER_HORIZONTAL);
-        globals.tsubuyaki += "ワースト1位 "+globals.nameM.elementAt((int) globals.rank[3][1]) + "と" + globals.nameF.elementAt((int) globals.rank[3][0]);
+        globals.tsubuyaki += "ワースト1位 " + globals.nameM.elementAt((int) globals.rank[3][1]) + "×" + globals.nameF.elementAt((int) globals.rank[3][0]);
 
         makeTextView(" ", TEXT_SIZE5, TEXT_COLOR_1, NO_ID, li_la, null, this);
 
@@ -98,14 +98,14 @@ public class WorstResultActivity extends BaseActivity implements View.OnClickLis
         test.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //音の再生
-                seplay(globals.soundpool, globals.sound1, globals.soundFlag);
+                seplay(globals.soundpool, globals.soundClick, globals.soundFlag);
                 try {
                     Intent sentIntent = new Intent();
                     sentIntent.setAction(Intent.ACTION_SEND);
                     sentIntent.setType("text/plain");
                     sentIntent.putExtra(Intent.EXTRA_TEXT, APP_NAME + "の結果\n" + globals.tsubuyaki);
                     startActivity(sentIntent);
-                }catch(Exception e){
+                } catch (Exception e) {
                     Log.d("mydebug", "not_tsubuyaki");
                 }
             }
@@ -119,7 +119,7 @@ public class WorstResultActivity extends BaseActivity implements View.OnClickLis
 
         Intent intent = new Intent();
         //音の再生
-        seplay(globals.soundpool,globals.sound1,globals.soundFlag);
+        seplay(globals.soundpool, globals.soundClick, globals.soundFlag);
         switch (id) {
             case 0:
                 //遷移
@@ -155,7 +155,7 @@ public class WorstResultActivity extends BaseActivity implements View.OnClickLis
 
                 String value[] = new String[3];
                 for (int i = 0; i < globals.rank.length - 1; i++) {
-                    value[i] = globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]);
+                    value[i] = globals.nameM.elementAt((int) globals.rank[i][1]) + "×" + globals.nameF.elementAt((int) globals.rank[i][0]);
                 }
 
                 try {

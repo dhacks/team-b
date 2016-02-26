@@ -2,6 +2,9 @@ package com.ice.creame.lollopop;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.SettingInjectorService;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -121,6 +124,9 @@ public class SettingActivity extends BaseActivity {
 
                 }
 
+                globals.soundClick = globals.soundpool.load(SettingActivity.this, R.raw.click, 1);
+                globals.soundError = globals.soundpool.load(SettingActivity.this, R.raw.miss, 1);
+
                 if (isPlaySound.equals("1")) {
                     try {
                         writeDB("sound", null, "0", null, null, DB_TABLE_NODE, db);
@@ -130,7 +136,7 @@ public class SettingActivity extends BaseActivity {
                     }
                 } else {
                     //音の再生
-                    seplay(globals.soundpool, globals.sound1, globals.soundFlag);
+                    seplay(globals.soundpool, globals.soundClick, globals.soundFlag);
                     try {
                         writeDB("sound", null, "1", null, null, DB_TABLE_NODE, db);
                         sound.setText("ON");
@@ -159,17 +165,38 @@ public class SettingActivity extends BaseActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent();
-                //音の再生
-                seplay(globals.soundpool, globals.sound1, globals.soundFlag);
-                boolean flag = true;
+
+                String isPlaySound = "-1"; //error
+                try {
+                    isPlaySound = readDB("sound", DB_TABLE_NODE, db)[1];
+                } catch (Exception e) {
+
+                }
+                globals.soundpool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
+
+                if (isPlaySound.equals("1")) {
+                    globals.soundClick = globals.soundpool.load(SettingActivity.this, R.raw.click, 1);
+                    globals.soundError = globals.soundpool.load(SettingActivity.this, R.raw.miss, 1);
+                } else {
+                    globals.soundClick = 0;
+                    globals.soundError = 0;
+                }
+
+                boolean isNotError = true;
                 for (int i = 0; i < NODE.length; i++) {
                     EditText et = (EditText) findViewById(i);
                     if (et.getText().toString().equals("")) {
+                        //音の再生
+                        globals.soundFlag = false;
+                        seplay(globals.soundpool, globals.soundError, globals.soundFlag);
+                        globals.soundFlag = true;
                         Toast.makeText(SettingActivity.this, "すべての項目に入力してください", Toast.LENGTH_SHORT).show();
-                        flag = false;
+                        isNotError = false;
                     }
                 }
-                if (flag) {
+                if (isNotError) {
+                    //音の再生
+                    seplay(globals.soundpool, globals.soundClick, globals.soundFlag);
                     //DBに登録する
                     for (int i = 0; i < NODE.length; i++) {
                         try {

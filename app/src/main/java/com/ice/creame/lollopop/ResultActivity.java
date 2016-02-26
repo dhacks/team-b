@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -23,6 +24,7 @@ import org.w3c.dom.Text;
 
 import java.util.Calendar;
 
+import static com.ice.creame.lollopop.DBHelper.DB_TABLE_NODE;
 import static com.ice.creame.lollopop.DBHelper.readDB;
 import static com.ice.creame.lollopop.DBHelper.writeDB;
 import static com.ice.creame.lollopop.MethodLibrary.makeButton;
@@ -63,9 +65,9 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
         makeTextView(" ", TEXT_SIZE5, TEXT_COLOR_1, NO_ID, li_la, null, this);
 
         for (int i = 0; i < globals.rank.length - 1; i++) {
-            textView[i] = makeTextView((i + 1) + "位 " + globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]), TEXT_SIZE3, TEXT_COLOR_3, NO_ID, li_la, null, this);
+            textView[i] = makeTextView((i + 1) + "位 " + globals.nameM.elementAt((int) globals.rank[i][1]) + "×" + globals.nameF.elementAt((int) globals.rank[i][0]), TEXT_SIZE3, TEXT_COLOR_3, NO_ID, li_la, null, this);
             textView[i].setGravity(Gravity.CENTER_HORIZONTAL);
-            globals.tsubuyaki += (i + 1) + "位 " + globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]) + "\n";
+            globals.tsubuyaki += (i + 1) + "位 " + globals.nameM.elementAt((int) globals.rank[i][1]) + "×" + globals.nameF.elementAt((int) globals.rank[i][0]) + "\n";
         }
 
         makeTextView(" ", TEXT_SIZE3_5, TEXT_COLOR_1, NO_ID, li_la, null, this);
@@ -101,7 +103,7 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
         test.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //音の再生
-                seplay(globals.soundpool, globals.sound1, globals.soundFlag);
+                seplay(globals.soundpool, globals.soundClick, globals.soundFlag);
                 try {
                     Intent sentIntent = new Intent();
                     sentIntent.setAction(Intent.ACTION_SEND);
@@ -122,7 +124,8 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
 
         Intent intent = new Intent();
         //音の再生
-        seplay(globals.soundpool, globals.sound1, globals.soundFlag);
+
+        seplay(globals.soundpool,globals.soundClick,globals.soundFlag);
 
         switch (id) {
             case 0:
@@ -159,7 +162,7 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
 
                 String value[] = new String[3];
                 for (int i = 0; i < globals.rank.length - 1; i++) {
-                    value[i] = globals.nameM.elementAt((int) globals.rank[i][1]) + "と" + globals.nameF.elementAt((int) globals.rank[i][0]);
+                    value[i] = globals.nameM.elementAt((int) globals.rank[i][1]) + "×" + globals.nameF.elementAt((int) globals.rank[i][0]);
                 }
 
                 try {
@@ -236,6 +239,23 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
             a.setStartOffset(11000);
             textView[0].startAnimation(a);
 
+            //BGM再生
+
+            String isPlaySound = "-1"; //error
+            try{
+                isPlaySound = readDB("sound", DB_TABLE_NODE, db)[1];
+            }catch(Exception e){
+
+            }
+
+            if(isPlaySound.equals("1")) {
+                globals.mpFirst = MediaPlayer.create(this, R.raw.bravo);
+            }else{
+                globals.mpFirst = null;
+            }
+
+            /* thread使う */
+            globals.mpFirst.start();
 
         }
     }
@@ -262,5 +282,11 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
             return true;
         }
         return false;
+    }
+
+    public void onDestroy(){
+        super.onDestroy();
+        globals.mpFirst.release();
+        globals.mpFirst=null;
     }
 }
