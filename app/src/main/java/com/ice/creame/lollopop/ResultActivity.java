@@ -39,10 +39,15 @@ import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
 public class ResultActivity extends BaseActivity implements View.OnClickListener {
 
     TextView textView[] = {null, null, null};
+    static volatile Thread thread;
+    static volatile Thread thread2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        thread = null;
+        thread2 = null;
 
         globals.tsubuyaki = "";
 
@@ -97,7 +102,7 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
 
         TextView test = (TextView) findViewById(R.id.textView5_2);
         test.setText("共有");
-        test.setTextColor(TITLE_COLOR);
+        test.setTextColor(COLOR_2);
         test.setTypeface(tf);
         test.setTextSize(TEXT_SIZE3);
         test.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +115,7 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
                     sentIntent.setType("text/plain");
                     sentIntent.putExtra(Intent.EXTRA_TEXT, APP_NAME + "の結果\n" + globals.tsubuyaki);
                     startActivity(sentIntent);
-                }catch(Exception e){
+                } catch (Exception e) {
                     Log.d("mydebug", "not_tsubuyaki");
                 }
             }
@@ -125,7 +130,7 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
         Intent intent = new Intent();
         //音の再生
 
-        seplay(globals.soundpool,globals.soundClick,globals.soundFlag);
+        seplay(globals.soundpool, globals.soundClick, globals.soundFlag);
 
         switch (id) {
             case 0:
@@ -242,20 +247,72 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
             //BGM再生
 
             String isPlaySound = "-1"; //error
-            try{
+            try {
                 isPlaySound = readDB("sound", DB_TABLE_NODE, db)[1];
-            }catch(Exception e){
+            } catch (Exception e) {
 
             }
 
-            if(isPlaySound.equals("1")) {
+            if (isPlaySound.equals("1")) {
                 globals.mpFirst = MediaPlayer.create(this, R.raw.bravo);
-            }else{
+            } else {
                 globals.mpFirst = null;
             }
+//            globals.mpFirst.start();
 
-            /* thread使う */
-            globals.mpFirst.start();
+            if (thread == null) {
+                thread = new Thread(new Runnable() {
+
+
+                    @Override
+                    public void run() {
+                        while (true) {
+
+                            ResultActivity.this.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    TextView textView = (TextView) findViewById(R.id.textView5_2);
+                                    RotateAnimation a2 = new RotateAnimation(-5.0f, 5.0f, textView.getWidth() / 2, textView.getHeight() / 2);
+                                    a2.setDuration(10);
+                                    a2.setRepeatCount(15);
+                                    a2.setRepeatMode(a2.REVERSE);
+                                    a2.setStartOffset(10);
+
+                                    textView.startAnimation(a2);
+                                }
+                            });
+                            try {
+                                //15秒停止します。
+                                Thread.sleep(5000);
+                            } catch (InterruptedException e) {
+                            }
+
+                        }
+
+                    }
+                });
+                thread.start();
+            }
+
+            if (thread2 == null) {
+                thread2 = new Thread(new Runnable() {
+
+
+                    @Override
+                    public void run() {
+
+                            try {
+                                //15秒停止します。
+                                Thread.sleep(13000);
+                            } catch (InterruptedException e) {
+                            }
+
+                            globals.mpFirst.start();
+
+
+                    }
+                });
+                thread2.start();
+            }
 
         }
     }
@@ -284,9 +341,9 @@ public class ResultActivity extends BaseActivity implements View.OnClickListener
         return false;
     }
 
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         globals.mpFirst.release();
-        globals.mpFirst=null;
+        globals.mpFirst = null;
     }
 }

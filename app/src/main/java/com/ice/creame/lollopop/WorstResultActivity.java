@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -33,11 +34,13 @@ import static com.ice.creame.lollopop.MethodLibrary.makeTextView;
 public class WorstResultActivity extends BaseActivity implements View.OnClickListener {
 
     TextView textView;
+    static volatile Thread thread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        thread = null;
         setContentView(R.layout.worst);
 
         LinearLayout parent = (LinearLayout) findViewById(R.id.parent6);
@@ -92,7 +95,7 @@ public class WorstResultActivity extends BaseActivity implements View.OnClickLis
 
         TextView test = (TextView) findViewById(R.id.textView6_2);
         test.setText("共有");
-        test.setTextColor(TITLE_COLOR);
+        test.setTextColor(COLOR_2);
         test.setTypeface(tf);
         test.setTextSize(TEXT_SIZE3);
         test.setOnClickListener(new View.OnClickListener() {
@@ -199,6 +202,39 @@ public class WorstResultActivity extends BaseActivity implements View.OnClickLis
             a.setStartOffset(1000);
             textView.startAnimation(a);
 
+            if (thread == null) {
+                thread = new Thread(new Runnable() {
+
+
+                    @Override
+                    public void run() {
+
+                        while (true) {
+
+                            WorstResultActivity.this.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    TextView textView = (TextView) findViewById(R.id.textView6_2);
+                                    RotateAnimation a2 = new RotateAnimation(-5.0f, 5.0f, textView.getWidth() / 2, textView.getHeight() / 2);
+                                    a2.setDuration(10);
+                                    a2.setRepeatCount(15);
+                                    a2.setRepeatMode(a2.REVERSE);
+                                    a2.setStartOffset(10);
+
+                                    textView.startAnimation(a2);
+                                }
+                            });
+                            try {
+                                //15秒停止します。
+                                Thread.sleep(5000);
+                            } catch (InterruptedException e) {
+                            }
+
+                        }
+
+                    }
+                });
+                thread.start();
+            }
 
         }
     }
