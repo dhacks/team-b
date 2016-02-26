@@ -25,7 +25,7 @@ import static com.ice.creame.lollopop.DBHelper.*;
  */
 
 public class BaseActivity extends AppCompatActivity {
-
+    //otukare
     /* システム情報 */
     Display display;
     Point p;
