@@ -65,6 +65,7 @@ public class SettingActivity extends BaseActivity {
         RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(w, h);
         param.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
+
         makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);
         makeTextView("※条件設定は6文字まで", TEXT_SIZE2, TEXT_COLOR_3, NO_ID, li_la, null, this).setGravity(Gravity.CENTER_HORIZONTAL);
         makeTextView(" ", 10, Color.RED, NO_ID, li_la, null, this);

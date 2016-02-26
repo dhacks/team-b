@@ -30,13 +30,15 @@ public class BaseActivity extends AppCompatActivity {
     Display display;
     Point p;
 
+
+
     /* Final変数 */
     //ID
     final int NO_ID = -1;
     final String NO_TAG = "-1";
 
     //name
-    final String APP_NAME = "Lollipop";
+    final String APP_NAME = "Deep Matching";
 
     //default_text
 //    final String DEFAULT_NAME_M[] = {"太郎", "ポール", "アキラ", "タカシ"};
@@ -68,7 +70,7 @@ public class BaseActivity extends AppCompatActivity {
     //色
     final int COLOR_D = Color.RED;
     final int COLOR_1 = Color.argb(0, 0, 0, 0);
-    final int COLOR_2 = Color.BLACK;
+    final int COLOR_2 = Color.rgb(0, 238, 0);
     final int COLOR_3 = Color.BLACK;
 
     final int TITLE_COLOR = Color.rgb(205, 0, 0);
@@ -107,7 +109,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         globals = (Globals) this.getApplication();
-
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         /* データベースオブジェクトの取得 */
         DBHelper dbHelper = new DBHelper(this);
         db = dbHelper.getWritableDatabase();
