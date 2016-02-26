@@ -112,10 +112,6 @@ public class BeforeQuestionActivity extends BaseActivity implements View.OnClick
             }
         });
         fl.addView(b1);
-
-
-
-
     }
 
     @Override
