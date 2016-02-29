@@ -1,4 +1,4 @@
-Deep Matching
+# Deep Matching
 
 AHPを用いた相性マッチングアプリ
 
@@ -12,3 +12,8 @@ AHPのポイント2つ
 ・一対比較
 複数の中からの選択より、2つを比較するほうが簡単
 
+## スクリーンショット
+![](screenshot/1.png)
+![](screenshot/2.png)
+![](screenshot/3.png)
+![](screenshot/4.png)
